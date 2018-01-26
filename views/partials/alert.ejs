@@ -1,0 +1,14 @@
+<% if (alert != null) { %>
+  <div id="flash_alert">
+    <div class="alert alert-<%= alert.type %> alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <i class="fa fa-fw fa-warning"></i> <%= alert.msg %>
+    </div>
+  </div>
+
+  <script>
+    $(function() {
+      $('#flash_alert').delay(4000).fadeOut(1000);
+    });
+  </script>
+<% } %>

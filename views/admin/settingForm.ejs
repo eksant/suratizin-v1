@@ -1,0 +1,139 @@
+                            <div class="box">
+                                <div class="box-body">
+                                    <form action="" method="post" class="form-horizontal" id="validate-form" novalidate="novalidate">
+                                        <div class="tabbable tabbable-custom tabs-left">
+                                            <ul class="nav nav-tabs tabs-left">
+                                                <li class="active">
+                                                    <a href="#tab_app" data-toggle="tab">Application</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_sms" data-toggle="tab">SMS Notification</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab_email" data-toggle="tab">Email Sender</a>
+                                                </li>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-success pull-right">
+                                                        <i class="icon-save"></i> Save</button>
+                                                </div>
+                                            </ul>
+                                            <div class="tab-content" style="padding:30px">
+
+                                                <div class="tab-pane active" id="tab_app">
+                                                    <div class="widget-content">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Application Name
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="app_name" value="<%= setting.app_name %>" class="form-control required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Copyright</label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="app_copyright" value="<%= setting.app_copyright %>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Theme Public</label>
+                                                            <div class="col-md-10">
+                                                                <select id="app_publictheme" name="app_publictheme" class="form-control">
+                                                                    <option <% if (setting.app_publictheme=='' ) { %> selected
+                                                                        <% } %> value="skin-blue">Skin blue</option>
+                                                                    <option <% if (setting.app_publictheme=='theme-dark' ) { %> selected
+                                                                        <% } %> value="skin-red">Skin red
+                                                                    </option>
+                                                                    <option <% if (setting.app_publictheme=='theme-orange' ) { %> selected
+                                                                        <% } %> value="skin-yellow">Skin yellow
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Theme Admin</label>
+                                                            <div class="col-md-10">
+                                                                <select id="app_admintheme" name="app_admintheme" class="form-control">
+                                                                  <option <% if (setting.app_publictheme=='' ) { %> selected
+                                                                      <% } %> value="skin-blue">Skin blue</option>
+                                                                  <option <% if (setting.app_publictheme=='theme-dark' ) { %> selected
+                                                                      <% } %> value="skin-red">Skin red
+                                                                  </option>
+                                                                  <option <% if (setting.app_publictheme=='theme-orange' ) { %> selected
+                                                                      <% } %> value="skin-yellow">Skin yellow
+                                                                  </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="tab_sms">
+                                                    <div class="widget-content">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">API Key</label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="sms_apikey" value="<%= setting.sms_apikey %>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Key Secret</label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="sms_apisecret" value="<%= setting.sms_apisecret %>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane" id="tab_email">
+                                                    <div class="widget-content">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">SMTP Host
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="mail_host" value="<%= setting.mail_host %>" class="form-control required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">SMTP Port
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input type="number" name="mail_port" value="<%= setting.mail_port %>" class="form-control required required" maxlength="3">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Secure</label>
+                                                            <div class="col-md-10">
+                                                                <label class="radio-inline">
+                                                                    <input type="radio" class="uniform" name="mail_secure" checked value="1">Yes</label>
+                                                                <label class="radio-inline">
+                                                                    <input type="radio" class="uniform" name="mail_secure" <% if (setting.mail_secure==2 ) { %> checked
+                                                                    <% } %> value="2">No</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Username
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="mail_username" value="<%= setting.mail_username %>" class="form-control required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Password
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input type="password" name="mail_password" value="<%= setting.mail_password %>" class="form-control required">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>

@@ -1,0 +1,16 @@
+<section class="content-header">
+  <h1><%= title %></h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <% if (title !== 'Dashboard') { %>
+      <li <% if (action == '') { %> class="active" <% } %>>
+        <a href="/<%= title.toLowerCase() %>" title="<%= title %>"><%= title %></a>
+      </li>
+      <% if (action !== '') { %>
+        <li class="active">
+          <a href="/<%= title.toLowerCase() %>/<%= action.toLowerCase() %>" title="<%= action %>"><%= action %> <%= title %></a>
+        </li>
+      <% } %>
+    <% } %>
+  </ol>
+</section>

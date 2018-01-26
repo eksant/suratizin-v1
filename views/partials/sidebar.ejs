@@ -1,0 +1,25 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header">MAIN NAVIGATION</li>
+      <li class="active">
+        <a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+      </li>
+      <%if(userSession.role==0){%>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-table"></i> <span>User Management</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="/admin/register"><i class="fa fa-circle-o"></i> Register Admin</a></li>
+          <li><a href="/admin/listUser"><i class="fa fa-circle-o"></i> List User</a></li>
+          <li><a href="/admin/mitra"><i class="fa fa-circle-o"></i> Validation Vendor</a></li>
+        </ul>
+      </li>
+      <%}%>
+    </ul>
+  </section>
+</aside>

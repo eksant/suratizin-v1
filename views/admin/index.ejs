@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<% include ../partials/metahead %>
+</head>
+
+<body class="hold-transition <%= setting.app_admintheme %> sitebar-mini fixed">
+	<div class="wrapper">
+		<% include ../partials/header %>
+			<% include ../partials/sidebar %>
+
+				<div class="content-wrapper">
+					<% include ../partials/breadcrumb %>
+						<!-- Main content -->
+						<section class="content">
+							<%if(path==1){%>
+								<% include dashboard %>
+							<%}else if(path==2){%>
+								<% include settingForm %>
+							<%}else if(path==3){%>
+								<% include registerAdmin %>
+							<%}else if(path==4){%>
+								<% include registerNewAdmin %>
+							<%}else if(path==5){%>
+								<% include listUser %>
+							<%}else if(path==6){%>
+								<% include formUser %>
+							<%}%>
+						</section>
+						<!-- /.content -->
+				</div>
+
+				<% include ../partials/footeradmin %>
+	</div>
+
+	<% include ../partials/metafooter %>
+</body>
+
+</html>

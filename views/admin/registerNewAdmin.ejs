@@ -1,0 +1,102 @@
+<div class="box box-primary">
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form action="" method="post" class="form-horizontal" id="validate-form">
+        <div class="box-body">
+            <div class="col-md-12">
+                <div class="widget">
+                    <div class="widget-content">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Nama
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input type="text" name="name" value="<%= (!admin)?'':admin.name %>" class="form-control"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Kelamin
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="gender" class="form-control" required>
+                                            <% if(admin){ %>
+                                                <option <% if (admin.gender==1 ) { %> selected
+                                                    <% } %> value="1">Pria</option>
+                                                <option <% if (admin.gender==2 ) { %> selected
+                                                    <% } %> value="2">Wanita</option>
+                                                <% }else{ %>
+                                                    <option value="1">Pria</option>
+                                                    <option value="2">Wanita</option>
+                                                    <%} %>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">No. HP
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">+62</span>
+                                            <input type="number" name="handphone" value="<%= (!admin)?'':admin.handphone %>" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Alamat </label>
+                                    <div class="col-md-10">
+                                        <input type="text" name="address" value="<%= (!admin)?'':admin.address %>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Email
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input type="email" name="email" value="<%= (!admin)?'':admin.email %>" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Password </label>
+                                    <div class="col-md-10">
+                                        <input type="password" name="password" class="form-control" placeholder="Leave empty for no password-change">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Repeat password </label>
+                                    <div class="col-md-10">
+                                        <input type="password" name="password_repeat" class="form-control" placeholder="Leave empty for no password-change">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="submit" value="Save" class="btn btn-success pull-right">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

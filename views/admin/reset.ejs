@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/metahead %>
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="/admin">SuratIzin
+        <b>[dot]</b>Com</a>
+    </div>
+    <div class="login-box-body">
+      <% if (message_login) { %>
+        <div id="flash_login">
+          <div class="alert fade in alert-danger">
+            <i class="icon-remove close" data-dismiss="alert"></i>
+            <%= message_login %>
+          </div>
+        </div>
+        <script>
+          $(function () {
+            $('#flash_login').delay(3000).fadeOut(1000);
+          });
+        </script>
+        <% } %>
+          <div id="reset">
+            <p class="login-box-msg">Reset your password Mr/Mrs <%=admin.name%></p>
+            <form action="/admin/reset/<%= admin.reset_token %>" method="post">
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" name="retype_password" class="form-control" placeholder="Verifikasi Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8"></div>
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Kirim</button>
+                    </div>
+                </div>
+            </form>
+          </div>
+    </div>
+  </div>
+
+  <% include ../partials/metafooter %>
+</body>
+
+</html>

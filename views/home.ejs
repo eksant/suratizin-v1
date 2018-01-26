@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-md-12">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="/public/assets/img/slide/slide-1.jpg" width="1460" height="560" alt="First slide">
+          <div class="carousel-caption">First Slide</div>
+        </div>
+        <div class="item">
+          <img src="/public/assets/img/slide/slide-2.jpg" width="1460" height="560" alt="Second slide">
+          <div class="carousel-caption">Second Slide</div>
+        </div>
+        <div class="item">
+          <img src="/public/assets/img/slide/slide-3.jpg" width="1460" height="560" alt="Third slide">
+          <div class="carousel-caption">Third Slide</div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="fa fa-angle-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="fa fa-angle-right"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-widget">
+        <section class="container">
+          <div class="col-md-6">
+            <h2>Temukan penyedia jasa terpercaya untuk segala kebutuhan Anda</h2>
+            <p>Lebih dari 10,000 penyedia jasa berpengalaman dapat Anda pilih untuk mewujudkan proyek Anda.
+            <a href="">Lihat semua layanan jasa <i class="fa fa-fw fa-hand-o-right"></i></a></p>
+          </div>
+          <div class="col-md-6">
+            <h2></h2>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Lokasi</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">Alabama</option>
+                  <option>Alaska</option>
+                  <option>California</option>
+                  <option>Delaware</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Washington</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Jasa</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">Jasa</option>
+                  <option>Alaska</option>
+                  <option>California</option>
+                  <option>Delaware</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Washington</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <button type="button" class="btn btn-block btn-primary">Cari</button>
+            </div>
+          </div>
+          <h3><br><br>&nbsp;</h3>
+        </section>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section class="content">
+    <h3 class="text-center">Daftar Mitra Kami</h3>
+    <% for (let i = 0; i < 15; i++) {
+        var bgColor = (i % 2 == 0) ? 'bg-aqua-active' : 'bg-yellow-active'
+    %>
+      <div class="col-md-3">
+        <div class="box box-widget widget-user">
+          <div class="widget-user-header <%= bgColor %>">
+            <h4 class="widget-user-desc">PT. Buana Amalia Mandiri</h4>
+            <h5 class="widget-user-desc">Mitra VIP</h5>
+          </div>
+          <div class="widget-user-image">
+            <img class="img-circle" src="/public/assets/img/user1-128x128.jpg" alt="User Avatar">
+          </div>
+          <div class="box-footer">
+            <div class="row">
+              <div class="col-sm-6 border-right">
+                <div class="description-block">
+                  <h5 class="description-header text-center">24%</h5>
+                  <span class="description-text text-center">RANTING</span>
+                </div>
+              </div>
+              <div class="col-sm-6 border-right">
+                <div class="description-block">
+                  <h5 class="description-header text-center">25</h5>
+                  <span class="description-text text-center">PORTOFOLIO</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+    <div class="col-md-12 text-center">
+      <button type="button" class="btn btn-normal btn-primary btn-lg">LIHAT MITRA KAMI YANG LAIN</button>
+    </div>
+    <div class="col-md-12 text-center"><br>&nbsp;</div>
+  </section>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-widget">
+      <section class="container">
+        <div class="col-md-6">
+          <h2></h2>
+          <img src="/public/assets/img/step.png" height="432" alt="User Avatar">
+          <h2></h2>
+        </div>
+        <div class="col-md-6">
+          <h2 class="text-yellow">Bergabunglah dengan lebih dari 300,000 orang yang telah menggunakan <strong>SuratIzin[dot]Com</strong></h2>
+          <h3><i class="fa fa-fw fa-check-square-o"></i> Penyedia jasa handal yang akan merespon kebutuhan Anda.</h3>
+          <h3><i class="fa fa-fw fa-check-square-o"></i> Tim kami akan memastikan kualitas pekerjaan penyedia jasa.</h3>
+          <h3><i class="fa fa-fw fa-check-square-o"></i> Asuransi pekerjaan untuk keamanan proyek Anda.</h3>
+          <h2></h2>
+          <button type="button" class="btn btn-block btn-warning btn-lg">MULAI DENGAN PENCARIAN LAYANAN JASA</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

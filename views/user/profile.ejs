@@ -1,0 +1,89 @@
+<div class="nav-tabs-custom">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab_profile" data-toggle="tab">Edit Profile</a></li>
+		<li><a href="#tab_photo" data-toggle="tab">Upload Photo Profile</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab_profile">
+			<form action="/user/profile/edit" method="post" class="form-horizontal" id="validate-form">
+				<div class="box-body">
+					<div class="col-md-12">
+						<div class="widget">
+							<div class="widget-content">
+								<div class="row">
+
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="col-md-2 control-label">Nama <span class="required">*</span></label>
+											<div class="col-md-10"><input type="text" name="name" value="<%= user.name %>" class="form-control" required></div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-md-4 control-label">Kelamin <span class="required">*</span></label>
+											<div class="col-md-8">
+												<select name="gender" class="form-control" required>
+													<option <% if (user.gender == 1) { %> selected <% } %> value="1">Pria</option>
+													<option <% if (user.gender == 2) { %> selected <% } %> value="2">Wanita</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-md-4 control-label">No. HP <span class="required">*</span></label>
+											<div class="col-md-8">
+												<div class="input-group">
+													<span class="input-group-addon">+62</span>
+													<input type="number" name="handphone" value="<%= user.handphone %>" class="form-control" required>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="col-md-2 control-label">Alamat </label>
+											<div class="col-md-10"><input type="text" name="address" value="<%= user.address %>" class="form-control"></div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="col-md-2 control-label">Email <span class="required">*</span></label>
+											<div class="col-md-10"><input type="email" name="email" value="<%= user.email %>" class="form-control" disabled="disabled"></div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="col-md-2 control-label">New password </label>
+											<div class="col-md-10"><input type="password" name="new_password" class="form-control" placeholder="Leave empty for no password-change"></div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="col-md-2 control-label">Repeat New password </label>
+											<div class="col-md-10"><input type="password" name="new_password_repeat" class="form-control" placeholder="Leave empty for no password-change"></div>
+										</div>
+									</div>
+
+									<div class="col-md-12">
+										<input type="submit" value="Update Profile" class="btn btn-primary pull-right">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="tab-pane" id="tab_photo">
+			<form action="/user/profile/upload" method="post" encType="multipart/form-data">
+				<div class="form-group">
+					<!-- <label class="control-label">Photo Profile Upload:</label> -->
+					<input type="file" name="photo_profile" accept="image/*" data-style="fileinput">
+				</div>
+				<button type="submit" class="btn btn-primary btn-block">Upload Photo</button>
+			</form>
+		</div>
+	</div>
+</div>

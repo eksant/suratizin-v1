@@ -1,0 +1,61 @@
+<div class="box">
+  <div class="box-header">
+    <div class="text-right">
+      <a href="register/add" type="button" class="btn btn-primary">New
+        <%= title %>
+      </a>
+    </div>
+  </div>
+  <div class="box-body">
+    <table id="dataTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Gender</th>
+          <th>Handphone</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% admin.forEach((element,i)=>{ %>
+          <tr>
+            <td>
+              <%= i+1 %>
+            </td>
+            <td>
+              <%= element.name %>
+            </td>
+            <td>
+              <%= element.email %>
+            </td>
+            <td>
+              <%= element.roleName %>
+            </td>
+            <td>
+              <%= (element.gender)?(element.gender==1)?"Pria":"Wanita" : "" %>
+            </td>
+            <td>
+              <%= element.handphone %>
+            </td>
+            <td>
+              <%= element.address %>
+            </td>
+            <td>
+              <% if(element.role!==0){ %>
+              <a href="/admin/register/edit/<%=element.encryptId%>">
+                <button class="box box-solid box-primary"  style="height:30px; width:70px">Edit</button>
+              </a>
+              <a href="/admin/register/delete/<%=element.encryptId%>" >
+                <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button></a>
+              <% } %>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
