@@ -22,12 +22,22 @@
     <p class="text-muted text-center"><%= getRole %></p>
     <p><a href="/user"><b>Dashboard</b></a></p>
     <ul class="list-group list-group-unbordered">
+      <% if (userSession.role == 2 || userSession.role == 3) { %>
       <li class="list-group-item">
         <a href="/user/company"><b>Profile Perusahaan/Jasa</b></a>
       </li>
+      <!-- <li class="list-group-item">
+        <a href="/user/portofolio"><b>Portofolio Perusahaan/Jasa</b></a>
+      </li> -->
       <li class="list-group-item">
-        <a href=""><b>Portofolio Perusahaan/Jasa</b></a>
+        <a href="/user/propose"><b>List Penawaran Jasa</b></a>
       </li>
+      <% }%>
+      <% if (userSession.role == 4 || userSession.role == 5) { %>
+        <li class="list-group-item">
+          <a href="/user/request"><b>List Permohonan Jasa</b></a>
+        </li>
+      <% }%>
       <li class="list-group-item">
         <a href="/user/profile"><b>Edit Profile</b></a>
       </li>

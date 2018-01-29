@@ -1,5 +1,8 @@
 <script src="/public/plugins/jquery/dist/jquery.min.js"></script>
 <script src="/public/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/public/plugins/moment/min/moment.min.js"></script>
+<script src="/public/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/public/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="/public/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/public/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="/public/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
@@ -26,6 +29,10 @@
       var message   = (recipient != '') ? recipient : 'Anda yakin ingin melanjutkan ??'
       modal.find('.modal-title').text(message)
       modal.find('.modal-action').attr('href', action)
+    })
+
+    $('#datepicker').datepicker({
+      autoclose: true
     })
   })
 </script>
