@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "p4ssw0rd",
-    "database": "suratizin",
-    "host": "127.0.0.1",
+    "username": "apbnbchz",
+    "password": "uggMcQzQObdMbBOz2Rt4jF84coIsD3vo",
+    "database": "apbnbchz",
+    "host": "tantor.db.elephantsql.com",
     "dialect": "postgres"
   },
   "production": {

@@ -14,19 +14,7 @@
 					<% include ../partials/breadcrumb %>
 						<!-- Main content -->
 						<section class="content">
-							<%if(path==1){%>
-								<% include dashboard %>
-							<%}else if(path==2){%>
-								<% include settingForm %>
-							<%}else if(path==3){%>
-								<% include registerAdmin %>
-							<%}else if(path==4){%>
-								<% include registerNewAdmin %>
-							<%}else if(path==5){%>
-								<% include listUser %>
-							<%}else if(path==6){%>
-								<% include formUser %>
-							<%}%>
+								<%- include(content) %>
 						</section>
 						<!-- /.content -->
 				</div>
