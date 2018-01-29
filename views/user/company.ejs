@@ -12,7 +12,6 @@
           <th>Nama Perusahaan</th>
           <th>Email</th>
           <th>Kota</th>
-          <th>Telp</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
@@ -21,19 +20,14 @@
           <% company.forEach((row,i) => { %>
             <tr>
               <td><%= i+1 %></td>
-              <td><%= row.category %></td>
+              <td><%= row.getCategory(row.category) %></td>
               <td><%= row.name %></td>
               <td><%= row.email %></td>
               <td><%= row.city %></td>
-              <td><%= row.phone %></td>
-              <td><%= (row.validation == 2) ? (row.validation == 1) ? "valid" : "menunggu" : "tidak valid" %></td>
+              <td><span class="label label-<%= (row.validation == 1) ? "success" : "warning" %>"><%= (row.validation == 1) ? "valid" : "Pending" %></span></td>
               <td>
-                <a href="/user/company/edit/<%= row.id %>">
-                  <button class="box box-solid box-primary" style="height:30px; width:70px">Edit</button>
-                </a>
-                <a href="/user/company/delete/<%= row.id %>">
-                  <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button>
-                </a>
+                <a href="/user/company/edit/<%= row.id %>" class="btn btn-sm <%= (row.validation == 1) ? "disabled" : "" %>"><b><i class="fa fa-edit fa-1x"></i></b></a>
+                <a data-toggle="modal" data-target="#modal-warning" data-message="" data-action="/user/company/delete/<%= row.id %>" style="cursor: pointer;"><b><font color="red"><i class="fa fa-remove fa-1x"></i></font></b></a>
               </td>
             </tr>
           <% }) %>

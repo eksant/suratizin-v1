@@ -3,15 +3,14 @@ const message     = require('../../helpers/message')
 const library     = require('../../helpers/library')
 const title       = 'Edit Profile'
 
-module.exports.get = function(id, callback) {
+module.exports.read = function(req, res, callback) {
   Model.Setting.findAll()
   .then(function(setting) {
-    Model.User.findById(id)
+    Model.User.findById(res.locals.userSession.id)
     .then(function(user) {
       callback({
-        content     : 'profile',
+        content     : 'profile_form',
         setting     : setting[0],
-        library     : library,
         title       : title,
         user        : user,
         alert       : null,
@@ -20,56 +19,58 @@ module.exports.get = function(id, callback) {
   })
 }
 
-module.exports.post = function(input, callback) {
+module.exports.update = function(req, res, callback) {
   Model.Setting.findAll()
   .then(function(setting) {
-    Model.User.findById(input.id)
+    Model.User.findById(res.locals.userSession.id)
     .then(function(user) {
-      if (input.new_password != input.new_password_repeat) {
+      let uploadPhoto = req.body.photo
+      if (uploadPhoto == '') {
+        uploadPhoto = user.photo
+      }
+      let objUser = {
+        id                  : res.locals.userSession.id,
+        name                : req.body.name,
+        gender              : req.body.gender,
+        handphone           : req.body.handphone,
+        address             : req.body.address,
+        photo               : uploadPhoto,
+        password            : req.body.password,
+        new_password_repeat : req.body.new_password_repeat,
+      }
+
+      if (objUser.password != objUser.new_password_repeat) {
         callback({
-          content     : 'profile',
+          content     : 'profile_form',
           setting     : setting[0],
-          library     : library,
           title       : title,
-          user        : user,
-          alert       : message.error('Incorrect your repeat new password !!'),
+          user        : objUser,
+          alert       : message.error('Password baru tidak sesuai dengan password yang di ulangi !!'),
         })
       } else {
         var hooks = true
-        if (input.new_password == '') {
+        delete objUser.new_password_repeat
+        objUser.updatedAt = new Date()
+
+        if (objUser.password == '') {
           hooks = false
-          var objUser = {
-            id            : input.id,
-            name          : input.name,
-            gender        : input.gender,
-            handphone     : input.handphone,
-            address       : input.address,
-            updatedAt     : new Date(),
-          }
-        } else {
-          var objUser = {
-            id            : input.id,
-            name          : input.name,
-            gender        : input.gender,
-            handphone     : input.handphone,
-            address       : input.address,
-            password      : input.new_password,
-            updatedAt     : new Date(),
-          }
+          delete objUser.password
         }
+
         Model.User.update(objUser, {
           where: {
-            id: input.id,
+            id: objUser.id,
           },
           individualHooks: hooks,
         })
         .then(function() {
-          Model.User.findById(input.id)
+          Model.User.findById(objUser.id)
           .then(function(newUser) {
+            req.session.user       = newUser
+            res.locals.userSession = req.session.user
             callback({
-              content     : 'profile',
+              content     : 'profile_form',
               setting     : setting[0],
-              library     : library,
               title       : title,
               user        : newUser,
               alert       : message.success(),
@@ -78,57 +79,14 @@ module.exports.post = function(input, callback) {
         })
         .catch(function(err) {
           callback({
-            content     : 'profile',
+            content     : 'profile_form',
             setting     : setting[0],
-            library     : library,
             title       : title,
-            user        : user,
+            user        : objUser,
             alert       : message.error(err.message),
           })
         })
       }
-    })
-  })
-}
-
-module.exports.upload = function(input, callback) {
-  Model.Setting.findAll()
-  .then(function(setting) {
-    Model.User.findById(input.id)
-    .then(function(user) {
-      let objProfile = {
-        id        : user.id,
-        photo     : input.photo,
-        updatedAt : new Date(),
-      }
-      Model.User.update(objProfile, {
-        where: {
-          id: user.id,
-        }
-      })
-      .then(function() {
-        Model.User.findById(user.id)
-        .then(function(newUser) {
-          callback({
-            content     : 'profile',
-            setting     : setting[0],
-            library     : library,
-            title       : title,
-            user        : newUser,
-            alert       : message.success(),
-          })
-        })
-      })
-      .catch(function(err) {
-        callback({
-          content     : 'profile',
-          setting     : setting[0],
-          library     : library,
-          title       : title,
-          user        : user,
-          alert       : message.error(err.message),
-        })
-      })
     })
   })
 }

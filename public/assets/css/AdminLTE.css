@@ -5145,6 +5145,9 @@ table.text-center th {
 .label-danger,
 .modal-danger .modal-body {
   background-color: #dd4b39 !important;
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
 }
 .bg-yellow,
 .callout.callout-warning,
@@ -5174,6 +5177,9 @@ table.text-center th {
 .label-success,
 .modal-success .modal-body {
   background-color: #00a65a !important;
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
 }
 .bg-navy {
   background-color: #001f3f !important;
@@ -5671,4 +5677,15 @@ table.text-center th {
   .table-responsive > .table tr td {
     white-space: normal !important;
   }
+}
+
+/* file upload */
+.uploader {
+  width: 100%;
+  height: 150px;
+  background: #f6f6f6;
+  font-size: 1.4em;
+  /* margin-top: 10px; */
+  color: #d9e7f4;
+  border: 2px dashed #d2d2d2;
 }

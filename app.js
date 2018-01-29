@@ -38,6 +38,6 @@ app.use('/user/reset', require('./routes/user/reset'))
 // app.use('/admin/reset', require('./routes/admin/reset'))
 
 app.use('/user', authSession.checkSession, require('./routes/user/index'))
-// app.use('/admin', authSession.checkSession, require('./routes/admin/index'))
+app.use('/admin', require('./routes/admin/index'))
 
 app.listen(port, () => console.log(`Sundul gan on http://localhost:${port} !!`))

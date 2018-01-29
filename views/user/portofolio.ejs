@@ -1,0 +1,35 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= title %></h3>
+    <a href="/user/portofolio/add" class="btn btn-primary pull-right">Tambah <%= title %></a>
+  </div>
+  <div class="box-body">
+    <table id="dataTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Perusahaan</th>
+          <th>Nama Portofolio</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody>
+          <% portofolio.forEach((row,i) => { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= row.Company.name %></td>
+              <td><%= row.title %></td>
+              <td>
+                <a href="/user/company/edit/<%= row.id %>">
+                  <button class="box box-solid box-primary" style="height:30px; width:70px">Edit</button>
+                </a>
+                <a href="/user/company/delete/<%= row.id %>">
+                  <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button>
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+    </table>
+  </div>
+</div>

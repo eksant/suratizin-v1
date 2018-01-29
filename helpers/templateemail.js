@@ -209,3 +209,227 @@ exports.registered_success = function(setting, user, activation) {
   </html>
 `
 }
+
+
+
+
+exports.registered_company = function(setting, admin, user, company) {
+  let getRole = 'Mitra Jasa'
+  if (user.role == 4) {
+    getRole = 'Pencari Jasa'
+  }
+  let getHandphone = ''
+  if (company.phone != '') {
+    getHandphone = `+62${user.handphone}`
+  }
+
+  return `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>SuratIzin[dot]Com - Activation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body style="margin: 0; padding: 0;">
+  	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  		<tr>
+  			<td style="padding: 10px 0 30px 0;">
+  				<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+  					<tr>
+  						<td align="center" bgcolor="#FF9933" style="padding: 20px 0 20px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+  							<img src="${logo}" alt="SuratIzin[dot]Com" style="display: block;" />
+  						</td>
+  					</tr>
+  					<tr>
+  						<td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;" align="center">
+                      <b>Dear ${admin.name},</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 5px; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" align="justify">
+                      <p>Saya selaku ${getRole} ${setting.app_name} :</p>
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+												<tr>
+													<td style="padding: 5px;">Nama</td>
+                          <td style="padding: 5px;">: ${user.name}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">Alamat</td>
+                          <td style="padding: 5px;">: ${user.address}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">Email</td>
+                          <td style="padding: 5px;">: ${user.email}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">No. Handphone</td>
+                          <td style="padding: 5px;">: ${getHandphone}</td>
+												</tr>
+											</table>
+                      <p>Mengajukan permohonan validasi perusahaan/jasa yang <label style="color: #FF9933;">${company.name}</label> telah saya daftarkan pada tanggal <label style="color: #FF9933;">${moment(new Date()).format('D MMM YYYY')}</label>.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 5px; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" align="justify">
+                      <p>Demikian permohonan saya, atas perhatiannya saya ucapkan terima kasih.</p>
+                    </td>
+                  </tr>
+                </table>
+  						</td>
+  					</tr>
+  					<tr>
+  						<td bgcolor="#FF9933" style="padding: 10px 10px 10px 10px;" align="center">
+  							<table border="0" cellpadding="0" cellspacing="2px">
+  								<tr>
+  									<td>
+  										<img src="${iconWeb}" alt="Website" width="24" height="24" style="display: block;" border="0" />
+  									</td>
+  									<td style="color: #ffffff; font-family: Arial, sans-serif; text-decoration: none; font-size: 12px;">
+  										<a href="http://www.suratizin.com/" style="color: #ffffff; text-decoration: none;">http://www.suratizin.com</a>
+  									</td>
+  									<td width="5px">&nbsp;</td>
+  									<td>
+  										<img src="${iconEmail}" alt="Email" width="24" height="24" style="display: block;" border="0" />
+  									</td>
+  									<td style="color: #ffffff; font-family: Arial, sans-serif; text-decoration: none; font-size: 12px;">
+  										<a href="mailto:admin@suratizin.com" style="color: #ffffff; text-decoration: none;">admin@suratizin.com</a>
+  									</td>
+  									<td width="5px">&nbsp;</td>
+  									<td>
+  										<img src="${iconPhone}" alt="Phone" width="24" height="24" style="display: block;" border="0" />
+  									</td>
+  									<td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 12px;">
+  										<label>+6221 519-0450</label>
+  									</td>
+  								</tr>
+  							</table>
+  						</td>
+  					</tr>
+  				</table>
+  			</td>
+  		</tr>
+  	</table>
+  </body>
+  </html>
+`
+}
+
+
+
+exports.registered_company_waiting = function(setting, admin, user, company) {
+  let getRole = 'Mitra Jasa'
+  if (user.role == 4) {
+    getRole = 'Pencari Jasa'
+  }
+  let getPhone = ''
+  if (company.phone != '') {
+    getPhone = `+62${company.phone}`
+  }
+
+  return `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>SuratIzin[dot]Com - Activation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body style="margin: 0; padding: 0;">
+  	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  		<tr>
+  			<td style="padding: 10px 0 30px 0;">
+  				<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+  					<tr>
+  						<td align="center" bgcolor="#FF9933" style="padding: 20px 0 20px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+  							<img src="${logo}" alt="SuratIzin[dot]Com" style="display: block;" />
+  						</td>
+  					</tr>
+  					<tr>
+  						<td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;" align="center">
+                      <b>Dear ${user.name},</b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 5px; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" align="justify">
+                      <p>Pendaftaran perusahaan/jasa telah berhasil terdaftar, berikut informasi mengenai perusahaan/jasa Anda:</p>
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+												<tr>
+													<td style="padding: 5px;">Nama Perusahaan</td>
+                          <td style="padding: 5px;">: ${company.name}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">Alamat</td>
+                          <td style="padding: 5px;">: ${company.address}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">Kota</td>
+                          <td style="padding: 5px;">: ${company.city}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">Email</td>
+                          <td style="padding: 5px;">: ${company.email}</td>
+												</tr>
+                        <tr>
+													<td style="padding: 5px;">Telp</td>
+                          <td style="padding: 5px;">: ${getPhone}</td>
+												</tr>
+											</table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 5px; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" align="justify">
+                      <p>Saat ini kami sedang melakukan verifikasi mengenai data-data yang telah Anda daftarkan, dan kami akan mengirimkan notifikasi kembali setelah diverifikasi.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 5px; color: #FF9933; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" align="justify">
+                      <hr style="border-top: dashed 1px;" />
+                      <p>Terima kasih telah memilih ${setting.app_name} untuk menjadi partner bisnis Anda.</p>
+                    </td>
+                  </tr>
+                </table>
+  						</td>
+  					</tr>
+  					<tr>
+  						<td bgcolor="#FF9933" style="padding: 10px 10px 10px 10px;" align="center">
+  							<table border="0" cellpadding="0" cellspacing="2px">
+  								<tr>
+  									<td>
+  										<img src="${iconWeb}" alt="Website" width="24" height="24" style="display: block;" border="0" />
+  									</td>
+  									<td style="color: #ffffff; font-family: Arial, sans-serif; text-decoration: none; font-size: 12px;">
+  										<a href="http://www.suratizin.com/" style="color: #ffffff; text-decoration: none;">http://www.suratizin.com</a>
+  									</td>
+  									<td width="5px">&nbsp;</td>
+  									<td>
+  										<img src="${iconEmail}" alt="Email" width="24" height="24" style="display: block;" border="0" />
+  									</td>
+  									<td style="color: #ffffff; font-family: Arial, sans-serif; text-decoration: none; font-size: 12px;">
+  										<a href="mailto:admin@suratizin.com" style="color: #ffffff; text-decoration: none;">admin@suratizin.com</a>
+  									</td>
+  									<td width="5px">&nbsp;</td>
+  									<td>
+  										<img src="${iconPhone}" alt="Phone" width="24" height="24" style="display: block;" border="0" />
+  									</td>
+  									<td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 12px;">
+  										<label>+6221 519-0450</label>
+  									</td>
+  								</tr>
+  							</table>
+  						</td>
+  					</tr>
+  				</table>
+  			</td>
+  		</tr>
+  	</table>
+  </body>
+  </html>
+`
+}
