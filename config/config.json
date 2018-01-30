@@ -1,16 +1,16 @@
 {
   "development": {
+    "username": "postgres",
+    "password": "p4ssw0rd",
+    "database": "suratizin",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
     "username": "apbnbchz",
     "password": "uggMcQzQObdMbBOz2Rt4jF84coIsD3vo",
     "database": "apbnbchz",
     "host": "tantor.db.elephantsql.com",
-    "dialect": "postgres"
-  },
-  "production": {
-    "username": "gtwyoqkgjiigan",
-    "password": "01fa0395762c2ec006440faec6f32e4323e8a7ac145d541511866b5504156bba",
-    "database": "da6fp93d29gsoc",
-    "host": "ec2-107-21-236-219.compute-1.amazonaws.com",
     "dialect": "postgres",
     "ssl": true,
     "dialectOptions": { "ssl": {"require":true} }
