@@ -45,6 +45,40 @@ router.get('/listUser', (req, res)=>{
     })
 })
 
+router.get('/listCompany', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+        Model.Company.findAll()
+        .then(data=>{
+            res.render(rootIndex, {
+                title:'List Company',
+                setting : setting[0],
+                alert: null,
+                action: '',
+                content: 'companyList',
+                company: data,
+            })
+        })
+    })
+})
+
+router.get('/company/detail/:id', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+        Model.Company.findById(req.params.id)
+        .then(data=>{
+            res.render(rootIndex, {
+                title:'Detail Company',
+                setting : setting[0],
+                alert: null,
+                action: '',
+                content: 'companyDetail',
+                company: data,
+            })
+        })
+    })
+})
+
 router.get('/register', (req, res)=>{
     Model.Setting.findAll()
     .then(setting=>{
@@ -155,6 +189,24 @@ router.get('/register/delete/:id', (req, res)=>{
     .catch(err=>{
         res.send(err)
     })
+})
+
+router.get('/validasi/:id', (req, res)=>{
+    objAdmin={
+        validation:1,
+        AdminId:res.locals.userSession.id,
+    }
+        Model.Company.update(objAdmin,{
+            where:{
+                id : req.params.id
+            }
+        })
+        .then(function(){
+            res.redirect('/admin/listCompany')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
 })
 
 
