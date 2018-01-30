@@ -45,7 +45,117 @@ router.get('/listUser', (req, res)=>{
     })
 })
 
+router.get('/register', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+        Model.Admin.findAll()
+        .then(admindata=>{
+            res.render(rootIndex, {
+                title:'Admin',
+                setting : setting[0],
+                alert: null,
+                action: '',
+                content: 'adminList',
+                admin: admindata,
+            })
+        })
+    })
+})
 
+let objAdmin={
+    name:'',
+    email:'',
+    gender:'',
+    handphone:'',
+}
+router.get('/register/add', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+            res.render(rootIndex, {
+                title:'Admin',
+                setting : setting[0],
+                alert: null,
+                action: 'add',
+                content: 'admin',
+                admin: objAdmin,
+        })
+    })
+})
+
+router.post('/register/add', (req, res)=>{
+        objAdmin={
+            name:req.body.name,
+            email:req.body.email,
+            gender:req.body.gender,
+            handphone:req.body.handphone,
+            password:req.body.password,
+            role:1,
+        }
+        Model.Admin.create(objAdmin)
+        .then(function(){
+            res.redirect('/admin/register')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+})
+
+router.get('/register/edit/:id', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+        Model.Admin.findById(req.params.id)
+        .then(admindata=>{
+            res.render(rootIndex, {
+                title:'Admin',
+                setting : setting[0],
+                alert: null,
+                action: 'edit',
+                content: 'admin',
+                admin: admindata,
+            }) 
+        })
+    })
+})
+
+router.post('/register/edit/:id', (req, res)=>{
+    objAdmin={
+        id:req.params.id,
+        name:req.body.name,
+        email:req.body.email,
+        gender:req.body.gender,
+        address:req.body.address,
+        handphone:req.body.handphone,
+    }
+
+    if(req.body.password!='') {
+        objAdmin.password = req.body.password
+    }
+        Model.Admin.update(objAdmin,{
+            where:{
+                id : req.params.id
+            }
+        })
+        .then(function(){
+            res.redirect('/admin/register')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+})
+
+router.get('/register/delete/:id', (req, res)=>{
+    Model.Admin.destroy({
+        where:{
+            id: req.params.id
+        }
+    })
+    .then(function(){
+        res.redirect('/admin/register')
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+})
 
 
 module.exports = router
