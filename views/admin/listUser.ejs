@@ -27,7 +27,7 @@
                             <%= element.email %>
                         </td>
                         <td>
-                            <%= element.roleName %>
+                            <%= element.getRole(element.role) %>
                         </td>
                         <td>
                             <%= (element.gender)?(element.gender==1)?"Pria":"Wanita" : ""%>
