@@ -1,7 +1,13 @@
 <div class="box box-primary">
     <!-- /.box-header -->
     <!-- form start -->
-    <form action="" method="post" class="form-horizontal" id="validate-form">
+    <%
+    let act='add'
+    if (action=='edit'){
+        act=`edit/${admin.id}`
+    }
+%>
+    <form action="/admin/register/<%=act%>" method="post" class="form-horizontal" id="validate-form">
         <div class="box-body">
             <div class="col-md-12">
                 <div class="widget">
@@ -15,7 +21,7 @@
                                     </label>
                                     <div class="col-md-10">
                                         <input type="text" name="name" value="<%= (!admin)?'':admin.name %>" class="form-control"
-                                            required>
+                                            >
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-12">
                                 <input type="submit" value="Save" class="btn btn-success pull-right">
                             </div>

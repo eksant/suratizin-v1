@@ -33,7 +33,7 @@
               <%= element.email %>
             </td>
             <td>
-              <%= element.roleName %>
+              <%= element.getRole(element.role) %>
             </td>
             <td>
               <%= (element.gender)?(element.gender==1)?"Pria":"Wanita" : "" %>
@@ -45,12 +45,9 @@
               <%= element.address %>
             </td>
             <td>
+              <a href="/admin/register/edit/<%=element.id%>" class="btn btn-md btn-primary"  style="height:30px; width:70px">Edit</a>
               <% if(element.role!==0){ %>
-              <a href="/admin/register/edit/<%=element.encryptId%>">
-                <button class="box box-solid box-primary"  style="height:30px; width:70px">Edit</button>
-              </a>
-              <a href="/admin/register/delete/<%=element.encryptId%>" >
-                <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button></a>
+              <a href="/admin/register/delete/<%=element.id%>" class="btn btn-md btn-danger" style="height:30px; width:70px " onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
               <% } %>
             </td>
           </tr>
