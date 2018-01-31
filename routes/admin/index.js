@@ -2,16 +2,36 @@ const express = require('express')
 const router = express.Router()
 const Model  = require('../../models')
 const rootIndex = './admin/index'
+const notif = require('../../helpers/notification');
+const message = require('../../helpers/message');
+const templateEmail = require('../../helpers/templateemail')
+
 
 router.get('/', (req, res)=>{
     Model.Setting.findAll()
     .then(setting=>{
-        res.render(rootIndex, {
-            title:'Admin Home',
-            setting : setting[0],
-            alert: null,
-            action: '',
-            content: 'dashboard',
+        Model.User.findAll()
+        .then(userData=>{
+            Model.Company.findAll()
+                .then(companyData=>{
+                    Model.Company.findAll({
+                        where:{
+                            validation:0
+                        }
+                    })
+                    .then(pendingData=>{
+                        res.render(rootIndex, {
+                            title:'Admin Home',
+                            setting : setting[0],
+                            alert: null,
+                            user: userData.length,
+                            company:companyData.length,
+                            pending:pendingData.length,
+                            action: '',
+                            content: 'dashboard',
+                        })
+                    })
+                })
         })
     })
 })
@@ -213,21 +233,63 @@ router.get('/validation', (req, res)=>{
 })
 
 router.get('/validasi/:id', (req, res)=>{
-    objAdmin={
-        validation:1,
-        AdminId:res.locals.userSession.id,
-    }
-        Model.Company.update(objAdmin,{
+    Model.Setting.findAll()
+    .then(setting=>{
+        objAdmin={
+            validation:1,
+            AdminId:res.locals.userSession.id,
+        }
+    
+        Model.Company.findOne({
             where:{
-                id : req.params.id
-            }
+                id: req.params.id,
+            },
+            include:[Model.User]
         })
-        .then(function(){
-            res.redirect('/admin/listCompany')
+        .then(function(company){
+            Model.Company.update(objAdmin,{
+                where:{
+                    id : req.params.id
+                }
+            })
+            .then(function(){
+                let objMailCompany = {
+                    to          : company.email,
+                    subject     : `[${setting[0].app_name}] Selamat Perusahaan/Jasa Anda telah berhasil divalidasi.`,
+                    body        : templateEmail.validation_success_company(setting[0], company),
+                }
+                notif.email(objMailCompany, function(error, info) {
+                    if (!error) {
+                    console.log(`email terkirim ke ${company.email}`)
+                        // res.send('success')
+                    } else {
+                        console.log('email gagal terkirim')
+                        // res.send(error)
+                    }
+                })
+    
+                let objMailUser = {
+                    to          : company.User.email,
+                    subject     : `[${setting[0].app_name}] Selamat Perusahaan/Jasa Anda telah berhasil divalidasi.`,
+                    body        : templateEmail.validation_success_user(setting[0], company),
+                }
+                notif.email(objMailUser, function(error, info) {
+                    if (!error) {
+                    console.log(`email terkirim ke ${company.User.email}`)
+                        // res.send('success')
+    
+                    } else {
+                        console.log('email gagal terkirim')
+                        // res.send(error)
+                    }
+                })
+                res.redirect('/admin/listCompany')
+            })
+            .catch(err=>{
+                res.send(err)
+            })
         })
-        .catch(err=>{
-            res.send(err)
-        })
+    })
 })
 
 
