@@ -1,3 +1,5 @@
+const authSession   = require('./helpers/authLogin')
+const send          = require('./helpers/notification')
 const ejs           = require('ejs')
 const express       = require('express')
 const favicon       = require('express-favicon')
@@ -5,7 +7,8 @@ const session       = require('express-session')
 const bodyParser    = require('body-parser')
 const multer        = require('multer')
 const Model         = require('./models')
-const authSession   = require('./helpers/authLogin')
+const kue           = require('kue')
+const queue         = kue.createQueue()
 const app           = express()
 const port          = process.env.PORT || 3000
 
@@ -22,6 +25,18 @@ app.use(session({ secret: 'surat-izin-2018', cookie: { maxAge: 3600000 } })) //3
 app.use((req, res, next) => {
   res.locals.userSession = req.session.user
   next()
+})
+
+kue.app.listen(3055)
+queue.process('email', function(job, done) {
+  send.email(job.data, (error, info) => {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(`success send email to ${job.data.to}`)
+      done()
+    }
+  })
 })
 
 app.use('/', require('./routes/index'))

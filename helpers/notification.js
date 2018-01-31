@@ -20,6 +20,7 @@ exports.email = function(obj, callback) {
             pass: setting[0].mail_password,  // generated ethereal password
         }
       })
+
       let mailOptions = {
         from        : `${setting[0].app_name} <${setting[0].mail_username}>`, // sender address
         to          : obj.to, //profile.email, // list of receivers
@@ -33,6 +34,8 @@ exports.email = function(obj, callback) {
     }
   })
 }
+
+
 
 exports.sms = function(obj, callback) {
   Model.Setting.findAll()

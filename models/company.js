@@ -41,6 +41,24 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Category must be filled !!'
         },
+        // isUnique: function(value, next) {
+        //   Company.findAll({
+        //     where:{
+        //       category: value,
+        //       id: { [Op.ne]: this.id, }
+        //     }
+        //   })
+        //   .then(function(category) {
+        //     if (category.length == 0) {
+        //       next()
+        //     } else {
+        //       next('Kategori perusahaan sudah terdaftar !!')
+        //     }
+        //   })
+        //   .catch(function(err) {
+        //     next(err)
+        //   })
+        // }
       }
     },
     sub_category: DataTypes.INTEGER,
@@ -114,8 +132,24 @@ module.exports = (sequelize, DataTypes) => {
         },
       }
     },
-    photo_siup: DataTypes.STRING,
-    photo_valid_bill: DataTypes.STRING,
+    photo_siup: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Photo SIUP/NPWP wajib di upload !!'
+        },
+      }
+    },
+    photo_valid_bill: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Photo Tagihan Listrik/Telp/Internet yang sesuai dengan alamat perusahaan/jasa wajib di upload !!'
+        },
+      }
+    },
     validation: DataTypes.INTEGER
   });
 
