@@ -16,11 +16,13 @@
         <ul class="treeview-menu">
           <% if(userSession.role == 0){ %>
           <li><a href="/admin/register"><i class="fa fa-circle-o"></i> Register Admin</a></li>
-          <% } %>
-          <% if(userSession.role == 0 || userSession.role == 1){ %>
+          <%}%>         
+          <%if(userSession.role==0 || userSession.role==1){%>
+          <li><a href="/admin/listUser"><i class="fa fa-circle-o"></i> List User</a></li>
           <li><a href="/admin/listCompany"><i class="fa fa-circle-o"></i> List Company</a></li>
-          <li><a href="/admin/mitra"><i class="fa fa-circle-o"></i> Validation Company</a></li>
-          <% } %>
+          <li><a href="/admin/validation"><i class="fa fa-circle-o"></i> Validation Company</a></li>
+          <%}%>
+          
         </ul>
       </li>
 
