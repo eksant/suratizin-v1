@@ -151,4 +151,50 @@ Router.get('/request/add', (req, res) => {
   })
 })
 
+let file_attachments  = ''
+let StorageRequest = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, "./public/uploads/request/")
+  },
+  filename: function(req, file, callback) {
+    file_attachments = `${res.locals.userSession.name.split(' ').join('_').toLowerCase()}_${Date.now()}_${file.originalname.split(' ').join('_').toLowerCase()}`
+    callback(null, file_attachments)
+  }
+});
+let uploadRequest = multer({ storage: StorageRequest }).array('file_attachments', 3)
+
+Router.post('/request/add', uploadRequest, (req, res) => {
+  req.body.attachment = file_attachments
+  request.create(req, res, content => {
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/request')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/request/edit/:id', (req, res) => {
+  request.edit(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.post('/request/edit/:id', uploadRequest, (req, res) => {
+  req.body.attachment = file_attachments
+  request.update(req, res, content => {
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/request')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/request/delete/:id', (req, res) => {
+  request.delete(req, res, content => {
+    res.redirect('/user/request')
+  })
+})
+
 module.exports = Router;
