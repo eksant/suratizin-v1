@@ -1,5 +1,6 @@
 <div class="box">
     <div class="box-body">
+        <h3>List Mitra</h3>
         <table id="dataTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -11,14 +12,19 @@
                     <th>Handphone</th>
                     <th>Address</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                 </tr>
             </thead>
             <tbody>
-                <% user.forEach((element,i)=>{ %>
+                <% 
+                let j=1;
+                    user.forEach((element)=>{
+                        if (element.role==2 || element.role==3){
+                %>
+                    
                     <tr>
                         <td>
-                            <%= i+1 %>
+                            <%= j %>
                         </td>
                         <td>
                             <%= element.name %>
@@ -41,7 +47,7 @@
                         <td>
                             <%= (element.status) ? (element.status==1)?"aktif":"tidak Aktif" : "" %>
                         </td>
-                        <td>
+                        <!-- <td>
                             <% if(element.role!==0){ %>
                                 <a href="/admin/listUser/edit/<%=element.encryptId%>">
                                     <button class="box box-solid box-primary" style="height:30px; width:70px">Edit</button>
@@ -49,10 +55,74 @@
                                 <a href="/admin/listUser/delete/<%=element.encryptId%>">
                                     <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button>
                                 </a>
-                                <% } %>
-                        </td>
+                            <% } %>
+                        </td> -->
                     </tr>
-                    <% }) %>
+                    <% j++} }) %>
+            </tbody>
+        </table>
+
+        <br>
+        <h3><i class="fa fa-users"></i> List Pencari Jasa</h3>
+
+        <table id="dataTable-2" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Gender</th>
+                    <th>Handphone</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <!-- <th>Action</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                let i =1;
+                    user.forEach((element)=>{
+                        if (element.role==4 || element.role==5){
+                %>
+                    
+                    <tr>
+                        <td>
+                            <%= i %>
+                        </td>
+                        <td>
+                            <%= element.name %>
+                        </td>
+                        <td>
+                            <%= element.email %>
+                        </td>
+                        <td>
+                            <%= element.getRole(element.role) %>
+                        </td>
+                        <td>
+                            <%= (element.gender)?(element.gender==1)?"Pria":"Wanita" : ""%>
+                        </td>
+                        <td>
+                            <%= element.handphone %>
+                        </td>
+                        <td>
+                            <%= element.address %>
+                        </td>
+                        <td>
+                            <%= (element.status) ? (element.status==1)?"aktif":"tidak Aktif" : "" %>
+                        </td>
+                        <!-- <td>
+                            <% if(element.role!==0){ %>
+                                <a href="/admin/listUser/edit/<%=element.encryptId%>">
+                                    <button class="box box-solid box-primary" style="height:30px; width:70px">Edit</button>
+                                </a>
+                                <a href="/admin/listUser/delete/<%=element.encryptId%>">
+                                    <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button>
+                                </a>
+                            <% } %>
+                        </td> -->
+                    </tr>
+                    <% i++} }) %>
             </tbody>
         </table>
     </div>

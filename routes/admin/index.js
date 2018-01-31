@@ -191,6 +191,27 @@ router.get('/register/delete/:id', (req, res)=>{
     })
 })
 
+router.get('/validation', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+        Model.Company.findAll({
+            where:{
+                validation : 0,
+            }
+        })
+        .then(data=>{
+            res.render(rootIndex, {
+                title:'Validation Company',
+                setting : setting[0],
+                alert: null,
+                action: '',
+                content: 'companyList',
+                company: data,
+            })
+        })
+    })
+})
+
 router.get('/validasi/:id', (req, res)=>{
     objAdmin={
         validation:1,
