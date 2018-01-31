@@ -3,7 +3,10 @@ const message     = require('../../helpers/message')
 const library     = require('../../helpers/library')
 const template    = require('../../helpers/templateemail')
 const send        = require('../../helpers/notification')
+const getCategory = require('../../helpers/getCategory')
 const multer      = require('multer')
+const kue         = require('kue')
+const queue       = kue.createQueue()
 const Op          = require('sequelize').Op
 const title       = 'Permohonan Perizinan'
 
@@ -85,79 +88,113 @@ module.exports.create = function(req, res, callback) {
         remark          : req.body.remark,
         status          : 0,
       }
-
-      let promiseSendMitra
-      let promiseSendCompany
-      let arrMessageEmail = []
-      let successSend     = 0
-      let failSend        = 0
-      let arr = mitras.map(mitra => {
-        if (mitra.email) {
-          // console.log(mitra.email);
-          promiseSendMitra = new Promise(function(resolve, reject) {
+      // callback(requestor(6))
+      Model.Request.create(objRequest)
+      .then(function() {
+        let promiseSendMitra
+        let promiseSendCompany
+        let arrMessageEmail = []
+        let successSend     = 0
+        let failSend        = 0
+        let linkPenawaran   = `http://${req.headers.host}/user/propose`
+        let arr = mitras.map(mitra => {
+          if (mitra.email) {
             let objMailMitra = {
               to          : mitra.email,
-              subject     : `[${setting[0].app_name}] ${objRequest.title}.`,
-              body        : '',
+              subject     : `[${setting[0].app_name}] ${res.locals.userSession.name} Membutuhkan Penawaran ${getCategory(objRequest.category)}.`,
+              body        : template.request_permit(setting[0], mitra, res.locals.userSession, objRequest, linkPenawaran),
             }
-            send.email(objMailMitra, function(error, info) {
-              if (!error) {
-                successSend++
-                console.log(`Notifikasi email permohonan telah berhasil dikirim ke ${mitra.email}`);
-                arrMessageEmail.push(`Notifikasi email permohonan telah berhasil dikirim ke ${mitra.email}`)
-                resolve()
-              } else {
-                failSend++
-                console.log(`Gagal mengirimkan notifikasi email permohonan ke ${mitra.email}`);
-                arrMessageEmail.push(`Gagal mengirimkan notifikasi email permohonan ke ${mitra.email}`)
-                reject()
-              }
+
+            queue.create('email', objMailMitra)
+            .save(function(err){
+               if( !err ) console.log( err );
             })
-          })
-        }
-        mitra.Companies.map(company => {
-          if (company.email) {
-            // console.log(company.email);
-            promiseSendCompany = new Promise(function(resolve, reject) {
+
+            // send.email(objMailMitra, function(error, info) {
+            //   if (!error) {
+            //     successSend++
+            //     console.log(`Notifikasi email permohonan telah berhasil dikirim ke ${mitra.email}`);
+            //     arrMessageEmail.push(`Notifikasi email permohonan telah berhasil dikirim ke ${mitra.email}`)
+            //   } else {
+            //     failSend++
+            //     console.log(`Gagal mengirimkan notifikasi email permohonan ke ${mitra.email}`);
+            //     arrMessageEmail.push(`Gagal mengirimkan notifikasi email permohonan ke ${mitra.email}`)
+            //   }
+            // })
+
+            // console.log(mitra.email);
+            // promiseSendMitra = new Promise(function(resolve, reject) {
+            //   let objMailMitra = {
+            //     to          : mitra.email,
+            //     subject     : `[${setting[0].app_name}] ${res.locals.userSession.name} Membutuhkan Penawaran ${getCategory(objRequest.category)}.`,
+            //     body        : template.request_permit(setting[0], mitra, res.locals.userSession, objRequest, linkPenawaran),
+            //   }
+            //   send.email(objMailMitra, function(error, info) {
+            //     if (!error) {
+            //       successSend++
+            //       console.log(`Notifikasi email permohonan telah berhasil dikirim ke ${mitra.email}`);
+            //       arrMessageEmail.push(`Notifikasi email permohonan telah berhasil dikirim ke ${mitra.email}`)
+            //       resolve()
+            //     } else {
+            //       failSend++
+            //       console.log(`Gagal mengirimkan notifikasi email permohonan ke ${mitra.email}`);
+            //       arrMessageEmail.push(`Gagal mengirimkan notifikasi email permohonan ke ${mitra.email}`)
+            //       reject()
+            //     }
+            //   })
+            // })
+          }
+          mitra.Companies.map(company => {
+            if (company.email) {
               let objMailCompany = {
                 to          : company.email,
-                subject     : `[${setting[0].app_name}] ${objRequest.title}.`,
-                body        : '',
+                subject     : `[${setting[0].app_name}] ${res.locals.userSession.name} Membutuhkan Penawaran ${getCategory(objRequest.category)}.`,
+                body        : template.request_permit(setting[0], company, res.locals.userSession, objRequest, linkPenawaran),
               }
-              send.email(objMailCompany, function(error, info) {
-                if (!error) {
-                  successSend++
-                  console.log(`Notifikasi email permohonan telah berhasil dikirim ke ${company.email}`);
-                  arrMessageEmail.push(`Notifikasi email permohonan telah berhasil dikirim ke ${company.email}`)
-                  resolve()
-                }else{
-                  failSend++
-                  console.log(`Gagal mengirimkan notifikasi email permohonan ke ${company.email}`);
-                  arrMessageEmail.push(`Gagal mengirimkan notifikasi email permohonan ke ${company.email}`)
-                  reject()
-                }
+
+              queue.create('email', objMailCompany)
+              .save(function(err){
+                 if( !err ) console.log( err );
               })
-            })
-          }
-        })
-        return mitra
-      })
 
-      let promiseCreateRequest = new Promise(function(resolve, reject) {
-        Model.Request.create(objRequest)
-        .then(function() {
-          arrMessageEmail.push(`The record has been successfully updated.`)
-          resolve()
-        })
-        .catch(function(err) {
-          arrMessageEmail.push(`The record fail to updated.`)
-          reject()
-        })
-      })
+              // send.email(objMailCompany, function(error, info) {
+              //   if (!error) {
+              //     successSend++
+              //     console.log(`Notifikasi email permohonan telah berhasil dikirim ke ${company.email}`);
+              //     arrMessageEmail.push(`Notifikasi email permohonan telah berhasil dikirim ke ${company.email}`)
+              //   }else{
+              //     failSend++
+              //     console.log(`Gagal mengirimkan notifikasi email permohonan ke ${company.email}`);
+              //     arrMessageEmail.push(`Gagal mengirimkan notifikasi email permohonan ke ${company.email}`)
+              //   }
+              // })
 
-      Promise.all([promiseSendMitra, promiseSendCompany, promiseCreateRequest])
-      .then(function(result) {
-        // callback(arrMessageEmail)
+              // console.log(company.email);
+              // promiseSendCompany = new Promise(function(resolve, reject) {
+              //   let objMailCompany = {
+              //     to          : company.email,
+              //     subject     : `[${setting[0].app_name}] ${res.locals.userSession.name} Membutuhkan Penawaran ${getCategory(objRequest.category)}.`,
+              //     body        : template.request_permit(setting[0], company, res.locals.userSession, objRequest, linkPenawaran),
+              //   }
+              //   send.email(objMailCompany, function(error, info) {
+              //     if (!error) {
+              //       successSend++
+              //       console.log(`Notifikasi email permohonan telah berhasil dikirim ke ${company.email}`);
+              //       arrMessageEmail.push(`Notifikasi email permohonan telah berhasil dikirim ke ${company.email}`)
+              //       resolve()
+              //     }else{
+              //       failSend++
+              //       console.log(`Gagal mengirimkan notifikasi email permohonan ke ${company.email}`);
+              //       arrMessageEmail.push(`Gagal mengirimkan notifikasi email permohonan ke ${company.email}`)
+              //       reject()
+              //     }
+              //   })
+              // })
+            }
+          })
+          return mitra
+        })
+
         callback({
           content     : 'request',
           setting     : setting[0],
@@ -166,9 +203,31 @@ module.exports.create = function(req, res, callback) {
           request     : objRequest,
           alert       : message.success(),
         })
+
+        // Promise.all([promiseSendMitra, promiseSendCompany])
+        // .then(function(result) {
+        //   callback({
+        //     content     : 'request',
+        //     setting     : setting[0],
+        //     title       : title,
+        //     action      : 'add',
+        //     request     : objRequest,
+        //     alert       : message.success(),
+        //   })
+        // })
+        // .catch(function(err) {
+        //   callback({
+        //     content     : 'request_form',
+        //     setting     : setting[0],
+        //     title       : title,
+        //     action      : 'add',
+        //     request     : objRequest,
+        //     library     : library,
+        //     alert       : message.error(err.message),
+        //   })
+        // })
       })
       .catch(function(err) {
-        // callback(null)
         callback({
           content     : 'request_form',
           setting     : setting[0],
@@ -176,7 +235,7 @@ module.exports.create = function(req, res, callback) {
           action      : 'add',
           request     : objRequest,
           library     : library,
-          alert       : message.error(err),
+          alert       : message.error(err.message),
         })
       })
     })

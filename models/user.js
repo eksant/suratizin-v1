@@ -67,24 +67,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    gender: {
-      type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Gender must be filled !!'
-        },
-      }
-    },
-    handphone: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Mobile no. must be filled !!'
-        },
-      }
-    },
+    gender: DataTypes.INTEGER,
+    handphone: DataTypes.STRING,
     address: DataTypes.TEXT,
     photo: DataTypes.STRING,
     reset_token: DataTypes.STRING,

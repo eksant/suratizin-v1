@@ -5,6 +5,8 @@ const template    = require('../../helpers/templateemail')
 const send        = require('../../helpers/notification')
 const express     = require('express')
 const Sequelize   = require('sequelize')
+const kue         = require('kue')
+const queue       = kue.createQueue()
 const Router      = express.Router()
 const title       = 'Register'
 
@@ -27,53 +29,71 @@ Router.post('/', (req, res) => {
         reset_expired : null,
         status        : 0,
       }
+      Model.User.create(objUser)
+      .then(function() {
+        Model.User.findOne({
+          where: {
+            email   : req.body.email,
+            role    : req.body.role,
+            status  : 0,
+          }
+        })
+        .then(function(user) {
+          let objMail = {
+            to          : req.body.email,
+            subject     : `[${setting[0].app_name}] Selamat ${req.body.name}, Akun Anda telah berhasil di daftarkan.`,
+            body        : template.registered_success(setting[0], objUser, link),
+          }
+          queue.create('email', objMail)
+          .save(function(err){
+             if (!err) {
+               res.render('./user/login', {
+                 title       : title,
+                 setting     : setting[0],
+                 user        : user,
+                 alert       : message.success(`Selamat ${user.name}. Aktifasi akun telah dikirim ke email ${req.body.email}`),
+               })
+             } else {
+               res.render('./user/login', {
+                 title       : title,
+                 setting     : setting[0],
+                 user        : null,
+                 alert       : message.error('Gagal untuk pendaftaran akun !!'),
+               })
+             }
+          })
 
-      let objMail = {
-        to          : req.body.email,
-        subject     : `[${setting[0].app_name}] Selamat ${req.body.name}, Akun Anda telah berhasil di daftarkan.`,
-        body        : template.registered_success(setting[0], objUser, link),
-      }
-      send.email(objMail, function(error, info) {
-        if (!error) {
-          info = `Aktifasi akun telah dikirim ke email ${req.body.email}\n`
-          Model.User.create(objUser)
-          .then(function() {
-            Model.User.findOne({
-              where: {
-                email   : req.body.email,
-                role    : req.body.role,
-                status  : 0,
-              }
-            })
-            .then(function(user) {
-              info += 'The record has been successfully updated.'
-              res.render('./user/login', {
-                title       : title,
-                setting     : setting[0],
-                user        : user,
-                alert       : message.success(info),
-                library     : library,
-              })
-            })
-          })
-          .catch(function(err) {
-            res.render('./user/login', {
-              title       : title,
-              setting     : setting[0],
-              user        : user,
-              alert       : message.console.error(err.message),
-              library     : library,
-            })
-          })
-        } else {
-          res.render('./user/login', {
-            title       : title,
-            setting     : setting[0],
-            user        : user,
-            alert       : message.console.error('Gagal untuk mengirimkan aktifkasi akun !!'),
-            library     : library,
-          })
-        }
+
+          // send.email(objMail, function(error, info) {
+          //   if (!error) {
+          //     info = `Aktifasi akun telah dikirim ke email ${req.body.email}\n`
+          //     info += 'The record has been successfully updated.'
+          //     res.render('./user/login', {
+          //       title       : title,
+          //       setting     : setting[0],
+          //       user        : user,
+          //       alert       : message.success(`Selamat ${user.name}. Aktifasi akun telah dikirim ke email ${req.body.email}`),
+          //       library     : library,
+          //     })
+          //   } else {
+          //     res.render('./user/login', {
+          //       title       : title,
+          //       setting     : setting[0],
+          //       user        : user,
+          //       alert       : message.error('Gagal untuk mengirimkan aktifkasi akun !!'),
+          //       library     : library,
+          //     })
+          //   }
+          // })
+        })
+      })
+      .catch(function(err) {
+        res.render('./user/login', {
+          title       : title,
+          setting     : setting[0],
+          user        : null,
+          alert       : message.error(err.message),
+        })
       })
 
 
