@@ -1,4 +1,5 @@
 'use strict';
+const library      = require('../helpers/library')
 const getCategory  = require('../helpers/getCategory')
 const Op           = require('sequelize').Op
 
@@ -7,12 +8,28 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     AdminId: DataTypes.INTEGER,
     location_province: DataTypes.INTEGER,
-    location_city: DataTypes.STRING,
+    location_city: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'City must be filled !!'
+        },
+      }
+    },
     necessities: DataTypes.STRING,
     photo_building: DataTypes.STRING,
     photo_plan: DataTypes.STRING,
     attachment: DataTypes.STRING,
-    needed_date: DataTypes.DATE,
+    needed_date: {
+      type: DataTypes.DATE,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Needed date must be filled !!'
+        },
+      }
+    },
     remark: DataTypes.TEXT,
     payment_method: DataTypes.INTEGER,
     status: DataTypes.INTEGER,
@@ -27,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           Request.findAll({
             where:{
               title: value,
-              id: this.id,
+              id: { [Op.ne]: this.id, },
             }
           })
           .then(function(request) {
@@ -43,12 +60,24 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    category: DataTypes.INTEGER,
+    category: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Category must be filled !!'
+        },
+      }
+    },
     sub_category: DataTypes.INTEGER,
   });
 
   Request.prototype.getCategory = function() {
     return getCategory(this.category)
+  }
+
+  Request.prototype.getFormatLocalDate = function() {
+    return library.formatLocalDate(this.needed_date)
   }
 
   Request.associate = function(models) {

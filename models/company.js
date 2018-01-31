@@ -34,22 +34,86 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     logo: DataTypes.STRING,
-    category: DataTypes.INTEGER,
+    category: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Category must be filled !!'
+        },
+      }
+    },
     sub_category: DataTypes.INTEGER,
     description: DataTypes.TEXT,
-    address: DataTypes.TEXT,
+    address: {
+      type: DataTypes.TEXT,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Address must be filled !!'
+        },
+      }
+    },
     province: DataTypes.INTEGER,
-    city: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING,
+    city: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'City must be filled !!'
+        },
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Email Company must be filled !!'
+        },
+      }
+    },
+    phone: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Phone must be filled !!'
+        },
+      }
+    },
     fax: DataTypes.STRING,
     year_establishment: DataTypes.INTEGER,
     total_employes: DataTypes.INTEGER,
     website: DataTypes.STRING,
-    bank_account_name: DataTypes.STRING,
-    bank_name: DataTypes.STRING,
+    bank_account_name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Bank account name must be filled !!'
+        },
+      }
+    },
+    bank_name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Name of bank must be filled !!'
+        },
+      }
+    },
     bank_branch: DataTypes.STRING,
-    bank_account_number: DataTypes.STRING,
+    bank_account_number: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Bank account number must be filled !!'
+        },
+      }
+    },
     photo_siup: DataTypes.STRING,
     photo_valid_bill: DataTypes.STRING,
     validation: DataTypes.INTEGER

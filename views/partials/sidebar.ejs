@@ -5,7 +5,7 @@
       <li class="active">
         <a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
       </li>
-      
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-table"></i> <span>User Management</span>
@@ -14,7 +14,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-            <%if(userSession.role==0){%>
+          <% if(userSession.role == 0){ %>
           <li><a href="/admin/register"><i class="fa fa-circle-o"></i> Register Admin</a></li>
           <%}%>         
           <%if(userSession.role==0 || userSession.role==1){%>
@@ -22,9 +22,10 @@
           <li><a href="/admin/listCompany"><i class="fa fa-circle-o"></i> List Company</a></li>
           <li><a href="/admin/validation"><i class="fa fa-circle-o"></i> Validation Company</a></li>
           <%}%>
+          
         </ul>
       </li>
-      
+
     </ul>
   </section>
 </aside>

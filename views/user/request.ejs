@@ -22,7 +22,7 @@
               <td><%= i+1 %></td>
               <td><%= row.getCategory(row.category) %></td>
               <td><%= row.title %></td>
-              <td><%= row.needed_date %></td>
+              <td><%= row.getFormatLocalDate() %></td>
               <td><%= row.location_city %></td>
               <td><span class="label label-<%= (row.status == 0) ? "success" : "danger" %>"><%= (row.status == 0) ? "Open" : "Close" %></span></td>
               <td>
