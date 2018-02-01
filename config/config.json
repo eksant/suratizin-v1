@@ -14,5 +14,15 @@
     "dialect": "postgres",
     "ssl": true,
     "dialectOptions": { "ssl": {"require":true} }
+  },
+  "redis": {
+    "port": 16624,
+    "host": "redis-16624.c15.us-east-1-4.ec2.cloud.redislabs.com",
+    "auth": "Lup@P4ssw0rd",
+    "db": "suratizin"
+  },
+  "redis_local": {
+    "port": 3055,
+    "host": "127.0.0.1"
   }
 }
