@@ -82,14 +82,12 @@
 <div class="container">
   <section class="content">
     <h3 class="text-center">Daftar Mitra Kami</h3>
-    <% for (let i = 0; i < 15; i++) {
-        var bgColor = (i % 2 == 0) ? 'bg-aqua-active' : 'bg-yellow-active'
-    %>
+    <% company.forEach(companyData=>{%>
       <div class="col-md-3">
         <div class="box box-widget widget-user">
-          <div class="widget-user-header <%= bgColor %>">
-            <h4 class="widget-user-desc">PT. Buana Amalia Mandiri</h4>
-            <h5 class="widget-user-desc">Mitra VIP</h5>
+          <div class="widget-user-header bg-aqua">
+            <h4 class="widget-user-desc"><font size="3"><%=companyData.name%></font></h4>
+            <h5 class="widget-user-desc"><%=companyData.getCategory(companyData.category)%></h5>
           </div>
           <div class="widget-user-image">
             <img class="img-circle" src="/public/assets/img/user1-128x128.jpg" alt="User Avatar">
@@ -112,7 +110,7 @@
           </div>
         </div>
       </div>
-    <% } %>
+    <% }) %>
     <div class="col-md-12 text-center">
       <button type="button" class="btn btn-normal btn-primary btn-lg">LIHAT MITRA KAMI YANG LAIN</button>
     </div>

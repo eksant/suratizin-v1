@@ -5,6 +5,7 @@ const rootIndex = './admin/index'
 const notif = require('../../helpers/notification');
 const message = require('../../helpers/message');
 const templateEmail = require('../../helpers/templateemail')
+const Op          = require('sequelize').Op
 
 
 router.get('/', (req, res)=>{
@@ -12,7 +13,11 @@ router.get('/', (req, res)=>{
     .then(setting=>{
         Model.User.findAll()
         .then(userData=>{
-            Model.Company.findAll()
+            Model.Company.findAll({
+                where:{
+                    validation:1
+                }
+            })
                 .then(companyData=>{
                     Model.Company.findAll({
                         where:{
@@ -68,7 +73,11 @@ router.get('/listUser', (req, res)=>{
 router.get('/listCompany', (req, res)=>{
     Model.Setting.findAll()
     .then(setting=>{
-        Model.Company.findAll()
+        Model.Company.findAll({
+            where:{
+                validation:1,
+            }
+        })
         .then(data=>{
             res.render(rootIndex, {
                 title:'List Company',
@@ -216,7 +225,9 @@ router.get('/validation', (req, res)=>{
     .then(setting=>{
         Model.Company.findAll({
             where:{
-                validation : 0,
+                validation: {
+                    [Op.ne]: 1
+                }
             }
         })
         .then(data=>{
@@ -272,6 +283,66 @@ router.get('/validasi/:id', (req, res)=>{
                     to          : company.User.email,
                     subject     : `[${setting[0].app_name}] Selamat Perusahaan/Jasa Anda telah berhasil divalidasi.`,
                     body        : templateEmail.validation_success_user(setting[0], company),
+                }
+                notif.email(objMailUser, function(error, info) {
+                    if (!error) {
+                    console.log(`email terkirim ke ${company.User.email}`)
+                        // res.send('success')
+    
+                    } else {
+                        console.log('email gagal terkirim')
+                        // res.send(error)
+                    }
+                })
+                res.redirect('/admin/listCompany')
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+        })
+    })
+})
+
+router.get('/reject/:id', (req, res)=>{
+    Model.Setting.findAll()
+    .then(setting=>{
+        objAdmin={
+            validation:2,
+            AdminId:res.locals.userSession.id,
+        }
+    
+        Model.Company.findOne({
+            where:{
+                id: req.params.id,
+            },
+            include:[Model.User]
+        })
+        .then(function(company){
+            Model.Company.update(objAdmin,{
+                where:{
+                    id : req.params.id
+                }
+            })
+            .then(function(){
+                let objMailCompany = {
+                    to          : company.email,
+                    subject     : `[${setting[0].app_name}] Perusahaan/Jasa Anda gagal divalidasi.`,
+                    body        : templateEmail.validation_rejected_company(setting[0], company),
+                }
+                notif.email(objMailCompany, function(error, info) {
+                    if (!error) {
+                    console.log(`email terkirim ke ${company.email}`)
+                        // res.send('success')
+                    } else {
+                        console.log('email gagal terkirim')
+                        // res.send(error)
+                    }
+                })
+    
+                let objMailUser = {
+                    to          : company.User.email,
+                    subject     : `[${setting[0].app_name}] Perusahaan/Jasa Anda gagal divalidasi.`,
+                    body        : templateEmail.validation_rejected_user(setting[0], company),
                 }
                 notif.email(objMailUser, function(error, info) {
                     if (!error) {

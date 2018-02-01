@@ -9,17 +9,25 @@ let objAlert  = null
 Router.get('/', (req, res) => {
   Model.Setting.findAll()
   .then(function(setting) {
-    res.render('./index', {
-      title       : title,
-      action      : '',
-      new_button  : false,
-      alert       : objAlert,
-      setting     : setting[0],
-      library     : library,
-      user        : null,
+    Model.Company.findAll({
+      where:{
+        validation:1
+      }
     })
-    objAlert  = null
+    .then(function(companyData){
+      res.render('./index', {
+        title       : title,
+        action      : '',
+        new_button  : false,
+        alert       : objAlert,
+        setting     : setting[0],
+        library     : library,
+        user        : null,
+        company     :companyData,
+      })
+      objAlert  = null
+    })
   })
 })
 
-module.exports = Router;
+module.exports = Router
