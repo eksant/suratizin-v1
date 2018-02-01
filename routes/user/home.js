@@ -8,16 +8,45 @@ module.exports.read = function(req, res, callback) {
   .then(function(setting) {
     Model.User.findById(res.locals.userSession.id)
     .then(function(user) {
-      if (!user) {
+      if (user) {
+        if (user.role == 2 || user.role == 3) {
+          Model.Request.findAll({
+            where: {
+              status: 0,
+            }
+          })
+          .then(function(items) {
+            callback({
+              content     : 'home',
+              setting     : setting[0],
+              title       : title,
+              user        : user,
+              itemId      : 0, //'List Permohonan Jasa',
+              items       : items,
+              alert       : null,
+            })
+          })
+        } else if (user.role == 4 || user.role == 5) {
+          Model.Company.findAll({
+            where: {
+              validation: 1,
+            }
+          })
+          .then(function(items) {
+            callback({
+              content     : 'home',
+              setting     : setting[0],
+              title       : title,
+              user        : user,
+              itemId      : 1, //'List Mitra Kami',
+              items       : items,
+              alert       : null,
+            })
+          })
+        }
+      } else {
         callback(null)
       }
-      callback({
-        content     : 'home',
-        setting     : setting[0],
-        title       : title,
-        user        : user,
-        alert       : null,
-      })
     })
   })
 }

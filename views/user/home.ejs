@@ -3,6 +3,65 @@
     <h3 class="box-title"><%= title %></h3>
   </div>
   <div class="box-body">
-    Body
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Lokasi</label>
+        <input type="text" name="location_city" value="" class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Jasa</label>
+        <select name="category" class="form-control select2" style="width: 100%;" required>
+          <option value="1">Izin Ketataruangan</option>
+          <option value="2">Izin Lingkungan</option>
+          <option value="3">Izin Pembangunan</option>
+          <option value="4">Izin Kelaikan Fungsi Bangunan</option>
+          <option value="5">Izin Kelaikan Usaha</option>
+          <option value="6">Izin Usaha</option>
+          <option value="7">Izin Kegiatan Badan Usaha</option>
+          <option value="8">Izin Perorangan (Praktisi/Lisensi)</option>
+          <option value="9">Izin Kegiatan Perorangan</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <button type="button" class="btn btn-block btn-primary">Cari</button>
+    </div>
+
+  </div>
+  <div class="box-footer">
+    <h4 class="box-title text-center"><%= (itemId == 0) ? "List Permohonan Jasa" : "List Mitra Kami" %></h4>
+    <% items.forEach(item => { %>
+      <div class="col-md-4">
+        <div class="box box-widget widget-user">
+          <div class="widget-user-header bg-aqua-active">
+            <h4 class="widget-user-desc"><font size="2"><%= (itemId == 1) ? item.name : "Permohonan " + item.getCategory(item.category) %></font></h4>
+            <h5 class="widget-user-desc"><font size="2"><%= (itemId == 1) ? item.getCategory(item.category) : "" %></font></h5>
+          </div>
+          <div class="widget-user-image">
+            <img class="img-circle" src="/public/assets/img/user1-128x128.jpg" alt="">
+          </div>
+          <div class="box-footer">
+            <div class="row">
+              <div class="col-sm-6 border-right">
+                <div class="description-block">
+                  <h5 class="description-header text-center">&nbsp;</h5>
+                  <span class="description-text text-center">&nbsp;</span>
+                </div>
+              </div>
+              <div class="col-sm-6 border-right">
+                <div class="description-block">
+                  <h5 class="description-header text-center">&nbsp;</h5>
+                  <span class="description-text text-center">&nbsp;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+
   </div>
 </div>

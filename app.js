@@ -8,7 +8,7 @@ const session       = require('express-session')
 const bodyParser    = require('body-parser')
 const multer        = require('multer')
 const kue           = require('kue')
-const queue         = kue.createQueue()
+const configRedis   = require(__dirname + '/config/config.json')['redis']
 const app           = express()
 const port          = process.env.PORT || 3000
 
@@ -27,7 +27,12 @@ app.use((req, res, next) => {
   next()
 })
 
-kue.app.listen(3055)
+const queue = kue.createQueue({
+  prefix: 'queue',
+  redis: configRedis
+});
+
+kue.app.listen(configRedis.port)
 queue.process('email', function(job, done) {
   send.email(job.data, (error, info) => {
     if (error) {
