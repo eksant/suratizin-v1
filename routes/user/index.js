@@ -14,6 +14,7 @@ Router.get('/logout', (req, res) => {
   req.session.isLogin    = false
   req.session.destroy((err) => {
     if (!err) {
+      req.session            = null
       res.locals.user        = null
       res.locals.userSession = null
       res.redirect('/')

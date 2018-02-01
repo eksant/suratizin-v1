@@ -1,6 +1,6 @@
 <div class="box">
     <div class="box-body">
-        <h3>List Mitra</h3>
+        <h3><i class="fa fa-users"></i> List Mitra</h3>
         <table id="dataTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -16,12 +16,12 @@
                 </tr>
             </thead>
             <tbody>
-                <% 
+                <%
                 let j=1;
                     user.forEach((element)=>{
                         if (element.role==2 || element.role==3){
                 %>
-                    
+
                     <tr>
                         <td>
                             <%= j %>
@@ -80,12 +80,12 @@
                 </tr>
             </thead>
             <tbody>
-                <% 
+                <%
                 let i =1;
                     user.forEach((element)=>{
                         if (element.role==4 || element.role==5){
                 %>
-                    
+
                     <tr>
                         <td>
                             <%= i %>

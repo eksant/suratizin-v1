@@ -21,14 +21,12 @@
             <i class="fa fa-globe"></i> View Site</a>
         </li>
 
-        <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="/public/assets/img/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs">
-              <%=userSession.name%>
-            </span>
-          </a>
-          <ul class="dropdown-menu">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-fw fa-user"></i> <%= userSession.name %> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/admin/logout">Sign out</a></li>
+          </ul>
+          <!-- <ul class="dropdown-menu">
             <li class="user-header">
               <img src="/public/assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
               <p>
@@ -36,28 +34,12 @@
                   <small>Member since Nov. 2012</small>
               </p>
             </li>
-            <!-- Menu Body -->
-            <!-- <li class="user-body"> -->
-            <!-- <div class="row">
-                <div class="col-xs-4 text-center">
-                  <a href="#">Followers</a>
-                </div>
-                <div class="col-xs-4 text-center">
-                  <a href="#">Sales</a>
-                </div>
-                <div class="col-xs-4 text-center">
-                  <a href="#">Friends</a>
-                </div>
-              </div> -->
-            <!-- /.row -->
-            <!-- </li> -->
-            <!-- Menu Footer-->
-            <li class="user-footer">             
+            <li class="user-footer">
               <div class="pull-right">
                 <a href="/admin/logout" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
-          </ul>
+          </ul> -->
         </li>
 
         <li>

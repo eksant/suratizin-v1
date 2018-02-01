@@ -33,28 +33,33 @@
   </div>
   <div class="box-footer">
     <h4 class="box-title text-center"><%= (itemId == 0) ? "List Permohonan Jasa" : "List Mitra Kami" %></h4>
-    <% items.forEach(item => { %>
+    <% items.forEach(item => {
+      var boxColor = 'bg-aqua-active'
+      if (itemId == 1) {
+        boxColor = 'bg-yellow-active'
+      }
+    %>
       <div class="col-md-4">
         <div class="box box-widget widget-user">
-          <div class="widget-user-header bg-aqua-active">
+          <div class="widget-user-header <%= boxColor %>">
             <h4 class="widget-user-desc"><font size="2"><%= (itemId == 1) ? item.name : "Permohonan " + item.getCategory(item.category) %></font></h4>
-            <h5 class="widget-user-desc"><font size="2"><%= (itemId == 1) ? item.getCategory(item.category) : "" %></font></h5>
+            <h5 class="widget-user-desc"></h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle" src="/public/assets/img/user1-128x128.jpg" alt="">
+            <img class="img-circle" src="/public/uploads/company/<%= item.logo %>" onError="this.src='/public/assets/img/company.png';" alt="">
           </div>
           <div class="box-footer">
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header text-center">&nbsp;</h5>
-                  <span class="description-text text-center">&nbsp;</span>
+                  <h5 class="description-header text-center"></h5>
+                  <span class="description-text text-center"><font size="2"><%= (itemId == 1) ? item.getCategory(item.category) : "" %></font></span>
                 </div>
               </div>
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header text-center">&nbsp;</h5>
-                  <span class="description-text text-center">&nbsp;</span>
+                  <h5 class="description-header text-center"><font size="2">Location</font></h5>
+                  <span class="description-text text-center"><font size="2"><%= (itemId == 1) ? item.city : item.location_city %></font></span>
                 </div>
               </div>
             </div>
