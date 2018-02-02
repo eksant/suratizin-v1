@@ -22,7 +22,7 @@
       <div class="col-md-12">&nbsp;</div>
       <div class="col-md-12">
         <input type="submit" value="Balas Pesan" class="btn btn-primary pull-right">&nbsp;&nbsp;
-        <a href="/user/inbox/<%= (userSession.role == 2 || userSession.role == 3) ? propose.UserId : propose.CompanyId %>/deal" class="btn btn-success pull-right">Setuju Dengan Penawaran Ini</a>&nbsp;&nbsp;
+        <% if (userSession.role > 3 ) { %> <a href="/user/inbox/<%= propose.CompanyId %>/deal" class="btn btn-success pull-right">Setuju Dengan Penawaran Ini</a>&nbsp;&nbsp; <% } %>
       </div>
     </form>
   </div>
