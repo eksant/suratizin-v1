@@ -26,10 +26,10 @@
               <td><%= row.Request.title %></td>
               <td><%= row.Company.name %></td>
               <td><%= row.price %></td>
-              <td><span class="label label-<%= (row.status == 0) ? "success" : "danger" %>"><%= (row.status == 0) ? "Open" : "Close" %></span></td>
+              <td><span class="label label-<%= (row.Request.status == 0) ? "success" : "danger" %>"><%= (row.Request.status == 0) ? "Open" : "Close" %></span></td>
               <td>
-                <a href="/user/propose/<%= row.Request.id %>/edit/<%= row.id %>" class="btn btn-sm <%= (row.status == 1) ? "disabled" : "" %>"><b><i class="fa fa-edit fa-1x"></i></b></a>
-                <a data-toggle="modal" data-target="#modal-warning" data-message="" class="btn btn-sm <%= (row.status == 1) ? "disabled" : "" %>" data-action="/user/propose/<%= row.Request.id %>/delete/<%= row.id %>" style="cursor: pointer;"><b><font color="red"><i class="fa fa-remove fa-1x"></i></font></b></a>
+                <a href="/user/propose/<%= row.Request.id %>/edit/<%= row.id %>" class="btn btn-sm <%= (row.Request.status == 1) ? "disabled" : "" %>"><b><i class="fa fa-edit fa-1x"></i></b></a>
+                <a data-toggle="modal" data-target="#modal-warning" data-message="" class="btn btn-sm <%= (row.Request.status == 1) ? "disabled" : "" %>" data-action="/user/propose/<%= row.Request.id %>/delete/<%= row.id %>" style="cursor: pointer;"><b><font color="red"><i class="fa fa-remove fa-1x"></i></font></b></a>
               </td>
             </tr>
           <% }) %>
