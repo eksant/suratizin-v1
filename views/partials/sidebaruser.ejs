@@ -20,7 +20,7 @@
     <img src="/public/uploads/profile/<%= userSession.photo %>" onError="this.src='/public/assets/img/user.png';" height="392px" width="392px" class="profile-user-img img-responsive img-circle" alt="<%= userSession.name %>" align="center">
     <h3 class="profile-username text-center"><%= userSession.name %></h3>
     <p class="text-muted text-center"><%= getRole %></p>
-    <p><a href="/user"><b>Dashboard</b></a></p>
+    <p><a href="/user"><b>Dashboard Pencarian</b></a></p>
     <ul class="list-group list-group-unbordered">
       <% if (userSession.role == 2 || userSession.role == 3) { %>
       <li class="list-group-item">
@@ -48,3 +48,6 @@
     <a href="/user/logout"><b>Log out</b></a>
   </div>
 </div>
+
+<a href="/user/inbox" class="btn btn-primary btn-block">Inbox Penawaran Jasa</a>
+<br>

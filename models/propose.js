@@ -10,5 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     info_partner: DataTypes.TEXT,
     status: DataTypes.INTEGER
   });
+
+  Propose.associate = function(models) {
+    Propose.belongsTo(models.User)
+    Propose.belongsTo(models.Request)
+    Propose.belongsTo(models.Company)
+  }
+
   return Propose;
 };

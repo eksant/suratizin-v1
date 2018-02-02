@@ -12,11 +12,11 @@ const title       = 'Permohonan Perizinan'
 
 let objRequest = {
   UserId          : '',
-  title           : 'Permohonan Izin Bangunan Gedung IT',
-  location_city   : 'Jakarta Selatan',
+  title           : '',
+  location_city   : '',
   attachment      : '',
-  needed_date     : '02/10/2018',
-  remark          : 'Mohon dikirimkan proposal penawaran perizinan IMB untuk Jakarta Selatan. Terima kasih',
+  needed_date     : '',
+  remark          : '',
   status          : '',
 }
 
