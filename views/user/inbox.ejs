@@ -1,0 +1,33 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= title %></h3>
+  </div>
+  <div class="box-body">
+    <table id="dataTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Tanggal</th>
+          <th><%= (userSession.role == 2 || userSession.role == 3) ? "Nama Customer" : "Nama Perusahaan/Jasa" %></th>
+          <th>Title Pesan</th>
+          <th>Isi Pesan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody>
+          <% propose.forEach((row, i) => { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= library.formatLocalDate(row.createdAt) %></td>
+              <td><%= (userSession.role == 2 || userSession.role == 3) ? row.User.name : row.Company.name %></td>
+              <td><%= row.Request.title %></td>
+              <td><%= row.info_partner %></td>
+              <td>
+                <a href="/user/inbox/<%= (userSession.role == 2 || userSession.role == 3) ? row.UserId : row.CompanyId %>" class="btn btn-sm btn-primary">Balas</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+    </table>
+  </div>
+</div>

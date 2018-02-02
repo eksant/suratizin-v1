@@ -1,0 +1,45 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= (action != '') ? (action == 'add') ? 'Pengajuan' : 'Edit' : '' %> <%= title %></h3>
+  </div>
+  <div class="box-body">
+    <form action="/user/propose/<%= request.id %>/<%= (action == 'add') ? "add" : "edit/" + propose.id %>" method="post" class="form-horizontal" id="validate-form">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="col-md-3"><span>Nama Customer</span></div>
+          <label class="col-md-9"><%= request.User.name %></label>
+          <div class="col-md-3"><span>Kategori Permohonan</span></div>
+          <label class="col-md-9">Permohonan <%= request.getCategory(request.category) %></label>
+          <div class="col-md-3"><span>Title Permohonan</span></div>
+          <label class="col-md-9"><%= request.title %></label>
+          <div class="col-md-3"><span>Tgl. Dibutuhkan</span></div>
+          <label class="col-md-9"><%= library.formatLocalDate(request.needed_date) %></label>
+          <div class="col-md-3"><span>Untuk Kota</span></div>
+          <label class="col-md-9"><%= request.location_city %></label>
+          <div class="col-md-3"><span>Deskripsi Permohonan</span></div>
+          <label class="col-md-9"><%= request.remark %></label>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="col-md-3"><span>Nama Perusahaan/Jasa</span></label>
+          <div class="col-md-9"><%= company.name %></div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3">Harga Penawaran <span class="required">*</span></label>
+          <div class="col-md-9"><input type="number" name="price" value="<%= propose.price %>" class="form-control" required></div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3">Deskripsi Penawaran <span class="required">*</span></label>
+          <div class="col-md-9"><textarea name="info_partner" class="form-control" rows="3" required><%= propose.info_partner %></textarea></div>
+        </div>
+      </div>
+
+      <div class="col-md-12">&nbsp;</div>
+      <div class="col-md-12">
+        <input type="submit" value="<%= (action != '') ? (action == 'add') ? 'Pengajuan' : 'Edit' : '' %> Penawaran" class="btn btn-primary pull-right">
+      </div>
+    </form>
+  </div>
+</div>

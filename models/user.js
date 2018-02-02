@@ -100,6 +100,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.hasMany(models.Request)
     User.hasMany(models.Company)
+    User.hasMany(models.Propose)
   }
 
   return User;

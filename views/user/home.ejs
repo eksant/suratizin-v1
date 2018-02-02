@@ -3,64 +3,74 @@
     <h3 class="box-title"><%= title %></h3>
   </div>
   <div class="box-body">
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>Lokasi</label>
-        <input type="text" name="location_city" value="" class="form-control" required>
+    <form action="/user/filter" method="post">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Jasa</label>
+          <select name="category" class="form-control select2" style="width: 100%;" required>
+            <option <%= (filter) ? (filter.category == 1) ? "selected" : "" : "" %> value="1">Izin Ketataruangan</option>
+            <option <%= (filter) ? (filter.category == 2) ? "selected" : "" : "" %> value="2">Izin Lingkungan</option>
+            <option <%= (filter) ? (filter.category == 3) ? "selected" : "" : "" %> value="3">Izin Pembangunan</option>
+            <option <%= (filter) ? (filter.category == 4) ? "selected" : "" : "" %> value="4">Izin Kelaikan Fungsi Bangunan</option>
+            <option <%= (filter) ? (filter.category == 5) ? "selected" : "" : "" %> value="5">Izin Kelaikan Usaha</option>
+            <option <%= (filter) ? (filter.category == 6) ? "selected" : "" : "" %> value="6">Izin Usaha</option>
+            <option <%= (filter) ? (filter.category == 7) ? "selected" : "" : "" %> value="7">Izin Kegiatan Badan Usaha</option>
+            <option <%= (filter) ? (filter.category == 8) ? "selected" : "" : "" %> value="8">Izin Perorangan (Praktisi/Lisensi)</option>
+            <option <%= (filter) ? (filter.category == 9) ? "selected" : "" : "" %> value="9">Izin Kegiatan Perorangan</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>Jasa</label>
-        <select name="category" class="form-control select2" style="width: 100%;" required>
-          <option value="1">Izin Ketataruangan</option>
-          <option value="2">Izin Lingkungan</option>
-          <option value="3">Izin Pembangunan</option>
-          <option value="4">Izin Kelaikan Fungsi Bangunan</option>
-          <option value="5">Izin Kelaikan Usaha</option>
-          <option value="6">Izin Usaha</option>
-          <option value="7">Izin Kegiatan Badan Usaha</option>
-          <option value="8">Izin Perorangan (Praktisi/Lisensi)</option>
-          <option value="9">Izin Kegiatan Perorangan</option>
-        </select>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Lokasi</label>
+          <input type="text" name="location_city" value="<%= (filter) ? (itemId == 0) ? (filter.location_city) ? filter.location_city.$iLike.replace(/%/g, '') : "" : (filter.city) ? filter.city.$iLike.replace(/%/g, '') : "" : "" %>" class="form-control">
+        </div>
       </div>
-    </div>
-    <div class="col-md-12">
-      <button type="button" class="btn btn-block btn-primary">Cari</button>
-    </div>
-
+      <div class="col-md-8">
+        <input type="submit" value="Pencarian" class="btn btn-block btn-primary">
+      </div>
+      <div class="col-md-4">
+        <a href="/user" class="btn btn-block btn-default">Reset</a>
+      </div>
+    </form>
   </div>
   <div class="box-footer">
     <h4 class="box-title text-center"><%= (itemId == 0) ? "List Permohonan Jasa" : "List Mitra Kami" %></h4>
-    <% items.forEach(item => { %>
+    <% items.forEach(item => {
+      var boxColor = 'bg-aqua-active'
+      if (itemId == 1) {
+        boxColor = 'bg-yellow-active'
+      }
+    %>
+      <% if (itemId == 0) { %> <a href="/user/propose/<%= item.id %>"> <% } %>
       <div class="col-md-4">
         <div class="box box-widget widget-user">
-          <div class="widget-user-header bg-aqua-active">
-            <h4 class="widget-user-desc"><font size="2"><%= (itemId == 1) ? item.name : "Permohonan " + item.getCategory(item.category) %></font></h4>
-            <h5 class="widget-user-desc"><font size="2"><%= (itemId == 1) ? item.getCategory(item.category) : "" %></font></h5>
+          <div class="widget-user-header <%= boxColor %>">
+            <h4 class="widget-user-desc"><font size="2"><%= (itemId == 0) ? `Permohonan ${item.getCategory(item.category)}` : item.name %></font></h4>
+            <h5 class="widget-user-desc"></h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle" src="/public/assets/img/user1-128x128.jpg" alt="">
+            <img class="img-circle" src="/public/uploads/<%= (itemId == 0) ? `profile/${item.User.photo}` : `company/${item.logo}` %>" onError="this.src='/public/assets/img/<%= (itemId == 0) ? "user.png" : "company.png" %>';" alt="">
           </div>
           <div class="box-footer">
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header text-center">&nbsp;</h5>
-                  <span class="description-text text-center">&nbsp;</span>
+                  <h5 class="description-header text-center"><font size="2"><%= (itemId == 0) ? item.User.name : "" %></font></h5>
+                  <span class="description-text text-center"><font size="2"><%= (itemId == 0) ? "" : item.getCategory(item.category) %></font></span>
                 </div>
               </div>
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header text-center">&nbsp;</h5>
-                  <span class="description-text text-center">&nbsp;</span>
+                  <h5 class="description-header text-center"><font size="2">Location</font></h5>
+                  <span class="description-text text-center"><font size="2"><%= (itemId == 0) ? item.location_city : item.city %></font></span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <% if (itemId == 0) { %> </a> <% } %>
     <% }) %>
 
   </div>

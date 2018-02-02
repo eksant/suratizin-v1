@@ -3,6 +3,8 @@ const home        = require('./home')
 const profile     = require('./profile')
 const company     = require('./company')
 const request     = require('./request')
+const propose     = require('./propose')
+const inbox       = require('./inbox')
 const multer      = require('multer')
 const express     = require('express')
 const Sequelize   = require('sequelize')
@@ -14,6 +16,7 @@ Router.get('/logout', (req, res) => {
   req.session.isLogin    = false
   req.session.destroy((err) => {
     if (!err) {
+      req.session            = null
       res.locals.user        = null
       res.locals.userSession = null
       res.redirect('/')
@@ -29,6 +32,12 @@ Router.get('/', (req, res) => {
     } else {
       res.redirect('/user/login')
     }
+  })
+})
+
+Router.post('/filter', (req, res) => {
+  home.filter(req, res, content => {
+    res.render(rootpath, content)
   })
 })
 
@@ -194,6 +203,88 @@ Router.post('/request/edit/:id', uploadRequest, (req, res) => {
 Router.get('/request/delete/:id', (req, res) => {
   request.delete(req, res, content => {
     res.redirect('/user/request')
+  })
+})
+
+
+// propose
+Router.get('/propose', (req, res) => {
+  propose.read(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.get('/propose/:id', (req, res) => {
+  propose.add(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.post('/propose/:id/add', (req, res) => {
+  propose.create(req, res, content => {
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/propose')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/propose/:id/edit/:propose_id', (req, res) => {
+  propose.edit(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.post('/propose/:id/edit/:propose_id', (req, res) => {
+  propose.update(req, res, content => {
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/propose')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/propose/:id/delete/:propose_id', (req, res) => {
+  propose.delete(req, res, content => {
+    res.redirect('/user/propose')
+  })
+})
+
+
+// inbox
+Router.get('/inbox', (req, res) => {
+  inbox.read(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.get('/inbox/:id', (req, res) => {
+  inbox.add(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.post('/inbox/:id', (req, res) => {
+  inbox.create(req, res, content => {
+    // res.send(content)
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/inbox')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/inbox/:id/deal', (req, res) => {
+  inbox.update(req, res, content => {
+    // res.send(content)
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/inbox')
+    } else {
+      res.render(rootpath, content)
+    }
   })
 })
 

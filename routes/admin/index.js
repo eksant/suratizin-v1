@@ -42,7 +42,7 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/logout', (req, res)=>{
-    req.session.isLogin = false
+    req.session.isLogin    = false
     req.session.destroy(err=>{
         if(!err){
             res.locals.user = null
@@ -50,7 +50,7 @@ router.get('/logout', (req, res)=>{
             res.redirect('/admin')
         }
     })
-    
+
 })
 
 router.get('/listUser', (req, res)=>{
@@ -175,7 +175,7 @@ router.get('/register/edit/:id', (req, res)=>{
                 action: 'edit',
                 content: 'admin',
                 admin: admindata,
-            }) 
+            })
         })
     })
 })
@@ -250,7 +250,7 @@ router.get('/validasi/:id', (req, res)=>{
             validation:1,
             AdminId:res.locals.userSession.id,
         }
-    
+
         Model.Company.findOne({
             where:{
                 id: req.params.id,
@@ -278,7 +278,7 @@ router.get('/validasi/:id', (req, res)=>{
                         // res.send(error)
                     }
                 })
-    
+
                 let objMailUser = {
                     to          : company.User.email,
                     subject     : `[${setting[0].app_name}] Selamat Perusahaan/Jasa Anda telah berhasil divalidasi.`,
@@ -288,7 +288,7 @@ router.get('/validasi/:id', (req, res)=>{
                     if (!error) {
                     console.log(`email terkirim ke ${company.User.email}`)
                         // res.send('success')
-    
+
                     } else {
                         console.log('email gagal terkirim')
                         // res.send(error)
@@ -310,7 +310,7 @@ router.get('/reject/:id', (req, res)=>{
             validation:2,
             AdminId:res.locals.userSession.id,
         }
-    
+
         Model.Company.findOne({
             where:{
                 id: req.params.id,
@@ -338,7 +338,7 @@ router.get('/reject/:id', (req, res)=>{
                         // res.send(error)
                     }
                 })
-    
+
                 let objMailUser = {
                     to          : company.User.email,
                     subject     : `[${setting[0].app_name}] Perusahaan/Jasa Anda gagal divalidasi.`,
@@ -348,7 +348,7 @@ router.get('/reject/:id', (req, res)=>{
                     if (!error) {
                     console.log(`email terkirim ke ${company.User.email}`)
                         // res.send('success')
-    
+
                     } else {
                         console.log('email gagal terkirim')
                         // res.send(error)

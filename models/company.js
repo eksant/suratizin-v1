@@ -159,6 +159,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Company.associate = function(models) {
     Company.belongsTo(models.User)
+    Company.hasMany(models.Propose)
   }
 
   return Company;

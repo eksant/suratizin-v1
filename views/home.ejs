@@ -41,37 +41,36 @@
           </div>
           <div class="col-md-6">
             <h2></h2>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Lokasi</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
-                </select>
+            <form action="/filter" method="post">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Jasa</label>
+                  <select name="category" class="form-control select2" style="width: 100%;" required>
+                    <option <%= (filter) ? (filter.category == 1) ? "selected" : "" : "" %> value="1">Izin Ketataruangan</option>
+                    <option <%= (filter) ? (filter.category == 2) ? "selected" : "" : "" %> value="2">Izin Lingkungan</option>
+                    <option <%= (filter) ? (filter.category == 3) ? "selected" : "" : "" %> value="3">Izin Pembangunan</option>
+                    <option <%= (filter) ? (filter.category == 4) ? "selected" : "" : "" %> value="4">Izin Kelaikan Fungsi Bangunan</option>
+                    <option <%= (filter) ? (filter.category == 5) ? "selected" : "" : "" %> value="5">Izin Kelaikan Usaha</option>
+                    <option <%= (filter) ? (filter.category == 6) ? "selected" : "" : "" %> value="6">Izin Usaha</option>
+                    <option <%= (filter) ? (filter.category == 7) ? "selected" : "" : "" %> value="7">Izin Kegiatan Badan Usaha</option>
+                    <option <%= (filter) ? (filter.category == 8) ? "selected" : "" : "" %> value="8">Izin Perorangan (Praktisi/Lisensi)</option>
+                    <option <%= (filter) ? (filter.category == 9) ? "selected" : "" : "" %> value="9">Izin Kegiatan Perorangan</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Jasa</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">Jasa</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
-                </select>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Lokasi</label>
+                  <input type="text" name="location_city" value="<%= (filter) ? (filter.city) ? filter.city.$iLike.replace(/%/g, '') : "" : "" %>" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="col-md-12">
-              <button type="button" class="btn btn-block btn-primary">Cari</button>
-            </div>
+              <div class="col-md-8">
+                <input type="submit" value="Pencarian" class="btn btn-block btn-primary">
+              </div>
+              <div class="col-md-4">
+                <a href="/" class="btn btn-block btn-default">Reset</a>
+              </div>
+            </form>
           </div>
           <h3><br><br>&nbsp;</h3>
         </section>
@@ -82,28 +81,28 @@
 <div class="container">
   <section class="content">
     <h3 class="text-center">Daftar Mitra Kami</h3>
-    <% company.forEach(companyData=>{%>
-      <div class="col-md-3">
+    <% items.forEach(item => { %>
+      <div class="col-md-4">
         <div class="box box-widget widget-user">
-          <div class="widget-user-header bg-aqua">
-            <h4 class="widget-user-desc"><font size="3"><%=companyData.name%></font></h4>
-            <h5 class="widget-user-desc"><%=companyData.getCategory(companyData.category)%></h5>
+          <div class="widget-user-header bg-yellow-active">
+            <h4 class="widget-user-desc"><font size="2"><%= item.name %></font></h4>
+            <h5 class="widget-user-desc"></h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle" src="/public/assets/img/user1-128x128.jpg" alt="User Avatar">
+            <img class="img-circle" src="/public/uploads/company/<%= item.logo %>" onError="this.src='/public/assets/img/company.png" alt="">
           </div>
           <div class="box-footer">
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header text-center">24%</h5>
-                  <span class="description-text text-center">RANTING</span>
+                  <h5 class="description-header text-center"><font size="2"></font></h5>
+                  <span class="description-text text-center"><font size="2"><%= item.getCategory(item.category) %></font></span>
                 </div>
               </div>
               <div class="col-sm-6 border-right">
                 <div class="description-block">
-                  <h5 class="description-header text-center">25</h5>
-                  <span class="description-text text-center">PORTOFOLIO</span>
+                  <h5 class="description-header text-center"><font size="2">Location</font></h5>
+                  <span class="description-text text-center"><font size="2"><%= item.city %></font></span>
                 </div>
               </div>
             </div>

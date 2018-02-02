@@ -82,6 +82,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Request.associate = function(models) {
     Request.belongsTo(models.User)
+    Request.hasMany(models.Propose)
   }
 
   return Request;
