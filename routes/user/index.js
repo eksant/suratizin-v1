@@ -2,6 +2,7 @@ const message     = require('../../helpers/message')
 const home        = require('./home')
 const profile     = require('./profile')
 const company     = require('./company')
+const portofolio  = require('./portofolio')
 const request     = require('./request')
 const propose     = require('./propose')
 const inbox       = require('./inbox')
@@ -143,6 +144,64 @@ Router.post('/company/edit/:id', uploadCompany, (req, res) => {
 Router.get('/company/delete/:id', (req, res) => {
   company.delete(req, res, content => {
     res.redirect('/user/company')
+  })
+})
+
+// portofolio
+Router.get('/portofolio', (req, res) => {
+  portofolio.read(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.get('/portofolio/add', (req, res) => {
+  portofolio.add(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+let StoragePortofolio = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, "./public/uploads/portofolio/")
+  },
+  filename: function(req, file, callback) {
+    photo = `${file.fieldname}_${Date.now()}_${file.originalname.split(' ').join('_').toLowerCase()}`
+    callback(null, photo)
+  }
+});
+let uploadPortofolio = multer({ storage: StoragePortofolio }).single('photo')
+
+Router.post('/portofolio/add', uploadPortofolio, (req, res) => {
+  req.body.photo = photo
+  portofolio.create(req, res, content => {
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/portofolio')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/portofolio/edit/:id', (req, res) => {
+  portofolio.edit(req, res, content => {
+    res.render(rootpath, content)
+  })
+})
+
+Router.post('/portofolio/edit/:id', uploadPortofolio, (req, res) => {
+  req.body.photo = photo
+  portofolio.update(req, res, content => {
+    if (content.alert.type != 'danger') {
+      res.redirect('/user/portofolio')
+    } else {
+      res.render(rootpath, content)
+    }
+  })
+})
+
+Router.get('/portofolio/delete/:id', (req, res) => {
+  portofolio.delete(req, res, content => {
+    res.redirect('/user/portofolio')
   })
 })
 
