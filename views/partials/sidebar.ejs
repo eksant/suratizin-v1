@@ -6,19 +6,31 @@
         <a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
       </li>
 
-      <li class="treeview active">
+      <li class="treeview">
         <a href="#">
-          <i class="fa fa-table"></i> <span>User Management</span>
+          <i class="fa fa-laptop"></i> <span>User Management</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
           <% if(userSession.role == 0){ %>
-          <li><a href="/admin/register"><i class="fa fa-circle-o"></i> Register Admin</a></li>
+          <li><a href="/admin/list"><i class="fa fa-circle-o"></i>Admin</a></li>
           <%}%>         
           <%if(userSession.role==0 || userSession.role==1){%>
           <li><a href="/admin/listUser"><i class="fa fa-circle-o"></i> List User</a></li>
+          <%}%>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-laptop"></i> <span>Company Management</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%if(userSession.role==0 || userSession.role==1){%>
           <li><a href="/admin/listCompany"><i class="fa fa-circle-o"></i> List Company</a></li>
           <li><a href="/admin/validation"><i class="fa fa-circle-o"></i> Validation Company</a></li>
           <%}%>

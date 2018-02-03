@@ -94,12 +94,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     photo: {
       type: DataTypes.STRING,
-      // validate: {
-      //   notEmpty: {
-      //     args: true,
-      //     msg: 'photo must be filled !!'
-      //   },
-      // }
     },
     reset_token: DataTypes.STRING,
     reset_expired: DataTypes.DATE
@@ -120,6 +114,7 @@ module.exports = (sequelize, DataTypes) => {
       callback(false)
     }
   }
+  
   Admin.prototype.getRole = function() {
     return getRole(this.role)
   }

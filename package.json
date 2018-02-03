@@ -4,11 +4,11 @@
   "description": "SuratIzin[dot]Com Management System",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start": "NODE_ENV=production nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node" : "8.9.4"
+    "node" : "8.9.1"
   },
   "repository": {
     "type": "git",

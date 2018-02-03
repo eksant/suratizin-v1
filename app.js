@@ -36,7 +36,7 @@ kue.app.listen(configRedis.port)
 queue.process('email', function(job, done) {
   send.email(job.data, (error, info) => {
     if (error) {
-      console.log(error)
+      console.log('error',error)
     } else {
       console.log(`success send email to ${job.data.to}`)
       done()
@@ -53,9 +53,9 @@ app.use('/user/forgot', require('./routes/user/forgot'))
 app.use('/user/reset', require('./routes/user/reset'))
 
 app.use('/admin/login', require('./routes/admin/login'))
-// app.use('/admin/logout', require('./routes/admin/index'))
-// app.use('/admin/forgot', require('./routes/admin/forgot'))
-// app.use('/admin/reset', require('./routes/admin/reset'))
+app.use('/admin/logout', require('./routes/admin/index'))
+app.use('/admin/forgot', require('./routes/admin/forgot'))
+app.use('/admin/reset', require('./routes/admin/reset'))
 
 app.use('/user', authSession.checkSession, require('./routes/user/index'))
 app.use('/admin', authSession.checkSession, require('./routes/admin/index'))
