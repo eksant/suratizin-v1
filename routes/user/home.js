@@ -10,7 +10,7 @@ module.exports.read = function(req, res, callback) {
     Model.User.findById(res.locals.userSession.id)
     .then(function(user) {
       if (user) {
-        if (user.role == 2 || user.role == 3) {
+        if (user.role == 2 || user.role == 3) { // Mitra
           Model.Request.findAll({
             where: {
               status: 0,
@@ -18,18 +18,27 @@ module.exports.read = function(req, res, callback) {
             include: [Model.User]
           })
           .then(function(items) {
-            callback({
-              content     : 'home',
-              setting     : setting[0],
-              title       : title,
-              user        : user,
-              itemId      : 0, //'List Permohonan Jasa',
-              items       : items,
-              filter      : null,
-              alert       : null,
+            Model.Company.findAll({
+              where: {
+                validation  : 1,
+                UserId      : res.locals.userSession.id,
+              }
+            })
+            .then(function(companies) {
+              callback({
+                content     : 'home',
+                setting     : setting[0],
+                title       : title,
+                user        : user,
+                itemId      : 0, //'List Permohonan Jasa',
+                items       : items,
+                companies   : companies,
+                filter      : null,
+                alert       : null,
+              })
             })
           })
-        } else if (user.role == 4 || user.role == 5) {
+        } else if (user.role == 4 || user.role == 5) { // User/Pencari Jasa
           Model.Company.findAll({
             where: {
               validation: 1,

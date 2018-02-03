@@ -5264,6 +5264,12 @@ table.text-center th {
 .bg-maroon-active {
   background-color: #ca195a !important;
 }
+.bg-default-active,
+.modal-warning .modal-header,
+.modal-warning .modal-footer {
+  background-color: #f4f4f4 !important;
+  color: #a6a6a6;
+}
 [class^="bg-"].disabled {
   opacity: 0.65;
   filter: alpha(opacity=65);
@@ -5315,6 +5321,9 @@ table.text-center th {
 }
 .text-maroon {
   color: #d81b60 !important;
+}
+.text-default {
+  color: #a6a6a6 !important;
 }
 .link-muted {
   color: #7a869d;
@@ -5688,4 +5697,9 @@ table.text-center th {
   /* margin-top: 10px; */
   color: #d9e7f4;
   border: 2px dashed #d2d2d2;
+}
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
 }

@@ -30,111 +30,166 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="box box-widget">
-        <section class="container">
+<div class="col-md-12 box box-widget">
+    <section class="container">
+      <div class="col-md-6">
+        <h2>Temukan penyedia jasa terpercaya untuk segala kebutuhan Anda</h2>
+        <p>Lebih dari 10,000 penyedia jasa berpengalaman dapat Anda pilih untuk mewujudkan proyek Anda.
+        <a href="">Lihat semua layanan jasa <i class="fa fa-fw fa-hand-o-right"></i></a></p>
+      </div>
+      <div class="col-md-6">
+        <h2></h2>
+        <form action="/filter" method="post">
           <div class="col-md-6">
-            <h2>Temukan penyedia jasa terpercaya untuk segala kebutuhan Anda</h2>
-            <p>Lebih dari 10,000 penyedia jasa berpengalaman dapat Anda pilih untuk mewujudkan proyek Anda.
-            <a href="">Lihat semua layanan jasa <i class="fa fa-fw fa-hand-o-right"></i></a></p>
+            <div class="form-group">
+              <label>Jasa</label>
+              <select name="category" class="form-control select2" style="width: 100%;" required>
+                <option <%= (filter) ? (filter.category == 1) ? "selected" : "" : "" %> value="1">Izin Ketataruangan</option>
+                <option <%= (filter) ? (filter.category == 2) ? "selected" : "" : "" %> value="2">Izin Lingkungan</option>
+                <option <%= (filter) ? (filter.category == 3) ? "selected" : "" : "" %> value="3">Izin Pembangunan</option>
+                <option <%= (filter) ? (filter.category == 4) ? "selected" : "" : "" %> value="4">Izin Kelaikan Fungsi Bangunan</option>
+                <option <%= (filter) ? (filter.category == 5) ? "selected" : "" : "" %> value="5">Izin Kelaikan Usaha</option>
+                <option <%= (filter) ? (filter.category == 6) ? "selected" : "" : "" %> value="6">Izin Usaha</option>
+                <option <%= (filter) ? (filter.category == 7) ? "selected" : "" : "" %> value="7">Izin Kegiatan Badan Usaha</option>
+                <option <%= (filter) ? (filter.category == 8) ? "selected" : "" : "" %> value="8">Izin Perorangan (Praktisi/Lisensi)</option>
+                <option <%= (filter) ? (filter.category == 9) ? "selected" : "" : "" %> value="9">Izin Kegiatan Perorangan</option>
+              </select>
+            </div>
           </div>
           <div class="col-md-6">
-            <h2></h2>
-            <form action="/filter" method="post">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Jasa</label>
-                  <select name="category" class="form-control select2" style="width: 100%;" required>
-                    <option <%= (filter) ? (filter.category == 1) ? "selected" : "" : "" %> value="1">Izin Ketataruangan</option>
-                    <option <%= (filter) ? (filter.category == 2) ? "selected" : "" : "" %> value="2">Izin Lingkungan</option>
-                    <option <%= (filter) ? (filter.category == 3) ? "selected" : "" : "" %> value="3">Izin Pembangunan</option>
-                    <option <%= (filter) ? (filter.category == 4) ? "selected" : "" : "" %> value="4">Izin Kelaikan Fungsi Bangunan</option>
-                    <option <%= (filter) ? (filter.category == 5) ? "selected" : "" : "" %> value="5">Izin Kelaikan Usaha</option>
-                    <option <%= (filter) ? (filter.category == 6) ? "selected" : "" : "" %> value="6">Izin Usaha</option>
-                    <option <%= (filter) ? (filter.category == 7) ? "selected" : "" : "" %> value="7">Izin Kegiatan Badan Usaha</option>
-                    <option <%= (filter) ? (filter.category == 8) ? "selected" : "" : "" %> value="8">Izin Perorangan (Praktisi/Lisensi)</option>
-                    <option <%= (filter) ? (filter.category == 9) ? "selected" : "" : "" %> value="9">Izin Kegiatan Perorangan</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Lokasi</label>
-                  <input type="text" name="location_city" value="<%= (filter) ? (filter.city) ? filter.city.$iLike.replace(/%/g, '') : "" : "" %>" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-8">
-                <input type="submit" value="Pencarian" class="btn btn-block btn-primary">
-              </div>
-              <div class="col-md-4">
-                <a href="/" class="btn btn-block btn-default">Reset</a>
-              </div>
-            </form>
+            <div class="form-group">
+              <label>Lokasi</label>
+              <input type="text" name="location_city" value="<%= (filter) ? (filter.city) ? filter.city.$iLike.replace(/%/g, '') : "" : "" %>" class="form-control">
+            </div>
           </div>
-          <h3><br><br>&nbsp;</h3>
-        </section>
-    </div>
-  </div>
+          <div class="col-md-8">
+            <input type="submit" value="Pencarian" class="btn btn-block btn-primary">
+          </div>
+          <div class="col-md-4">
+            <a href="/" class="btn btn-block btn-default">Reset</a>
+          </div>
+        </form>
+      </div>
+      <h3><br><br>&nbsp;</h3>
+    </section>
 </div>
 
 <div class="container">
   <section class="content">
     <h3 class="text-center">Daftar Mitra Kami</h3>
-    <% items.forEach(item => { %>
+    <%
+      var items_length = (items.length < 9) ? items.length : 9
+      for (let i = 0; i < items_length; i++) {
+    %>
       <div class="col-md-4">
         <div class="box box-widget widget-user">
           <div class="widget-user-header bg-yellow-active">
-            <h4 class="widget-user-desc"><font size="2"><%= item.name %></font></h4>
+            <h4 class="widget-user-desc"><font size="2"><%= items[i].name %></font></h4>
             <h5 class="widget-user-desc"></h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle" src="/public/uploads/company/<%= item.logo %>" onError="this.src='/public/assets/img/company.png" alt="">
+            <img class="img-circle" src="/public/uploads/company/<%= items[i].logo %>" onError="this.src='/public/assets/img/company.png" alt="">
           </div>
           <div class="box-footer">
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
                   <h5 class="description-header text-center"><font size="2"></font></h5>
-                  <span class="description-text text-center"><font size="2"><%= item.getCategory(item.category) %></font></span>
+                  <span class="description-text text-center"><font size="2"><%= items[i].getCategory(items[i].category) %></font></span>
                 </div>
               </div>
               <div class="col-sm-6 border-right">
                 <div class="description-block">
                   <h5 class="description-header text-center"><font size="2">Location</font></h5>
-                  <span class="description-text text-center"><font size="2"><%= item.city %></font></span>
+                  <span class="description-text text-center"><font size="2"><%= items[i].city %></font></span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    <% }) %>
+    <% } %>
     <div class="col-md-12 text-center">
-      <button type="button" class="btn btn-normal btn-primary btn-lg">LIHAT MITRA KAMI YANG LAIN</button>
+      <a type="button" class="btn btn-normal btn-primary btn-lg">LIHAT <%= items.length %> MITRA KAMI YANG LAIN</a>
     </div>
     <div class="col-md-12 text-center"><br>&nbsp;</div>
   </section>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="box box-widget">
-      <section class="container">
-        <div class="col-md-6">
-          <h2></h2>
-          <img src="/public/assets/img/step.png" height="432" alt="User Avatar">
-          <h2></h2>
-        </div>
-        <div class="col-md-6">
-          <h2 class="text-yellow">Bergabunglah dengan lebih dari 300,000 orang yang telah menggunakan <strong>SuratIzin[dot]Com</strong></h2>
-          <h3><i class="fa fa-fw fa-check-square-o"></i> Penyedia jasa handal yang akan merespon kebutuhan Anda.</h3>
-          <h3><i class="fa fa-fw fa-check-square-o"></i> Tim kami akan memastikan kualitas pekerjaan penyedia jasa.</h3>
-          <h3><i class="fa fa-fw fa-check-square-o"></i> Asuransi pekerjaan untuk keamanan proyek Anda.</h3>
-          <h2></h2>
-          <button type="button" class="btn btn-block btn-warning btn-lg">MULAI DENGAN PENCARIAN LAYANAN JASA</button>
-        </div>
-      </section>
-    </div>
+<div class="box box-widget">
+  <div class="container">
+    <section class="content">
+      <h3 class="text-center">Peta User/Pencari Layanan Jasa</h3>
+      <div id="userMap" style="width:100%;height:500px;"></div>
+      <div class="col-md-12 text-center"><br>&nbsp;</div>
+    </section>
   </div>
 </div>
+
+<div class="container">
+  <section class="content">
+    <div class="col-md-6">
+      <h2></h2>
+      <img src="/public/assets/img/step.png" height="432" alt="">
+      <h2></h2>
+    </div>
+    <div class="col-md-6">
+      <h2 class="text-yellow">Bergabunglah dengan lebih dari 300,000 orang yang telah menggunakan <strong>SuratIzin[dot]Com</strong></h2>
+      <h3><i class="fa fa-fw fa-check-square-o"></i> Penyedia jasa handal yang akan merespon kebutuhan Anda.</h3>
+      <h3><i class="fa fa-fw fa-check-square-o"></i> Tim kami akan memastikan kualitas pekerjaan penyedia jasa.</h3>
+      <h3><i class="fa fa-fw fa-check-square-o"></i> Asuransi pekerjaan untuk keamanan proyek Anda.</h3>
+      <h2></h2>
+      <a href="/user/login" type="button" class="btn btn-block btn-warning btn-lg">MULAI DENGAN PENDAFTARAN MITRA ATAU USER PENCARI JASA</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  function suratizinMap() {
+    var mapIndonesia = {
+        center    : new google.maps.LatLng(-2.600029, 118.015776),
+        zoom      : 5,
+        mapTypeId : google.maps.MapTypeId.ROADMAP,
+    };
+    var map = new google.maps.Map(document.getElementById("userMap"), mapIndonesia);
+
+    var locations = [
+      ['<div id="content">'
+      +'<h5 class="firstHeading">Eksa (Permohonan Izin Usaha)</h5>'
+      +'<p>Permohonan Izin Bangunan Gedung IT</p>'
+      +'</div>'
+      +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.2614927, 106.81059979999998, 1],
+      ['<div id="content">'
+      +'<h5 class="firstHeading">Eko Santoso (Permohonan Izin Kegiatan)</h5>'
+      +'<p>Permohonan Izin Kegiatan StartUp</p>'
+      +'</div>'
+      +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.1383768, 106.86646559999997, 2]
+    ];
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position  : new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map       : map,
+        icon      : {
+            url          : '/public/assets/img/red-marker.png',
+            scaledSize   : new google.maps.Size(32, 32),
+            // scale        : 8.5,
+            // fillColor    : "#F00",
+            // fillOpacity  : 0.4,
+            // strokeWeight : 0.4,
+        },
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzt0UzgxiNZqc7zDC-sRTjuCzuIqIMQwc&v=3.30&callback=suratizinMap"></script>
