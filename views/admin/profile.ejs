@@ -62,15 +62,15 @@
 		              <h3 class="box-title">Profile Saya</h3>
 		            </div>
 		            <div class="box-body">
-
-									<table class="table no-border">
+									<table class="table no-border" style="table-layout: fixed;width: 50%;">
 				            <tbody>
 											<tr>
-					              <th style="width:20%">Nama</th>
+					              <th>Nama</th>
 					              <td><%= admin.name %></td>
 					            </tr>
 					            <tr>
-					              <th>Email</th>
+												<th>Email</th>
+												
 					              <td><%= admin.email %></td>
 					            </tr>
 					            <tr>
@@ -89,8 +89,9 @@
 					              <th>Role</th>
 					              <td><%=getRole%></td>
 					            </tr>
-				          	</tbody>
+										</tbody>
 									</table>
+								
 		            </div>
 		          </div>
 		        </div>

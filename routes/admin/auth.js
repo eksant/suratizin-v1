@@ -11,6 +11,10 @@ let message_login = null;
 let alert = null;
 
 router.get("/login", (req, res) => {
+  if(req.query.newPass){
+    message_login = `Reset password telah disimpan dan silahkan login`;
+    alert = "success";
+  }
   res.render("./admin/login", {
     title: "Admin Home",
     message_login,

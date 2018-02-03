@@ -5,8 +5,18 @@
       <li class="active">
         <a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
       </li>
-
-      <li class="treeview">
+      <%
+        var userTitle=''
+        var companyTitle=''
+        if(title=='User'){
+          userTitle='active'
+        }else if(title=='Admin'){
+          userTitle='active'
+        }else if(title=='Company'){
+          companyTitle='active'
+        }
+      %>
+      <li class="treeview <%=userTitle%>">
         <a href="#">
           <i class="fa fa-laptop"></i> <span>User Management</span>
           <span class="pull-right-container">
@@ -22,7 +32,7 @@
           <%}%>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview <%=companyTitle%>">
         <a href="#">
           <i class="fa fa-laptop"></i> <span>Company Management</span>
           <span class="pull-right-container">
@@ -31,7 +41,7 @@
         </a>
         <ul class="treeview-menu">
           <%if(userSession.role==0 || userSession.role==1){%>
-          <li><a href="/admin/listCompany"><i class="fa fa-circle-o"></i> List Company</a></li>
+          <li><a href="/admin/listCompany"><i class="fa fa-circle-o"></i> Validated Company</a></li>
           <li><a href="/admin/validation"><i class="fa fa-circle-o"></i> Validation Company</a></li>
           <%}%>
         </ul>

@@ -3,7 +3,7 @@ const message = require("../../helpers/message");
 const getRole = require("../../helpers/getRole");
 const library = require("../../helpers/library");
 let objAlert = null;
-
+let title = "Admin"
 function list(req, res) {
   Model.Setting.findAll()
     .then(function(setting) {
@@ -14,7 +14,7 @@ function list(req, res) {
         });
         res.render("./admin/index", {
           content: "adminList",
-          title: "Register Admin",
+          title,
           action: "",
           admin: admin,
           setting: setting[0],
@@ -35,7 +35,7 @@ function addGet(req, res) {
     .then(function(setting) {
       res.render("./admin", {
         content: "admin",
-        title: "Form New Register Admin",
+        title,
         action: "",
         admin: null,
         setting: setting[0],
@@ -80,7 +80,7 @@ function editGet(req, res) {
       Model.Admin.findById(library.decrypt(req.params.token)).then(admin => {
         res.render("./admin", {
           content: "admin",
-          title: "Form Edit Register Admin",
+          title,
           action: "",
           admin,
           setting: setting[0],

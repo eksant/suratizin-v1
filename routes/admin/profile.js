@@ -55,8 +55,7 @@ function uploadPost(req, res) {
           }
         })
         .then(function() {
-          req.session.user   = admin
-          res.locals.session = req.session
+          req.session.user.photo   = objProfile.photo
           objAlert = message.success()
           res.redirect(`/admin/profile`)
         })
@@ -107,8 +106,13 @@ function profilePost(req, res) {
     individualHooks: hooks,
   })
   .then(function() {
-    objAlert = message.success()
-    res.redirect(`/admin/profile`)
+    if(hooks){
+      objAlert = message.success()
+      res.redirect(`/admin/auth/login?newPass=true`)
+    }else{
+      objAlert = message.success()
+      res.redirect(`/admin/profile`)
+    }
   })
   .catch(function(err) {
     objAlert = message.error(err.message)
