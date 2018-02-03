@@ -173,7 +173,7 @@
         position  : new google.maps.LatLng(locations[i][1], locations[i][2]),
         map       : map,
         icon      : {
-            url          : 'http://developer.igniaframework.com/controls_temp/img_SDMapCenter/locationMin.png',
+            url          : '/public/assets/img/red-marker.png',
             scaledSize   : new google.maps.Size(32, 32),
             // scale        : 8.5,
             // fillColor    : "#F00",
@@ -189,38 +189,7 @@
         }
       })(marker, i));
     }
-
-    // var user = {lat: -6.2614927, lng: 106.81059979999998};
-    // var user = {lat: -6.1383768, lng: 106.86646559999997};
-    // var marker = new google.maps.Marker({
-    //   position  : user,
-    //   map       : map,
-    //   title     : 'User Pencari Jasa'
-    // });
-
-    // var contentString = '<div id="content">'+
-    //   '<h3 class="firstHeading">Total</h3>'+
-    //   '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-    //   'sandstone rock formation in the southern part of the '+
-    //   'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-    //   'south west of the nearest large town, Alice Springs; 450&#160;km '+
-    //   '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-    //   'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-    //   'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-    //   'Aboriginal people of the area. It has many springs, waterholes, '+
-    //   'rock caves and ancient paintings. Uluru is listed as a World '+
-    //   'Heritage Site.</p>'+
-    //   '<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>'+
-    //   '</div>';
-
-    // var infoUser = new google.maps.InfoWindow({
-    //   content: contentString
-    // });
-    //
-    // marker.addListener('click', function() {
-    //   infoUser.open(map, marker);
-    // });
   }
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzt0UzgxiNZqc7zDC-sRTjuCzuIqIMQwc&sensor=true&v=3.30&callback=suratizinMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzt0UzgxiNZqc7zDC-sRTjuCzuIqIMQwc&v=3.30&callback=suratizinMap"></script>
