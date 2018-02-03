@@ -8,8 +8,9 @@
       <thead>
         <tr>
           <th>No</th>
-          <th>Nama Perusahaan</th>
-          <th>Nama Portofolio</th>
+          <th>Kategori</th>
+          <th>Nama Perusahaan/Jasa</th>
+          <th>Portofolio</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -17,15 +18,12 @@
           <% portofolio.forEach((row,i) => { %>
             <tr>
               <td><%= i+1 %></td>
+              <td><%= row.Company.getCategory(row.Company.category) %></td>
               <td><%= row.Company.name %></td>
               <td><%= row.title %></td>
               <td>
-                <a href="/user/company/edit/<%= row.id %>">
-                  <button class="box box-solid box-primary" style="height:30px; width:70px">Edit</button>
-                </a>
-                <a href="/user/company/delete/<%= row.id %>">
-                  <button class="box box-solid box-danger" style="height:30px; width:70px ">Delete</button>
-                </a>
+                <a href="/user/portofolio/edit/<%= row.id %>" class="btn btn-sm"><b><i class="fa fa-edit fa-1x"></i></b></a>
+                <a data-toggle="modal" data-target="#modal-warning" data-message="" data-action="/user/portofolio/delete/<%= row.id %>" style="cursor: pointer;"><b><font color="red"><i class="fa fa-remove fa-1x"></i></font></b></a>
               </td>
             </tr>
           <% }) %>
