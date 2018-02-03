@@ -37,12 +37,25 @@
   <div class="box-footer">
     <h4 class="box-title text-center"><%= (itemId == 0) ? "List Permohonan Jasa" : "List Mitra Kami" %></h4>
     <% items.forEach(item => {
-      var boxColor = 'bg-aqua-active'
+      var boxColor  = 'bg-default-active'
       if (itemId == 1) {
         boxColor = 'bg-yellow-active'
       }
     %>
-      <% if (itemId == 0) { %> <a href="/user/propose/<%= item.id %>"> <% } %>
+      <%
+        var disabled  = 'disabled'
+        var textColor = 'text-default'
+        if (itemId == 0) {
+          companies.forEach(company => {
+            if (company.category == item.category) {
+              disabled  = ''
+              boxColor  = 'bg-aqua-active'
+              textColor = ''
+            }
+          })
+      %>
+      <a href="/user/propose/<%= item.id %>" class="<%= disabled %>">
+      <% } %>
       <div class="col-md-4">
         <div class="box box-widget widget-user">
           <div class="widget-user-header <%= boxColor %>">
@@ -52,7 +65,7 @@
           <div class="widget-user-image">
             <img class="img-circle" src="/public/uploads/<%= (itemId == 0) ? `profile/${item.User.photo}` : `company/${item.logo}` %>" onError="this.src='/public/assets/img/<%= (itemId == 0) ? "user.png" : "company.png" %>';" alt="">
           </div>
-          <div class="box-footer">
+          <div class="box-footer <%= textColor %>">
             <div class="row">
               <div class="col-sm-6 border-right">
                 <div class="description-block">
