@@ -1,14 +1,14 @@
 module.exports.checkSession = function(req, res, next) {
-  req.session.isLogin=true
+  // req.session.isLogin=true
   
-  req.session.user={
-    name:"superAdmin",
-    email:"saddasdas",
-    role:0,
-    id:1,
-    photo:"photo_1517667913919_aamaawdgaawaaqaaaaaaaa7jaaaajdnjmjzjnzy2lwzmywitngm3os04ndiyltljntezzmu3odyzza.jpg",
-    createdAt:new Date()
-  }
+  // req.session.user={
+  //   name:"superAdmin",
+  //   email:"saddasdas",
+  //   role:0,
+  //   id:1,
+  //   photo:"photo_1517667913919_aamaawdgaawaaqaaaaaaaa7jaaaajdnjmjzjnzy2lwzmywitngm3os04ndiyltljntezzmu3odyzza.jpg",
+  //   createdAt:new Date()
+  // }
 
   if (req.session.isLogin) {
     res.locals.userSession = req.session.user

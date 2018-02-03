@@ -14,7 +14,7 @@
     <div class="login-box-body">
       <% if (message_login) { %>
         <div id="flash_login">
-          <div class="alert fade in alert-danger">
+          <div class="alert fade in alert-<%=alert%>">
             <i class="icon-remove close" data-dismiss="alert"></i>
             <%= message_login %>
           </div>
@@ -27,7 +27,7 @@
         <% } %>
           <div id="reset">
             <p class="login-box-msg">Reset your password Mr/Mrs <%=admin.name%></p>
-            <form action="/admin/reset/<%= admin.reset_token %>" method="post">
+            <form action="" method="post">
                 <div class="form-group has-feedback">
                     <input type="password" name="password" class="form-control" placeholder="Password" required>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
