@@ -1,13 +1,7 @@
 <div class="box box-primary">
     <!-- /.box-header -->
     <!-- form start -->
-    <%
-    let act='add'
-    if (action=='edit'){
-        act=`edit/${admin.id}`
-    }
-%>
-    <form action="/admin/register/<%=act%>" method="post" class="form-horizontal" id="validate-form">
+    <form action="" method="post" class="form-horizontal" id="validate-form">
         <div class="box-body">
             <div class="col-md-12">
                 <div class="widget">
@@ -72,7 +66,7 @@
                                         <span class="required">*</span>
                                     </label>
                                     <div class="col-md-10">
-                                        <input type="email" name="email" value="<%= (!admin)?'':admin.email %>" class="form-control">
+                                        <input type="email" name="email" value="<%= (!admin)?'':admin.email %>" class="form-control" <%=(admin)?'readonly':''%>>
                                     </div>
                                 </div>
                             </div>

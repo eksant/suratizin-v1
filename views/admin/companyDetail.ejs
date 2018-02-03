@@ -1,188 +1,313 @@
 <div class="box box-primary">
-        <div class="box-header with-border">
-           <!-- <h3 class="box-title"><%= (action != '') ? (action == 'add') ? 'Tambah' : 'Edit' : '' %> <%= title %></h3> -->
-           <% if (company.validation == 0){%>
-            <a href="/admin/reject/<%= company.id %>" class="btn btn-danger pull-right">Reject</a>
-            <a href="/admin/validasi/<%= company.id %>" class="btn btn-primary pull-right">Validasi</a>
-           <%}%>
-        </div>
-        <div class="box-body">
-           <div class="nav-tabs-custom">
-                
-              <ul class="nav nav-tabs">
-                 <li class="active"><a href="#tab_perusahaan" data-toggle="tab">Profile Perusahaan</a></li>
-                 <li><a href="#tab_bank" data-toggle="tab">Rekening Perusahaan</a></li>
-                 <li><a href="#tab_npwp" data-toggle="tab">NPWP/SIUP</a></li>
-              </ul>
-              <div class="tab-content">
-                 <div class="tab-pane active" id="tab_perusahaan">
-                    <div class="box-body">
-                       <div class="col-md-12">
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Logo Perusahaan </label>
-                                <div class="col-md-9">
-                                   <div class="col-md-4">
-                                      <img src="/public/uploads/company/<%= company.logo %>" onError="this.src='/public/assets/img/blank.png'" style="height:150px; width:auto" class="profile-user-img img-responsive" align="left">
-                                   </div>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Kategori Usaha <span class="required"></span></label>
-                                <div class="col-md-9"> 
-                                        <%= company.getCategory(company.category) %>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Nama Perusahaan <span class="required"></span></label>
-                                <div class="col-md-9"><dd><%= company.name %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Alamat Perusahaan <span class="required"></span></span></label>
-                                <div class="col-md-9"><dd><%= company.address %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Kota <span class="required"></span></label>
-                                <div class="col-md-9"><dd><%= (company.city)?(company.city!='')? company.city : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Email Perusahaan <span class="required"></span></label>
-                                <div class="col-md-9"><dd><%= (company.email)?(company.email!='')? company.email : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Telp Perusahaan <span class="required"></span></label>
-                                <div class="col-md-9"><dd><%= (company.phone)?(company.phone!='')? "+62"+company.phone : "-" : "-" %></dd></div>
-                                     </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Fax Perusahaan </label>
-                                <div class="col-md-9"><dd><%= (company.fax)?(company.fax!='')? "+62"+company.fax : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Website Perusahaan </label>
-                                <div class="col-md-9"><dd><%= (company.website)?(company.website!='')? company.website : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Tahun Berdiri </label>
-                                <div class="col-md-9"><dd><%= (company.year_establishment)?(company.year_establishment!='')? company.year_establishment : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Total Karyawan </label>
-                                <div class="col-md-9"><dd><%= (company.total_employes)?(company.total_employes!='')? company.total_employes : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                          <div class="col-md-12">
-                             <div class="form-group">
-                                <label class="col-md-3 control-label">Deskripsi Perusahaan </label>
-                                <div class="col-md-9"><dd><%= (company.description)?(company.description!='')? company.description : "-" : "-" %></dd></div>
-                             </div>
-                          </div>
-                       </div>
+  <div class="box-header with-border">
+    <!-- <h3 class="box-title"><%= (action != '') ? (action == 'add') ? 'Tambah' : 'Edit' : '' %> <%= title %></h3> -->
+    <% if (company.validation == 0){%>
+      <a href="/admin/reject/<%= company.id %>" class="btn btn-danger pull-right">Reject</a>
+      <a href="/admin/validasi/<%= company.id %>" class="btn btn-primary pull-right">Validasi</a>
+      <%}%>
+  </div>
+  <div class="box-body">
+    <div class="nav-tabs-custom">
+
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#tab_perusahaan" data-toggle="tab">Profile Perusahaan</a>
+        </li>
+        <li>
+          <a href="#tab_bank" data-toggle="tab">Rekening Perusahaan</a>
+        </li>
+        <li>
+          <a href="#tab_npwp" data-toggle="tab">NPWP/SIUP</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_perusahaan">
+          <div class="box-body">
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Logo Perusahaan </label>
+                  <div class="col-md-9">
+                    <div class="col-md-4">
+                      <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-image="/public/uploads/company/<%= company.logo %>"
+                        data-target="#image-gallery">
+                        <img id="sample" src="/public/uploads/company/<%= company.logo %>" onError="this.src='/public/assets/img/blank.png'" style="height:150px; width:auto"
+                          class="profile-user-img img-responsive">
+                      </a>
                     </div>
-                 </div>
-                 <div class="tab-pane" id="tab_bank">
-                    <div class="box-body">
-                       <div class="col-md-12">
-                          <div class="form-group">
-                             <label class="col-md-3 control-label">Nama Bank <span class="required"></span></label>
-                             <div class="col-md-9"><%= company.bank_name %></div>
-                          </div>
-                       </div>
-                       <div class="col-md-12">
-                          <div class="form-group">
-                             <label class="col-md-3 control-label">Cabang Bank </label>
-                             <div class="col-md-9"><%= company.bank_branch %></div>
-                          </div>
-                       </div>
-                       <div class="col-md-12">
-                          <div class="form-group">
-                             <label class="col-md-3 control-label">Atas Nama <span class="required"></span></label>
-                             <div class="col-md-9"><%= company.bank_account_name %></div>
-                          </div>
-                       </div>
-                       <div class="col-md-12">
-                          <div class="form-group">
-                             <label class="col-md-3 control-label">No. Rekening <span class="required"></span></label>
-                             <div class="col-md-9"><%= company.bank_account_number %></div>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="tab-pane" id="tab_npwp">
-                    <div class="box-body">
-                       <div class="col-md-12">
-                          <div class="form-group">
-                             <label class="col-md-3 control-label">Photo NPWP Perusahaan <span class="required"></span></label>
-                             <div class="col-md-9">
-                                <div class="col-md-4">
-                                   <img src="/public/uploads/company/<%= company.photo_siup %>" onError="this.src='/public/assets/img/blank.png'" style="height:150px; width:auto" class="profile-user-img img-responsive" align="left">
-                                </div>
-                                <div class="col-md-8">
-                                   <input type="file" id="photo_siup" name="photo_siup" accept="image/*" style="display:none;" data-style="fileinput">
-                                </div>
-                             </div>
-                          </div>
-                       </div>
-                       <div class="col-md-12">
-                          <div class="form-group">
-                             <label class="col-md-3 control-label">Photo Tagihan Listrik/Telp Yang Sesuai Dengan Alamat Perusahaan <span class="required"></span></label>
-                             <div class="col-md-9">
-                                <div class="col-md-4">
-                                   <img src="/public/uploads/company/<%= company.photo_valid_bill %>" onError="this.src='/public/assets/img/blank.png'" style="height:150px; width:auto" class="profile-user-img img-responsive" align="left">
-                                </div>
-                                <div class="col-md-8">
-                                   <input type="file" id="photo_bill" name="photo_bill" accept="image/*" style="display:none;" data-style="fileinput">
-                                </div>
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
+                  </div>
+                </div>
               </div>
-           </div>
-           </form>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Kategori Usaha
+                    <span class="required"></span>
+                  </label>
+                  <div class="col-md-9">
+                    <%= company.getCategory(company.category) %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Nama Perusahaan
+                    <span class="required"></span>
+                  </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= company.name %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Alamat Perusahaan
+                    <span class="required"></span>
+                    </span>
+                  </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= company.address %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Kota
+                    <span class="required"></span>
+                  </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.city)?(company.city!='')? company.city : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Email Perusahaan
+                    <span class="required"></span>
+                  </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.email)?(company.email!='')? company.email : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Telp Perusahaan
+                    <span class="required"></span>
+                  </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.phone)?(company.phone!='')? "+62"+company.phone : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Fax Perusahaan </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.fax)?(company.fax!='')? "+62"+company.fax : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Website Perusahaan </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.website)?(company.website!='')? company.website : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Tahun Berdiri </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.year_establishment)?(company.year_establishment!='')? company.year_establishment : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Total Karyawan </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.total_employes)?(company.total_employes!='')? company.total_employes : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Deskripsi Perusahaan </label>
+                  <div class="col-md-9">
+                    <dd>
+                      <%= (company.description)?(company.description!='')? company.description : "-" : "-" %>
+                    </dd>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-     </div>
-     <script>
-        function uploadImage(id) {
-          if (id == 'display_logo') {
-            $('#logo').click()
-            document.getElementById('logo').addEventListener('change', diplayPhoto, false);
-          } else if (id == 'display_siup') {
-            $('#photo_siup').click()
-            document.getElementById('photo_siup').addEventListener('change', diplayPhoto, false);
-          } else if (id == 'display_bill') {
-            $('#photo_bill').click()
-            document.getElementById('photo_bill').addEventListener('change', diplayPhoto, false);
-          }
-        
-          function diplayPhoto(e) {
-            let reader = new FileReader();
-            reader.onload = function (event) {
-              $('#' + id).html( '<img height="146px" src="' + event.target.result + '"/>' );
-            }
-            reader.readAsDataURL(e.target.files[0]);
-          }
-        }
-     </script>
-     
-     
+        <div class="tab-pane" id="tab_bank">
+          <div class="box-body">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Nama Bank
+                  <span class="required"></span>
+                </label>
+                <div class="col-md-9">
+                  <%= company.bank_name %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Cabang Bank </label>
+                <div class="col-md-9">
+                  <%= company.bank_branch %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Atas Nama
+                  <span class="required"></span>
+                </label>
+                <div class="col-md-9">
+                  <%= company.bank_account_name %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">No. Rekening
+                  <span class="required"></span>
+                </label>
+                <div class="col-md-9">
+                  <%= company.bank_account_number %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_npwp">
+          <div class="box-body">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Photo NPWP Perusahaan
+                  <span class="required"></span>
+                </label>
+                <div class="col-md-9">
+                  <div class="col-md-4">
+                    <a class="thumbnail" data-toggle="modal" data-image="/public/uploads/company/<%= company.photo_siup %>" data-target="#image-gallery">
+                      <img src="/public/uploads/company/<%= company.photo_siup %>" onError="this.src='/public/assets/img/blank.png'" style="height:150px; width:auto"
+                        class="profile-user-img img-responsive">
+                    </a>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" id="photo_siup" name="photo_siup" accept="image/*" style="display:none;" data-style="fileinput">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Photo Tagihan Listrik/Telp Yang Sesuai Dengan Alamat Perusahaan
+                  <span class="required"></span>
+                </label>
+                <div class="col-md-9">
+                  <div class="col-md-4">
+                    <a class="thumbnail" data-toggle="modal" data-image="/public/uploads/company/<%= company.photo_valid_bill %>" data-target="#image-gallery">
+                      <img src="/public/uploads/company/<%= company.photo_valid_bill %>" onError="this.src='/public/assets/img/blank.png'" style="height:150px; width:auto"
+                        class="profile-user-img img-responsive">
+                    </a>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="file" id="photo_bill" name="photo_bill" accept="image/*" style="display:none;" data-style="fileinput">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="image-gallery-title"></h4>
+      </div>
+      <div class="modal-body">
+        <img id="image-gallery-image" class="img-responsive" src="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Get the modal
+  loadGallery(true, 'a.thumbnail');
+
+  function loadGallery(setIDs, setClickAttr) {
+    var current_image,
+      selector,
+      counter = 0;
+
+    function updateGallery(selector) {
+      var $sel = selector;
+      current_image = $sel.data('image-id');
+      $('#image-gallery-caption').text($sel.data('caption'));
+      $('#image-gallery-title').text($sel.data('title'));
+      $('#image-gallery-image').attr('src', $sel.data('image'));
+      disableButtons(counter, $sel.data('image-id'));
+    }
+    $(setClickAttr).on('click', function () {
+      updateGallery($(this));
+    });
+  }
+</script>
+<script>
+  function uploadImage(id) {
+    if (id == 'display_logo') {
+      $('#logo').click()
+      document.getElementById('logo').addEventListener('change', diplayPhoto, false);
+    } else if (id == 'display_siup') {
+      $('#photo_siup').click()
+      document.getElementById('photo_siup').addEventListener('change', diplayPhoto, false);
+    } else if (id == 'display_bill') {
+      $('#photo_bill').click()
+      document.getElementById('photo_bill').addEventListener('change', diplayPhoto, false);
+    }
+
+    function diplayPhoto(e) {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        $('#' + id).html('<img height="146px" src="' + event.target.result + '"/>');
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+</script>

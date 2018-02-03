@@ -1,0 +1,181 @@
+		<%
+			var getRole 	  = ''
+			var statusText  = ''
+			var statusLabel = ''
+			var kelamin     = ''
+			if (admin) {
+				if (admin.role == 0) {
+					getRole = 'Superadmin'
+				} else if (admin.role == 1) {
+					getRole = 'Admin'
+				} else if (admin.role == 2) {
+					getRole = 'Mitra Jasa'
+				} else if (admin.role == 3) {
+					getRole = 'Mitra Jasa VIP'
+				} else if (admin.role == 4) {
+					getRole = 'Pencari Jasa'
+				} else if (admin.role == 5) {
+					getRole = 'Pencari Jasa VIP'
+				}
+
+				if (admin.gender == 1) {
+					kelamin = 'Pria'
+				} else if (admin.gender == 2) {
+					kelamin = 'Wanita'
+				}
+			}
+		%>
+					<div class="row">
+		        <div class="col-md-3">
+
+		          <!-- Profile Image -->
+		          <div class="box box-primary">
+		            <div class="box-body box-profile">
+		              <img src="/public/uploads/profile/<%= admin.photo %>" onError="this.src='/public/uploads/profile/user.png';" height="392px" width="392px" class="profile-user-img img-responsive img-circle" alt="<%= admin.name %>" align="center">
+		              <h3 class="profile-username text-center"><%= admin.name %></h3>
+		              <p class="text-muted text-center"><%= getRole %></p>
+
+									<form action="/admin/profile/upload" method="post" encType="multipart/form-data">
+										<div class="form-group">
+											<!-- <label class="control-label">Photo Profile Upload:</label> -->
+											<input type="file" name="photo_profile" accept="image/*" data-style="fileinput">
+										</div>
+										<button type="submit" class="btn btn-primary btn-block">Upload Photo</button>
+									</form>
+		              <!-- <ul class="list-group list-group-unbordered">
+		                <li class="list-group-item">
+		                  <b>Followers</b> <a class="pull-right">1,322</a>
+		                </li>
+		                <li class="list-group-item">
+		                  <b>Following</b> <a class="pull-right">543</a>
+		                </li>
+		                <li class="list-group-item">
+		                  <b>Friends</b> <a class="pull-right">13,287</a>
+		                </li>
+		              </ul> -->
+		            </div>
+		          </div>
+
+		          <!-- About Me -->
+		          <div class="box box-primary">
+		            <div class="box-header with-border">
+		              <h3 class="box-title">Profile Saya</h3>
+		            </div>
+		            <div class="box-body">
+									<table class="table no-border" style="table-layout: fixed;width: 50%;">
+				            <tbody>
+											<tr>
+					              <th>Nama</th>
+					              <td><%= admin.name %></td>
+					            </tr>
+					            <tr>
+												<th>Email</th>
+												
+					              <td><%= admin.email %></td>
+					            </tr>
+					            <tr>
+					              <th>Kelamin</th>
+					              <td><%= kelamin %></td>
+					            </tr>
+					            <tr>
+					              <th>No. HP</th>
+					              <td><% if (admin.handphone != '') { %>+62<% } %><%= admin.handphone %></td>
+					            </tr>
+											<tr>
+					              <th>Alamat</th>
+					              <td><%= admin.address %></td>
+					            </tr>
+											<tr>
+					              <th>Role</th>
+					              <td><%=getRole%></td>
+					            </tr>
+										</tbody>
+									</table>
+								
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="col-md-9">
+		          <div class="nav-tabs-custom">
+		            <ul class="nav nav-tabs">
+		              <li class="active"><a href="" data-toggle="tab">Edit Profile</a></li>
+		            </ul>
+		            <div class="tab-content">
+		              <div class="active tab-pane" id="profile">
+
+										<form action="" method="post" class="form-horizontal" id="validate-form">
+											<div class="box-body">
+												<div class="col-md-12">
+													<div class="widget">
+														<div class="widget-content">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="form-group">
+																		<label class="col-md-2 control-label">Nama <span class="required">*</span></label>
+																		<div class="col-md-10"><input type="text" name="name" value="<%= admin.name %>" class="form-control" required></div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label class="col-md-4 control-label">Kelamin <span class="required">*</span></label>
+																		<div class="col-md-8">
+																			<select name="gender" class="form-control" required>
+											                  <option <% if (admin.gender == 1) { %> selected <% } %> value="1">Pria</option>
+											                  <option <% if (admin.gender == 2) { %> selected <% } %> value="2">Wanita</option>
+											                </select>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label class="col-md-4 control-label">No. HP <span class="required">*</span></label>
+		                                <div class="col-md-8">
+		                                  <div class="input-group">
+		            												<span class="input-group-addon">+62</span>
+		            												<input type="number" name="handphone" value="<%= admin.handphone %>" class="form-control" required>
+		            											</div>
+		                                </div>
+																	</div>
+																</div>
+																<div class="col-md-12">
+																	<div class="form-group">
+																		<label class="col-md-2 control-label">Alamat </label>
+																		<div class="col-md-10"><input type="text" name="address" value="<%= admin.address %>" class="form-control"></div>
+																	</div>
+																</div>
+																<div class="col-md-12">
+																	<div class="form-group">
+																		<label class="col-md-2 control-label">Email <span class="required">*</span></label>
+																		<div class="col-md-10"><input type="email" name="email" value="<%= admin.email %>" class="form-control" disabled="disabled"></div>
+																	</div>
+																</div>
+																<div class="col-md-12">
+																	<div class="form-group">
+																		<label class="col-md-2 control-label">New password </label>
+																		<div class="col-md-10"><input type="password" name="new_password" class="form-control" placeholder="Leave empty for no password-change"></div>
+																	</div>
+																</div>
+																<div class="col-md-12">
+																	<div class="form-group">
+																		<label class="col-md-2 control-label">Repeat New password </label>
+																		<div class="col-md-10"><input type="password" name="new_password_repeat" class="form-control" placeholder="Leave empty for no password-change"></div>
+																	</div>
+																</div>
+
+																<div class="col-md-12">
+																	<input type="submit" value="Update Profile" class="btn btn-primary pull-right">
+																</div>
+
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</form>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>

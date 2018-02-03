@@ -1,7 +1,7 @@
 <div class="box">
   <div class="box-header">
     <div class="text-right">
-      <a href="register/add" type="button" class="btn btn-primary">New
+      <a href="add" type="button" class="btn btn-primary">New
         <%= title %>
       </a>
     </div>
@@ -45,10 +45,8 @@
               <%= element.address %>
             </td>
             <td>
-              <a href="/admin/register/edit/<%=element.id%>" class="btn btn-md btn-primary"  style="height:30px; width:70px">Edit</a>
-              <% if(element.role!==0){ %>
-              <a href="/admin/register/delete/<%=element.id%>" class="btn btn-md btn-danger" style="height:30px; width:70px " onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-              <% } %>
+              <a href="/admin/edit/<%=element.encryptId%>"<i class="glyphicon glyphicon-edit"></i></a>
+              <a href="/admin/delete/<%=element.encryptId%>"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="glyphicon glyphicon-remove"></i></a>
             </td>
           </tr>
           <% }) %>
