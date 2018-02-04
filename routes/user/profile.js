@@ -9,15 +9,19 @@ module.exports.read = function(req, res, callback) {
     Model.User.findById(res.locals.userSession.id).then(function(user) {
     Model.Province.findAll().then(provinces=>{
       Model.Regency.findAll().then(regencies=>{
-
-        let regency = regencies.filter(e=>{
-          return e.name==user.address.split(',')[user.address.split(',').length-2].trim()
-        })[0]
-        let province = provinces.filter(e=>{
-          return e.name==user.address.split(',')[user.address.split(',').length-1].trim()
-        })[0]
-        user.address= user.address.split(',').splice(0,user.address.split(',').length-2).join(' ')
-
+        console.log(user.address);
+        let regency=null
+        let province=null
+        if(user.address.indexOf(',')>-1){
+          console.log('hey');
+          regency = regencies.filter(e=>{
+            return e.name==user.address.split(',')[user.address.split(',').length-2].trim()
+          })[0]
+          province = provinces.filter(e=>{
+            return e.name==user.address.split(',')[user.address.split(',').length-1].trim()
+          })[0]
+          user.address= user.address.split(',').splice(0,user.address.split(',').length-2).join(' ')
+        }
           callback({
             content     : 'profile_form',
             setting     : setting[0],

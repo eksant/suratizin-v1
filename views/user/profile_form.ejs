@@ -3,8 +3,12 @@
 		<form action="/user/profile/edit" method="post" encType="multipart/form-data" class="form-horizontal" id="validate-form">
 			<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#tab_profile" data-toggle="tab">Edit Profile</a></li>
-					<li><a href="#tab_photo" data-toggle="tab">Upload Photo Profile</a></li>
+					<li class="active">
+						<a href="#tab_profile" data-toggle="tab">Edit Profile</a>
+					</li>
+					<li>
+						<a href="#tab_photo" data-toggle="tab">Upload Photo Profile</a>
+					</li>
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_profile">
@@ -15,24 +19,34 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="col-md-2 control-label">Nama <span class="required">*</span></label>
-													<div class="col-md-10"><input type="text" name="name" value="<%= user.name %>" class="form-control" required></div>
+													<label class="col-md-2 control-label">Nama
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-10">
+														<input type="text" name="name" value="<%= user.name %>" class="form-control" required>
+													</div>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="col-md-4 control-label">Kelamin <span class="required">*</span></label>
+													<label class="col-md-4 control-label">Kelamin
+														<span class="required">*</span>
+													</label>
 													<div class="col-md-8">
 														<select name="gender" class="form-control" required>
-															<option <% if (user.gender == 1) { %> selected <% } %> value="1">Pria</option>
-															<option <% if (user.gender == 2) { %> selected <% } %> value="2">Wanita</option>
+															<option <% if (user.gender==1 ) { %> selected
+																<% } %> value="1">Pria</option>
+															<option <% if (user.gender==2 ) { %> selected
+																<% } %> value="2">Wanita</option>
 														</select>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="col-md-4 control-label">No. HP <span class="required">*</span></label>
+													<label class="col-md-4 control-label">No. HP
+														<span class="required">*</span>
+													</label>
 													<div class="col-md-8">
 														<div class="input-group">
 															<span class="input-group-addon">+62</span>
@@ -44,64 +58,87 @@
 
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="col-md-2 control-label">Provinsi <span class="required">*</span></label>
+													<label class="col-md-2 control-label">Provinsi
+														<span class="required">*</span>
+													</label>
 													<div class="col-md-10">
 
-														<select name="province" id='province' class="form-control" onchange="setRegency(this.selectedIndex);" required>
-																<%if(province){%>
-																	<option value="<%=province.codeProvince%>"><%=province.name%></option>
+														<select name="province" id='province' class="form-control" required>
+															<%if(province){%>
+																<option value="<%=province.codeProvince%>">
+																	<%=province.name%>
+																</option>
 																<%}else{%>
 																	<option value="">Pilih Provinsi</option>
-																<%}%>
-																<%for(let e of provinces){%>
-																<option value="<%=e.codeProvince%>"><%=e.name%></option>
-																<%}%>
-															</select>
+																	<%}%>
+																		<%for(let e of provinces){%>
+																			<option value="<%=e.codeProvince%>">
+																				<%=e.name%>
+																			</option>
+																			<%}%>
+														</select>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="col-md-2 control-label">Kabupaten / Kota Madya <span class="required">*</span></label>
+													<label class="col-md-2 control-label">Kabupaten / Kota Madya
+														<span class="required">*</span>
+													</label>
 													<div class="col-md-10">
 														<select name="regency" id="regency" class="form-control" required>
-																<%if(regency){%>
-																	<option value="<%=regency.codeRegency%>"><%=regency.name%></option>
+															<%if(regency){%>
+																<option value="<%=regency.codeRegency%>">
+																	<%=regency.name%>
+																</option>
 																<%}else{%>
 																	<option value="">Pilih Kabupaten/Kota</option>
 																	<%}%>
-															</select>
+														</select>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="col-md-2 control-label">Alamat Lengkap</label>
-													<div class="col-md-10"><input type="text" name="address" value="<%= user.address %>" class="form-control"></div>
+													<div class="col-md-10">
+														<input type="text" name="address" value="<%= user.address %>" class="form-control">
+													</div>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="col-md-2 control-label">Alamat gMaps*</label>
-													<div class="col-md-10"><input type="text" name="locality" id="locality" value="<%=user.addressMaps%>" onFocus="initializeAutocomplete()" class="form-control" require></div>
+													<div class="col-md-10">
+														<input type="text" name="locality" id="locality" value="<%=user.addressMaps%>" onFocus="initializeAutocomplete()"
+														 class="form-control" require>
+													</div>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="col-md-2 control-label">Email <span class="required">*</span></label>
-													<div class="col-md-10"><input type="email" name="email" value="<%= user.email %>" class="form-control" disabled="disabled"></div>
+													<label class="col-md-2 control-label">Email
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-10">
+														<input type="email" name="email" value="<%= user.email %>" class="form-control" disabled="disabled">
+													</div>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="col-md-2 control-label">New password </label>
-													<div class="col-md-10"><input type="password" name="password" class="form-control" placeholder="Leave empty for no password-change"></div>
+													<div class="col-md-10">
+														<input type="password" name="password" class="form-control" placeholder="Leave empty for no password-change">
+													</div>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="col-md-2 control-label">Repeat New password </label>
-													<div class="col-md-10"><input type="password" name="new_password_repeat" class="form-control" placeholder="Leave empty for no password-change"></div>
+													<div class="col-md-10">
+														<input type="password" name="new_password_repeat" class="form-control" placeholder="Leave empty for no password-change">
+													</div>
 												</div>
 											</div>
 										</div>
@@ -138,41 +175,43 @@
 		</form>
 	</div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-<script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBM_uYusuPk7jA_zGmB_HOXPMsEuTsHfHY"></script>
-<script>
-	var reg = <%-JSON.stringify(regencies)%>
-	var regency = document.getElementById("regency");
-
-			function setRegency(selectedIndex) {
-				var province = $('#province').val()
-				regency.options.length = 0;
-				for (let i of reg) {
-					if (i.codeProvince == province) {
-						regency.options[regency.options.length] = new Option(i.name, i.codeRegency);
-					}
+<div class='test' data-test-value='<%= JSON.stringify(regencies) %>'></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyC5JDL6fo6ccKvMENnkBv8enJLZuFw7RUY&sensor=false"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC5JDL6fo6ccKvMENnkBv8enJLZuFw7RUY "></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var reg = JSON.parse($('.test').attr('data-test-value'))
+		var regency = document.getElementById("regency")
+		$("#province").change(function (selectedIndex) {
+			regency.options.length = 0;
+			var province = $('#province').val()
+			for (let i of reg) {
+				if (i.codeProvince == province) {
+					regency.options[regency.options.length] = new Option(i.name, i.codeRegency);
 				}
 			}
+		})
 
-			function uploadImage(id) {
-				$('#photo_profile').click()
-				document.getElementById('photo_profile').addEventListener('change', diplayPhoto, false);
+	});
+		function uploadImage(id) {
+			$('#photo_profile').click()
+			document.getElementById('photo_profile').addEventListener('change', diplayPhoto, false);
 
-				function diplayPhoto(e) {
-					let reader = new FileReader();
-					reader.onload = function(event) {
-						$('#' + id).html('<img height="146px" src="' + event.target.result + '"/>');
-					}
-					reader.readAsDataURL(e.target.files[0]);
+			function diplayPhoto(e) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$('#' + id).html('<img height="146px" src="' + event.target.result + '"/>');
 				}
+				reader.readAsDataURL(e.target.files[0]);
 			}
-
-			function initializeAutocomplete() {
+		}
+		function initializeAutocomplete() {
 				var input = document.getElementById('locality');
 				var options = {}
 
-				var lat = <%-user.latitude%>
-				var long = <%-user.longitude%>
+
 				var autocomplete = new google.maps.places.Autocomplete(input, options);
 
 				google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -184,10 +223,11 @@
 					var componentForm = {
 						locality: 'short_name',
 					};
-					console.log(lat);
-					console.log(lng);
 					document.getElementById("latitude").value = lat;
 					document.getElementById("longitude").value = lng;
 				});
+				
 			}
+		
+	
 </script>

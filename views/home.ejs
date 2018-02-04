@@ -143,24 +143,29 @@
     </div>
   </section>
 </div>
-<div id="usersForMaps" value="<%=usersForMaps%>" hidden></div>
+<div class='test' data-test-value='<%= JSON.stringify(usersForMaps) %>' hidden></div>
+<div class='geo' data-geo-value='<%= JSON.stringify(geo) %>' hidden></div>
 <script>
 
   function suratizinMap() {
-    let usersForMaps=<%-JSON.stringify(usersForMaps)%>
-    var mapIndonesia = {
-        center    : new google.maps.LatLng(-2.600029, 118.015776),
-        zoom      : 5,
+    let usersForMaps  = JSON.parse($('.test').attr('data-test-value'))
+    let geo           = JSON.parse($('.geo').attr('data-geo-value'))
+
+    var mapIndonesia  = {
+        center    : new google.maps.LatLng(
+          (geo)? geo.ll[0] : -2.600029,
+          (geo)? geo.ll[1] : 118.015776),
+        zoom      : (geo)?10:5,
         mapTypeId : google.maps.MapTypeId.ROADMAP,
     };
     var map = new google.maps.Map(document.getElementById("userMap"), mapIndonesia);
-    console.log(usersForMaps);
-    var locations =[],number=0
+    var locations = []
+    var number    = 0
     usersForMaps.map((e,i)=>{
        if(e.latitude&&e.longitude){
         let a=[]
         a.push('<div id="content">'
-        +`<h5 class="firstHeading">${e.name} (${e.role})</h5>`
+        +`<h5 class="firstHeading">${e.name}</h5>`
         +`<p>${e.addressMaps}</p>`
         +'</div>'
         +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>')

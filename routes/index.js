@@ -4,11 +4,17 @@ const express = require('express')
 const Router  = express.Router()
 const getRole   = require('../helpers/getRole')
 const title   = 'Home'
-
+var geoip = require('geoip-lite');
 let objAlert  = null
 
 Router.get('/', (req, res) => {
-  Model.User.findAll().then(usersForMaps=>{
+  Model.User.findAll({
+    where:{
+      role:{
+        $gt:3
+      }
+    }
+  }).then(usersForMaps=>{
     Model.Setting.findAll()
     .then(function(setting) {
       Model.Company.findAll({
@@ -24,7 +30,12 @@ Router.get('/', (req, res) => {
           e.role=getRole(e.role)
           return e
         })
-        console.log(usersForMaps);
+        var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+        var geo = geoip.lookup(ip);
+        console.log(geo,ip);
         res.render('./index', {
           title       : title,
           action      : '',
@@ -35,7 +46,8 @@ Router.get('/', (req, res) => {
           library     : library,
           filter      : null,
           user        : null,
-          usersForMaps: usersForMaps
+          usersForMaps: usersForMaps,
+          geo         : geo
         })
         objAlert  = null
       })
