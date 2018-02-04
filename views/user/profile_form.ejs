@@ -13,7 +13,6 @@
 								<div class="widget">
 									<div class="widget-content">
 										<div class="row">
-
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="col-md-2 control-label">Nama <span class="required">*</span></label>
@@ -42,10 +41,49 @@
 													</div>
 												</div>
 											</div>
+
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="col-md-2 control-label">Alamat </label>
+													<label class="col-md-2 control-label">Provinsi <span class="required">*</span></label>
+													<div class="col-md-10">
+
+														<select name="province" id='province' class="form-control" onchange="setRegency(this.selectedIndex);" required>
+																<%if(province){%>
+																	<option value="<%=province.codeProvince%>"><%=province.name%></option>
+																<%}else{%>
+																	<option value="">Pilih Provinsi</option>
+																<%}%>
+																<%for(let e of provinces){%>
+																<option value="<%=e.codeProvince%>"><%=e.name%></option>
+																<%}%>
+															</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="col-md-2 control-label">Kabupaten / Kota Madya <span class="required">*</span></label>
+													<div class="col-md-10">
+														<select name="regency" id="regency" class="form-control" required>
+																<%if(regency){%>
+																	<option value="<%=regency.codeRegency%>"><%=regency.name%></option>
+																<%}else{%>
+																	<option value="">Pilih Kabupaten/Kota</option>
+																	<%}%>
+															</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="col-md-2 control-label">Alamat Lengkap</label>
 													<div class="col-md-10"><input type="text" name="address" value="<%= user.address %>" class="form-control"></div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="col-md-2 control-label">Alamat gMaps*</label>
+													<div class="col-md-10"><input type="text" name="locality" id="locality" value="<%=user.addressMaps%>" onFocus="initializeAutocomplete()" class="form-control" require></div>
 												</div>
 											</div>
 											<div class="col-md-12">
@@ -77,7 +115,7 @@
 						<!-- <form action="/user/profile/upload" method="post" > -->
 
 						<div class="box-body">
-              <div class="col-md-12">
+							<div class="col-md-12">
 								<div class="form-group">
 									<div id="display_profile" class="uploader text-center" onclick="uploadImage(this.id)">
 										<i class="fa fa-cloud-upload fa-4x"></i>
@@ -92,26 +130,64 @@
 					</div>
 				</div>
 			</div>
-
+			<input type="text" name="longitude" id="longitude" hidden>
+			<input type="text" name="latitude" id="latitude" hidden>
 			<div class="col-md-12">
 				<input type="submit" value="Update Profile" class="btn btn-primary pull-right">
 			</div>
 		</form>
 	</div>
 </div>
-
-
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBM_uYusuPk7jA_zGmB_HOXPMsEuTsHfHY"></script>
 <script>
-	function uploadImage(id) {
-		$('#photo_profile').click()
-		document.getElementById('photo_profile').addEventListener('change', diplayPhoto, false);
+	var reg = <%-JSON.stringify(regencies)%>
+	var regency = document.getElementById("regency");
 
-		function diplayPhoto(e) {
-			let reader = new FileReader();
-			reader.onload = function (event) {
-				$('#' + id).html( '<img height="146px" src="' + event.target.result + '"/>' );
+			function setRegency(selectedIndex) {
+				var province = $('#province').val()
+				regency.options.length = 0;
+				for (let i of reg) {
+					if (i.codeProvince == province) {
+						regency.options[regency.options.length] = new Option(i.name, i.codeRegency);
+					}
+				}
 			}
-			reader.readAsDataURL(e.target.files[0]);
-		}
-	}
+
+			function uploadImage(id) {
+				$('#photo_profile').click()
+				document.getElementById('photo_profile').addEventListener('change', diplayPhoto, false);
+
+				function diplayPhoto(e) {
+					let reader = new FileReader();
+					reader.onload = function(event) {
+						$('#' + id).html('<img height="146px" src="' + event.target.result + '"/>');
+					}
+					reader.readAsDataURL(e.target.files[0]);
+				}
+			}
+
+			function initializeAutocomplete() {
+				var input = document.getElementById('locality');
+				var options = {}
+
+				var lat = <%-user.latitude%>
+				var long = <%-user.longitude%>
+				var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+				google.maps.event.addListener(autocomplete, 'place_changed', function() {
+					var place = autocomplete.getPlace();
+					var lat = place.geometry.location.lat();
+					var lng = place.geometry.location.lng();
+					var placeId = place.place_id;
+					// to set city name, using the locality param
+					var componentForm = {
+						locality: 'short_name',
+					};
+					console.log(lat);
+					console.log(lng);
+					document.getElementById("latitude").value = lat;
+					document.getElementById("longitude").value = lng;
+				});
+			}
 </script>

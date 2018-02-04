@@ -73,7 +73,10 @@ module.exports = (sequelize, DataTypes) => {
     photo: DataTypes.STRING,
     reset_token: DataTypes.STRING,
     reset_expired: DataTypes.DATE,
-    status: DataTypes.INTEGER
+    status: DataTypes.INTEGER,
+    latitude: DataTypes.STRING,
+    longitude: DataTypes.STRING,
+    addressMaps:DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: (user, options) => {

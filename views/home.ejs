@@ -143,29 +143,49 @@
     </div>
   </section>
 </div>
-
+<div id="usersForMaps" value="<%=usersForMaps%>" hidden></div>
 <script>
+
   function suratizinMap() {
+    let usersForMaps=<%-JSON.stringify(usersForMaps)%>
     var mapIndonesia = {
         center    : new google.maps.LatLng(-2.600029, 118.015776),
         zoom      : 5,
         mapTypeId : google.maps.MapTypeId.ROADMAP,
     };
     var map = new google.maps.Map(document.getElementById("userMap"), mapIndonesia);
+    console.log(usersForMaps);
+    var locations =[],number=0
+    usersForMaps.map((e,i)=>{
+       if(e.latitude&&e.longitude){
+        let a=[]
+        a.push('<div id="content">'
+        +`<h5 class="firstHeading">${e.name} (${e.role})</h5>`
+        +`<p>${e.addressMaps}</p>`
+        +'</div>'
+        +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>')
+        a.push(Number(e.latitude))
+        a.push(Number(e.longitude))
+        a.push(number)
+        locations.push(a)
+        number++
+      }
+    })
 
-    var locations = [
-      ['<div id="content">'
-      +'<h5 class="firstHeading">Eksa (Permohonan Izin Usaha)</h5>'
-      +'<p>Permohonan Izin Bangunan Gedung IT</p>'
-      +'</div>'
-      +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.2614927, 106.81059979999998, 1],
-      ['<div id="content">'
-      +'<h5 class="firstHeading">Eko Santoso (Permohonan Izin Kegiatan)</h5>'
-      +'<p>Permohonan Izin Kegiatan StartUp</p>'
-      +'</div>'
-      +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.1383768, 106.86646559999997, 2]
-    ];
 
+    // var locations =[
+    //   ['<div id="content">'
+    //   +'<h5 class="firstHeading">Eksa (Permohonan Izin Usaha)</h5>'
+    //   +'<p>Permohonan Izin Bangunan Gedung IT</p>'
+    //   +'</div>'
+    //   +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.2614927, 106.81059979999998, 1],
+    //   ['<div id="content">'
+    //   +'<h5 class="firstHeading">Eko Santoso (Permohonan Izin Kegiatan)</h5>'
+    //   +'<p>Permohonan Izin Kegiatan StartUp</p>'
+    //   +'</div>'
+    //   +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.1383768, 106.86646559999997, 2]
+    // ];
+    console.log(locations);
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
     for (i = 0; i < locations.length; i++) {

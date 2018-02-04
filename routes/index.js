@@ -2,31 +2,43 @@ const Model   = require('../models')
 const library = require('../helpers/library')
 const express = require('express')
 const Router  = express.Router()
+const getRole   = require('../helpers/getRole')
 const title   = 'Home'
 
 let objAlert  = null
 
 Router.get('/', (req, res) => {
-  Model.Setting.findAll()
-  .then(function(setting) {
-    Model.Company.findAll({
-      where: {
-        validation: 1
-      }
-    })
-    .then(function(items){
-      res.render('./index', {
-        title       : title,
-        action      : '',
-        new_button  : false,
-        alert       : objAlert,
-        setting     : setting[0],
-        items       : items,
-        library     : library,
-        filter      : null,
-        user        : null,
+  Model.User.findAll().then(usersForMaps=>{
+    Model.Setting.findAll()
+    .then(function(setting) {
+      Model.Company.findAll({
+        where: {
+          validation: 1
+        }
       })
-      objAlert  = null
+      .then(function(items){
+        usersForMaps=usersForMaps.map(e=>{
+          e.email=null
+          e.password=null
+          e.status=null
+          e.role=getRole(e.role)
+          return e
+        })
+        console.log(usersForMaps);
+        res.render('./index', {
+          title       : title,
+          action      : '',
+          new_button  : false,
+          alert       : objAlert,
+          setting     : setting[0],
+          items       : items,
+          library     : library,
+          filter      : null,
+          user        : null,
+          usersForMaps: usersForMaps
+        })
+        objAlert  = null
+      })
     })
   })
 })

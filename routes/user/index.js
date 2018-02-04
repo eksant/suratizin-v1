@@ -51,6 +51,7 @@ Router.get('/delete', (req, res) => {
 // profile
 Router.get('/profile', (req, res) => {
   profile.read(req, res, content => {
+    // res.send(content)
     res.render(rootpath, content)
   })
 })
