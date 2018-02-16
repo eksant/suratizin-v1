@@ -32,7 +32,7 @@ Router.get('/', (req, res) => {
         })
         var ip  = library.getClientIp(req) //(req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress).split(",")[0];
         var geo = geoip.lookup(ip);
-        console.log(geo,ip);
+        // console.log(geo,ip);
         res.render('./index', {
           title       : title,
           action      : '',

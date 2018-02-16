@@ -106,7 +106,7 @@ exports.formatMoney = function(number, places = 0, symbol = '', thousand, decima
 
 exports.getClientIp = function(req) {
   // let forwardedIpsStr = req.header('x-forwarded-for');
-  let ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress).split(",")[0]
+  let ipAddress = (req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress).split(",")[0]
 
   if (ipAddress == '::1' || ipAddress == '::ffff:127.0.0.1') {
     ipAddress = '127.0.0.1'
