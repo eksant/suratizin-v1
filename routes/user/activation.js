@@ -38,10 +38,12 @@ Router.get('/:token', (req, res) => {
           objAlert = null
         })
         .catch(function(err) {
+          console.error(err.message);
           objAlert = message.error(err.message)
           res.redirect('/user/login')
         })
       } else {
+        console.error('Activation user not found !!');
         objAlert = message.error('Token aktivasi tidak sesuai, silahkan untuk melakukan pendaftaran lagi !!')
         res.redirect('/user/login')
       }

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const Model         = require('./models')
 const authSession   = require('./helpers/authLogin')
 const send          = require('./helpers/notification')
@@ -8,9 +10,10 @@ const session       = require('express-session')
 const bodyParser    = require('body-parser')
 const multer        = require('multer')
 const kue           = require('kue')
-const configRedis   = require(__dirname + '/config/config.json')['redis']
+const kueUiExpress  = require('kue-ui-express')
+const configRedis   = require(__dirname + '/config/config.js')['redis']
 const app           = express()
-const port          = process.env.PORT || 3000
+const port          = process.env.APP_PORT || 3000
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
@@ -32,6 +35,8 @@ const queue = kue.createQueue({
   redis: configRedis
 });
 
+kueUiExpress(app, '/kue/', '/kue-api/')
+
 kue.app.listen(configRedis.port)
 queue.process('email', function(job, done) {
   send.email(job.data, (error, info) => {
@@ -44,6 +49,7 @@ queue.process('email', function(job, done) {
   })
 })
 
+app.use('/email-api', kue.app)
 app.use('/', require('./routes/index'))
 
 app.use('/user/login', require('./routes/user/login'))
