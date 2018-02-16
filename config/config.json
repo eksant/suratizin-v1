@@ -7,18 +7,18 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "apbnbchz",
-    "password": "uggMcQzQObdMbBOz2Rt4jF84coIsD3vo",
-    "database": "apbnbchz",
-    "host": "tantor.db.elephantsql.com",
+    "username": { "ENV": "PG_USERNAME" },
+    "password": { "ENV": "PG_PASSWORD" },
+    "database": { "ENV": "PG_DATABASE" },
+    "host": { "ENV": "PG_HOST"},
     "dialect": "postgres",
     "ssl": true,
     "dialectOptions": { "ssl": {"require":true} }
   },
   "redis": {
     "port": 16624,
-    "host": "redis-16624.c15.us-east-1-4.ec2.cloud.redislabs.com",
-    "auth": "Lup@P4ssw0rd",
+    "host": process.env.REDIS_HOST,
+    "auth": process.env.REDIS_AUTH,
     "db": "suratizin"
   },
   "redis_local": {

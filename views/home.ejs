@@ -145,8 +145,8 @@
 </div>
 <div class='test' data-test-value='<%= JSON.stringify(usersForMaps) %>' hidden></div>
 <div class='geo' data-geo-value='<%= JSON.stringify(geo) %>' hidden></div>
-<script>
 
+<script>
   function suratizinMap() {
     let usersForMaps  = JSON.parse($('.test').attr('data-test-value'))
     let geo           = JSON.parse($('.geo').attr('data-geo-value'))
@@ -177,20 +177,7 @@
       }
     })
 
-
-    // var locations =[
-    //   ['<div id="content">'
-    //   +'<h5 class="firstHeading">Eksa (Permohonan Izin Usaha)</h5>'
-    //   +'<p>Permohonan Izin Bangunan Gedung IT</p>'
-    //   +'</div>'
-    //   +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.2614927, 106.81059979999998, 1],
-    //   ['<div id="content">'
-    //   +'<h5 class="firstHeading">Eko Santoso (Permohonan Izin Kegiatan)</h5>'
-    //   +'<p>Permohonan Izin Kegiatan StartUp</p>'
-    //   +'</div>'
-    //   +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.1383768, 106.86646559999997, 2]
-    // ];
-    console.log(locations);
+    console.log('location: ', locations);
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
     for (i = 0; i < locations.length; i++) {
@@ -217,4 +204,4 @@
   }
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzt0UzgxiNZqc7zDC-sRTjuCzuIqIMQwc&v=3.30&callback=suratizinMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoA1xNho7QHjhM4QMSsqUHcuZqLnj2TwY&v=3.30&callback=suratizinMap"></script>
