@@ -1,0 +1,114 @@
+<div class="box">
+    <div class="box-body">
+        <div class="tabbable tabbable-custom tabs-left">
+            <ul class="nav nav-tabs tabs-left">
+                <li class="active">
+                    <a href="#tab_profince" data-toggle="tab">List Provinces</a>
+                </li>
+                <li>
+                    <a href="#tab_regency" data-toggle="tab">List Regencies</a>
+                </li>
+            </ul>
+            <div class="tab-content" style="padding:30px">
+                <div class="tab-pane active" id="tab_profince">
+                    <div class="widget-content">
+                        <div class="text-right">
+                            <a href="region/province/add" type="button" class="btn btn-primary">New Province
+                            </a>
+                        </div>
+                        <br>
+                        <table id="dataTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Code Province</th>
+                                    <th>Name Province</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                let j=1;
+                    provinces.forEach((element)=>{
+                %>
+
+                                    <tr>
+                                        <td>
+                                            <%= j %>
+                                        </td>
+                                        <td>
+                                            <%= element.codeProvince %>
+                                        </td>
+                                        <td>
+                                            <%= element.name %>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/data/region/province/edit/<%=element.encryptId%>">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                            <a href="/admin/data/region/province/delete/<%=element.encryptId%>" onclick="return confirm('Are you sure you want to delete this item?');">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% j++ }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_regency">
+                    <div class="widget-content">
+                        <div class="text-right">
+                            <a href="region/regency/add" type="button" class="btn btn-primary">New Regency
+                            </a>
+                        </div>
+                        <br>
+                        <table id="dataTable-2" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Code Province</th>
+                                    <th>Code Regency</th>
+                                    <th>Name Regency</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                let i =1;
+                    regencies.forEach((element)=>{
+                %>
+
+                                    <tr>
+                                        <td>
+                                            <%= i %>
+                                        </td>
+                                        <td>
+                                            <%= element.codeProvince %>
+                                        </td>
+                                        <td>
+                                            <%= element.codeRegency %>
+                                        </td>
+
+                                        <td>
+                                            <%= element.name %>
+                                        </td>
+
+                                        <td>
+                                            <a href="/admin/data/region/regency/edit/<%=element.encryptId%> ">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                            <a href="/admin/data/region/regency/delete/<%=element.encryptId%>" onclick="return confirm('Are you sure you want to delete this item?');">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% i++}) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

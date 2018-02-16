@@ -3,8 +3,8 @@ const message = require("../../helpers/message");
 const getRole = require("../../helpers/getRole");
 const library = require("../../helpers/library");
 const template = require("../../helpers/library");
-const multer      = require('multer')
-const send        = require('../../helpers/notification')
+const multer = require('multer')
+const send = require('../../helpers/notification')
 let objAlert = null;
 
 function profileGet(req, res) {
@@ -18,7 +18,9 @@ function profileGet(req, res) {
         setting: setting[0],
         new_button: true,
         alert: objAlert,
-        library: library
+        library: library,
+        provinces,
+        regencies
       });
       objAlert = null
     })
@@ -29,9 +31,10 @@ function profileGet(req, res) {
 }
 function uploadPost(req, res) {
   Model.Admin.findOne({
-    where: {id: req.session.user.id},
-  })
-  .then(function(admin) {
+    where: {
+      id: req.session.user.id
+    }
+  }).then(function(admin) {
     const fileName = 'photo_' + Date.now() + '_'
     const Storage = multer.diskStorage({
       destination: function(req, file, callback) {
@@ -42,24 +45,22 @@ function uploadPost(req, res) {
       }
     });
 
-    var upload = multer({ storage: Storage }).single('photo_profile')
+    var upload = multer({storage: Storage}).single('photo_profile')
     upload(req, res, function(err) {
       if (!err) {
         let objProfile = {
-          photo     : fileName + req.file.originalname.split(' ').join('_').toLowerCase(),
-          updatedAt : new Date(),
+          photo: fileName + req.file.originalname.split(' ').join('_').toLowerCase(),
+          updatedAt: new Date()
         }
         Model.Admin.update(objProfile, {
           where: {
-            id: admin.id,
+            id: admin.id
           }
-        })
-        .then(function() {
-          req.session.user.photo   = objProfile.photo
+        }).then(function() {
+          req.session.user.photo = objProfile.photo
           objAlert = message.success()
           res.redirect(`/admin/profile`)
-        })
-        .catch(function(err) {
+        }).catch(function(err) {
           objAlert = message.error(err.message)
           res.redirect(`/admin/profile`)
         })
@@ -83,38 +84,36 @@ function profilePost(req, res) {
   if (req.body.new_password == '') {
     hooks = false
     var objAdmin = {
-      name          : req.body.name,
-      gender        : req.body.gender,
-      handphone     : req.body.handphone,
-      address       : req.body.address,
-      updatedAt     : new Date(),
+      name: req.body.name,
+      gender: req.body.gender,
+      handphone: req.body.handphone,
+      address: req.body.address,
+      updatedAt: new Date()
     }
   } else {
     var objAdmin = {
-      name          : req.body.name,
-      gender        : req.body.gender,
-      handphone     : req.body.handphone,
-      address       : req.body.address,
-      password      : req.body.new_password,
-      updatedAt     : new Date(),
+      name: req.body.name,
+      gender: req.body.gender,
+      handphone: req.body.handphone,
+      address: req.body.address,
+      password: req.body.new_password,
+      updatedAt: new Date()
     }
   }
   Model.Admin.update(objAdmin, {
     where: {
-      id: req.session.user.id,
+      id: req.session.user.id
     },
-    individualHooks: hooks,
-  })
-  .then(function() {
-    if(hooks){
+    individualHooks: hooks
+  }).then(function() {
+    if (hooks) {
       objAlert = message.success()
       res.redirect(`/admin/auth/login?newPass=true`)
-    }else{
+    } else {
       objAlert = message.success()
       res.redirect(`/admin/profile`)
     }
-  })
-  .catch(function(err) {
+  }).catch(function(err) {
     objAlert = message.error(err.message)
     res.redirect(`/admin/profile`)
   })
@@ -122,5 +121,5 @@ function profilePost(req, res) {
 module.exports = {
   profileGet,
   profilePost,
-  uploadPost,
+  uploadPost
 };

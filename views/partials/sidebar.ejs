@@ -8,14 +8,30 @@
       <%
         var userTitle=''
         var companyTitle=''
+        var dataTitle=''
         if(title=='User'){
           userTitle='active'
         }else if(title=='Admin'){
           userTitle='active'
         }else if(title=='Company'){
           companyTitle='active'
+        }else if(title=='Data Master'){
+          dataTitle='active'
         }
       %>
+      <%if(userSession.role==0 ){%>
+        <li class="treeview <%=dataTitle%>">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>Data Master</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/data/region"><i class="fa fa-circle-o"></i> Master Region</a></li>
+          </ul>
+        </li>
+        <%}%>
       <li class="treeview <%=userTitle%>">
         <a href="#">
           <i class="fa fa-laptop"></i> <span>User Management</span>
@@ -46,7 +62,6 @@
           <%}%>
         </ul>
       </li>
-
     </ul>
   </section>
 </aside>

@@ -143,29 +143,54 @@
     </div>
   </section>
 </div>
-
+<div class='test' data-test-value='<%= JSON.stringify(usersForMaps) %>' hidden></div>
+<div class='geo' data-geo-value='<%= JSON.stringify(geo) %>' hidden></div>
 <script>
+
   function suratizinMap() {
-    var mapIndonesia = {
-        center    : new google.maps.LatLng(-2.600029, 118.015776),
-        zoom      : 5,
+    let usersForMaps  = JSON.parse($('.test').attr('data-test-value'))
+    let geo           = JSON.parse($('.geo').attr('data-geo-value'))
+
+    var mapIndonesia  = {
+        center    : new google.maps.LatLng(
+          (geo)? geo.ll[0] : -2.600029,
+          (geo)? geo.ll[1] : 118.015776),
+        zoom      : (geo)?10:5,
         mapTypeId : google.maps.MapTypeId.ROADMAP,
     };
     var map = new google.maps.Map(document.getElementById("userMap"), mapIndonesia);
+    var locations = []
+    var number    = 0
+    usersForMaps.map((e,i)=>{
+       if(e.latitude&&e.longitude){
+        let a=[]
+        a.push('<div id="content">'
+        +`<h5 class="firstHeading">${e.name}</h5>`
+        +`<p>${e.addressMaps}</p>`
+        +'</div>'
+        +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>')
+        a.push(Number(e.latitude))
+        a.push(Number(e.longitude))
+        a.push(number)
+        locations.push(a)
+        number++
+      }
+    })
 
-    var locations = [
-      ['<div id="content">'
-      +'<h5 class="firstHeading">Eksa (Permohonan Izin Usaha)</h5>'
-      +'<p>Permohonan Izin Bangunan Gedung IT</p>'
-      +'</div>'
-      +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.2614927, 106.81059979999998, 1],
-      ['<div id="content">'
-      +'<h5 class="firstHeading">Eko Santoso (Permohonan Izin Kegiatan)</h5>'
-      +'<p>Permohonan Izin Kegiatan StartUp</p>'
-      +'</div>'
-      +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.1383768, 106.86646559999997, 2]
-    ];
 
+    // var locations =[
+    //   ['<div id="content">'
+    //   +'<h5 class="firstHeading">Eksa (Permohonan Izin Usaha)</h5>'
+    //   +'<p>Permohonan Izin Bangunan Gedung IT</p>'
+    //   +'</div>'
+    //   +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.2614927, 106.81059979999998, 1],
+    //   ['<div id="content">'
+    //   +'<h5 class="firstHeading">Eko Santoso (Permohonan Izin Kegiatan)</h5>'
+    //   +'<p>Permohonan Izin Kegiatan StartUp</p>'
+    //   +'</div>'
+    //   +'<p>Login/Pendaftaran: <a href="/user/login"><b>Klik Disini</b></a></p>', -6.1383768, 106.86646559999997, 2]
+    // ];
+    console.log(locations);
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
     for (i = 0; i < locations.length; i++) {

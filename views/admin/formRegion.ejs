@@ -1,0 +1,81 @@
+<div class="box box-primary">
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form action="" method="post" class="form-horizontal" id="validate-form">
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="widget">
+                        <div class="widget-content">
+                            <div class="row">
+                                <%if(!codeRegency){%>
+                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Code Province
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group">
+                                                        <input type="number" name="codeProvince" value="<%= (!data)?'':data.codeProvince %>" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Nama
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-7">
+                                            <input type="text" name="name" value="<%= (!data)?'':data.name %>" class="form-control"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}else{%>
+                                <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Provinces </label>
+                                            <div class="col-md-7">
+                                              <select name="codeProvince" class="form-control" required>
+                                                    <% for(let i of provinces) {%>
+                                                          <option value="<%=i.codeProvince%>"><%=i.name%></option>
+                                                      <%} %>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Code Regency
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group">
+                                                        <input type="number" name="codeRegency" value="<%= (!data)?'':data.codeRegency %>" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Nama
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-7">
+                                            <input type="text" name="name" value="<%= (!data)?'':data.name %>" class="form-control"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
+                                <div class="col-md-11">
+                                    <input type="submit" value="Save" class="btn btn-success pull-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
