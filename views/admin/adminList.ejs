@@ -1,0 +1,56 @@
+<div class="box">
+  <div class="box-header">
+    <div class="text-right">
+      <a href="add" type="button" class="btn btn-primary">New
+        <%= title %>
+      </a>
+    </div>
+  </div>
+  <div class="box-body">
+    <table id="dataTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Gender</th>
+          <th>Handphone</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% admin.forEach((element,i)=>{ %>
+          <tr>
+            <td>
+              <%= i+1 %>
+            </td>
+            <td>
+              <%= element.name %>
+            </td>
+            <td>
+              <%= element.email %>
+            </td>
+            <td>
+              <%= element.getRole(element.role) %>
+            </td>
+            <td>
+              <%= (element.gender)?(element.gender==1)?"Pria":"Wanita" : "" %>
+            </td>
+            <td>
+              <%= element.handphone %>
+            </td>
+            <td>
+              <%= element.address %>
+            </td>
+            <td>
+              <a href="/admin/edit/<%=element.encryptId%>"<i class="glyphicon glyphicon-edit"></i></a>
+              <a href="/admin/delete/<%=element.encryptId%>"  onclick="return confirm('Are you sure you want to delete this item?');"><i class="glyphicon glyphicon-remove"></i></a>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>

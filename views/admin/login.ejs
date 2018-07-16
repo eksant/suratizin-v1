@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/metahead %>
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="/admin">SuratIzin<b>[dot]</b>Com</a>
+    </div>
+    <div class="login-box-body">
+      <% if (message_login) { %>
+        <div id="flash_login">
+          <div class="alert fade in alert-<%=alert%>">
+            <i class="icon-remove close" data-dismiss="alert"></i>
+            <%= message_login %>
+          </div>
+        </div>
+        <script>
+          $(function () {
+            $('#flash_login').delay(3000).fadeOut(1000);
+          });
+        </script>
+        <% } %>
+          <div id="login">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form action="" method="post">
+              <div class="form-group has-feedback">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+              </div>
+              <div class="form-group has-feedback">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+              </div>
+              <div class="row">
+                <div class="col-xs-8"></div>
+                <div class="col-xs-4">
+                  <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+              </div>
+            </form>
+            <a href="#" id="show_forgot">I forgot my password</a>
+          </div>
+          <div id="forgot">
+            <p class="login-box-msg">Reset your password account</p>
+            <form action="/admin/auth/forgot" method="post" class="form-vertical forgot-password-form hide-default">
+              <div class="form-group">
+                <div class="input-icon">
+                  <i class="icon-envelope"></i>
+                  <input type="email" name="email" class="form-control" placeholder="Enter email address" data-rule-required="true" data-rule-email="true"
+                    data-msg-required="Please enter your email." required />
+                </div>
+              </div>
+              <button type="submit" class="submit btn btn-primary btn-block">
+                Reset your Password
+              </button>
+            </form>
+            <div id="show_login">
+              <button class="submit btn btn-default btn-block">
+                Back to login
+              </button>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function () {
+              $("#forgot").hide();
+
+              $("#show_forgot").click(function () {
+                $("#login").hide();
+                $("#forgot").show();
+              });
+
+              $("#show_login").click(function () {
+                $("#login").show();
+                $("#forgot").hide();
+              });
+            });
+          </script>
+    </div>
+  </div>
+
+  <% include ../partials/metafooter %>
+</body>
+
+</html>

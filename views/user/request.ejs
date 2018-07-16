@@ -1,0 +1,37 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= title %></h3>
+    <a href="/user/request/add" class="btn btn-primary pull-right">Tambah <%= title %></a>
+  </div>
+  <div class="box-body">
+    <table id="dataTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kategori</th>
+          <th>Title Permohonan</th>
+          <th>Tgl Dibutuhkan</th>
+          <th>Kota</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody>
+          <% request.forEach((row, i) => { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= row.getCategory(row.category) %></td>
+              <td><%= row.title %></td>
+              <td><%= row.getFormatLocalDate() %></td>
+              <td><%= row.location_city %></td>
+              <td><span class="label label-<%= (row.status == 0) ? "success" : "danger" %>"><%= (row.status == 0) ? "Open" : "Close" %></span></td>
+              <td>
+                <a href="/user/request/edit/<%= row.id %>" class="btn btn-sm <%= (row.status == 1) ? "disabled" : "" %>"><b><i class="fa fa-edit fa-1x"></i></b></a>
+                <a data-toggle="modal" data-target="#modal-warning" data-message="" class="btn btn-sm <%= (row.status == 1) ? "disabled" : "" %>" data-action="/user/request/delete/<%= row.id %>" style="cursor: pointer;"><b><font color="red"><i class="fa fa-remove fa-1x"></i></font></b></a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+    </table>
+  </div>
+</div>

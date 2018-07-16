@@ -1,0 +1,39 @@
+<script src="/public/plugins/jquery/dist/jquery.min.js"></script>
+<script src="/public/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/public/plugins/moment/min/moment.min.js"></script>
+<script src="/public/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/public/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/public/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/public/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/public/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/public/plugins/fastclick/lib/fastclick.js"></script>
+<script src="/public/assets/js/adminlte.min.js"></script>
+<!-- <script src="/public/assets/js/demo.js"></script> -->
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+    $('#dataTable-2').DataTable()
+    $('#dataTable').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+    })
+
+    $('#modal-warning').on('show.bs.modal', function (event) {
+      var button    = $(event.relatedTarget)
+      var recipient = button.data('message')
+      var action    = button.data('action')
+      var modal     = $(this)
+      var message   = (recipient != '') ? recipient : 'Anda yakin ingin melanjutkan ??'
+      modal.find('.modal-title').text(message)
+      modal.find('.modal-action').attr('href', action)
+    })
+
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+  })
+</script>

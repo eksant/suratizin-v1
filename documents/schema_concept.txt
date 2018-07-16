@@ -1,0 +1,60 @@
+JOBSTREET
+Pemberi Kerja --> Perusahaan
+Pencari Kerja --> User
+
+
+SURAT IZIN
+Pencari Kerja --> Mitra	<-- Validasi
+Pemberi Kerja --> User (pribadi, perusahaan) <-- Validasi
+
+
+FLOW USER FREE
+1. Register
+2. Mendapatkan notifikasi email utk aktivasi
+3. Setelah aktifasi, menu :
+   - Pencarian Mitra (Kontak mitra tidak detail / email & telp tidak detail) 
+
+
+FLOW USER BAYAR
+1. Register
+2. Mendapatkan notifikasi email utk aktivasi
+3. Bayar
+3. Setelah aktifasi, menu :
+   - Pencarian Mitra (Kontak mitra tidak detail / email & telp tidak detail) 
+   - Posting Permohonan Jasa Perijinan
+     - Comparasi Mitra (harga, rating perusahaan mitra)
+4. Sistem otomatis mengirimkan email ke Mitra untuk minta penawaran jasa berdasarkan kategori jasa
+5. Akan mendapatkan proposal penawaran dari banyak mitra
+6. Terakhir, penentuan pemenang mitra (status permohonan penawaran closing)
+
+
+FLOW MITRA FREE
+1. Register
+2. Mendapatkan notifikasi email utk aktivasi
+3. Setelah aktifasi, menu :
+   - Mendaftarkan profil perusahaan (muncul setelah di verifikasi oleh admin)
+     - Tambah portofolio
+   - Pencarian User (Kontak mitra tidak detail / nama perusahaan/perorangan, email & telp tidak tampil tapi detail permohonan perijinan muncul) 
+   
+
+FLOW MITRA BAYAR
+1. Register
+2. Mendapatkan notifikasi email utk aktivasi
+3. Bayar
+4. Setelah aktifasi, menu :
+   - Mendaftarkan profil perusahaan (muncul setelah di verifikasi oleh admin)
+     - Tambah portofolio
+   - Pencarian User (Profil user muncul) 
+   - Memasukkan penawaran ke user kemudian dinotifikasi melalui email
+   - Dompet 
+     - Tambah saldo
+     - Saldo sekarang
+     - Laporan transaksi
+5. Sistem otomatis mengirimkan email ke User daftar Mitra berdasarkan kategori jasa
+6. Terakhir, penentuan pemenang mitra (status permohonan penawaran closing, dompet mitra terpotong 0.5% dari harga penawaran, harga final penawaran)
+
+
+
+
+
+

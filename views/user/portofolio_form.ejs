@@ -1,0 +1,84 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= (action != '') ? (action == 'add') ? 'Tambah' : 'Edit' : '' %> <%= title %></h3>
+  </div>
+  <div class="box-body">
+    <form action="/user/portofolio/<%= (action == 'add') ? "add" : "edit/" + portofolio.id %>" method="post" encType="multipart/form-data" class="form-horizontal" id="validate-form">
+      <div class="nav-tabs-custom">
+      	<ul class="nav nav-tabs">
+      		<li class="active"><a href="#tab_portofolio" data-toggle="tab">Portofolio Perusahaan/Jasa</a></li>
+          <li><a href="#tab_upload" data-toggle="tab">Upload Portofolio</a></li>
+      	</ul>
+      	<div class="tab-content">
+    		  <div class="tab-pane active" id="tab_portofolio">
+            <div class="box-body">
+              <div class="col-md-12">
+								<div class="form-group">
+									<label class="col-md-3 control-label">Nama Perusahaan/Jasa <span class="required">*</span></label>
+									<div class="col-md-9">
+                    <select name="CompanyId" class="form-control select2" style="width: 100%;" required>
+                    <% company.forEach(row => { %>
+                      <option <% if (portofolio.CompanyId == row.id) { %> selected <% } %> value="<%= row.id %>"><%= row.name %> (<%= row.getCategory(row.category) %>)</option>
+                    <% }) %>
+                    </select>
+                  </div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="col-md-3 control-label">Title Portofolio <span class="required">*</span></label>
+									<div class="col-md-9"><input type="text" name="title" value="<%= portofolio.title %>" class="form-control" required></div>
+								</div>
+							</div>
+              <div class="col-md-12">
+								<div class="form-group">
+									<label class="col-md-3 control-label">Deskripsi Portofolio <span class="required">*</span></label>
+									<div class="col-md-9"><textarea name="description" class="form-control" rows="6" required><%= portofolio.description %></textarea></div>
+								</div>
+							</div>
+    				</div>
+    		  </div>
+
+          <div class="tab-pane" id="tab_upload">
+            <div class="box-body">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    <img src="/public/uploads/portofolio/<%= portofolio.photo %>" onError="this.src='/public/assets/img/blank.png';" style="height:150px; width:auto" class="profile-user-img img-responsive" align="left">
+                  </div>
+                  <div class="col-md-8">
+                    <div id="display_photo" class="uploader text-center" onclick="uploadImage(this.id)">
+                      <i class="fa fa-cloud-upload fa-4x"></i>
+                      <p>Pilih atau Drag & Drop Photo Portofolio Perusahaan/Jasa Anda Disini Untuk Upload</p>
+                    </div>
+                    <input type="file" id="photo" name="photo" accept="image/*" style="display:none;" data-style="fileinput">
+                  </div>
+                </div>
+              </div>
+    				</div>
+      		</div>
+      	</div>
+      </div>
+
+      <div class="col-md-12">
+        <input type="submit" value="Simpan" class="btn btn-primary pull-right">
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  function uploadImage(id) {
+    $('#photo').click()
+    document.getElementById('photo').addEventListener('change', diplayPhoto, false);
+
+    function diplayPhoto(e) {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        $('#' + id).html( '<img height="146px" src="' + event.target.result + '"/>' );
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+</script>

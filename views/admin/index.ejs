@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/metahead %>
+</head>
+
+<body class="hold-transition <%= setting.app_admintheme %> sitebar-mini fixed">
+	<div class="wrapper">
+		<% include ../partials/header %>
+			<% include ../partials/sidebar %>
+
+				<div class="content-wrapper">
+					<% include ../partials/breadcrumb %>
+						<!-- Main content -->
+						<section class="content">
+								<%- include(content) %>
+						</section>
+						<!-- /.content -->
+				</div>
+
+				<% include ../partials/footeradmin %>
+	</div>
+
+	<% include ../partials/metafooter %>
+</body>
+
+</html>

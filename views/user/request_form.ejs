@@ -1,0 +1,111 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= (action != '') ? (action == 'add') ? 'Tambah' : 'Edit' : '' %> <%= title %></h3>
+  </div>
+  <div class="box-body">
+    <form action="/user/request/<%= (action == 'add') ? "add" : "edit/" + request.id %>" method="post" encType="multipart/form-data" class="form-horizontal" id="validate-form">
+      <div class="nav-tabs-custom">
+      	<ul class="nav nav-tabs">
+      		<li class="active"><a href="#tab_permohonan" data-toggle="tab">Permohonan Perizinan</a></li>
+          <li><a href="#tab_lampiran" data-toggle="tab">Lampiran Permohonan (Jika Diperlukan)</a></li>
+      	</ul>
+      	<div class="tab-content">
+    		  <div class="tab-pane active" id="tab_permohonan">
+            <div class="box-body">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Kategori Permohonan <span class="required">*</span></label>
+                  <div class="col-md-9">
+                    <select name="category" class="form-control select2" style="width: 100%;" required>
+                      <option <% if (request.category == 1) { %> selected <% } %> value="1">Izin Ketataruangan</option>
+                      <option <% if (request.category == 2) { %> selected <% } %> value="2">Izin Lingkungan</option>
+                      <option <% if (request.category == 3) { %> selected <% } %> value="3">Izin Pembangunan</option>
+                      <option <% if (request.category == 4) { %> selected <% } %> value="4">Izin Kelaikan Fungsi Bangunan</option>
+                      <option <% if (request.category == 5) { %> selected <% } %> value="5">Izin Kelaikan Usaha</option>
+                      <option <% if (request.category == 6) { %> selected <% } %> value="6">Izin Usaha</option>
+                      <option <% if (request.category == 7) { %> selected <% } %> value="7">Izin Kegiatan Badan Usaha</option>
+                      <option <% if (request.category == 8) { %> selected <% } %> value="8">Izin Perorangan (Praktisi/Lisensi)</option>
+                      <option <% if (request.category == 9) { %> selected <% } %> value="9">Izin Kegiatan Perorangan</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Title Permohonan <span class="required">*</span></label>
+                  <div class="col-md-9"><input type="text" name="title" value="<%= request.title %>" class="form-control" required></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-md-6 control-label">Untuk Kota <span class="required">*</span></label>
+                  <div class="col-md-6"><input type="text" name="location_city" value="<%= request.location_city %>" class="form-control" required></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-md-6 control-label">Tgl. Dibutuhkan <span class="required">*</span></label>
+                  <div class="col-md-6">
+                    <div class="input-group date">
+                      <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                      <input type="text" name="needed_date" value="<%= library.formatLocalDate(request.needed_date) %>" class="form-control pull-right" id="datepicker" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Deskripsi Permohonan </label>
+                  <div class="col-md-9"><textarea name="remark" class="form-control" rows="3"><%= request.remark %></textarea></div>
+                </div>
+              </div>
+    				</div>
+    		  </div>
+
+          <div class="tab-pane" id="tab_lampiran">
+            <div class="box-body">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-md-3 control-label">File Lampiran </label>
+                  <div class="col-md-9">
+                    <div class="col-md-4">
+                      <img src="/public/uploads/request/<%= request.attachment %>" onError="this.src='/public/assets/img/npwp.png';" style="height:150px; width:auto" class="profile-user-img img-responsive" align="left">
+                    </div>
+                    <div class="col-md-8">
+                      <div id="display_siup" class="uploader text-center" onclick="uploadImage(this.id)">
+                        <i class="fa fa-cloud-upload fa-4x"></i>
+                        <p>Pilih atau Drag & Drop Photo NPWP Perusahaan Anda Disini Untuk Upload</p>
+                      </div>
+                      <input type="file" id="file_attachments" name="file_attachments" accept="*"  data-style="fileinput" multiple>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+    				</div>
+      		</div>
+      	</div>
+      </div>
+
+      <div class="col-md-12">
+        <input type="submit" value="Simpan" class="btn btn-primary pull-right">
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  function uploadImage(id) {
+    $('#file_attachments').click()
+    document.getElementById('file_attachments').addEventListener('change', diplayPhoto, false);
+
+    function diplayPhoto(e) {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        $('#' + id).html( '<img height="146px" src="' + event.target.result + '"/>' );
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+</script>

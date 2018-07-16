@@ -1,0 +1,33 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title"><%= title %></h3>
+    <a href="/user/portofolio/add" class="btn btn-primary pull-right">Tambah <%= title %></a>
+  </div>
+  <div class="box-body">
+    <table id="dataTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kategori</th>
+          <th>Nama Perusahaan/Jasa</th>
+          <th>Portofolio</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody>
+          <% portofolio.forEach((row,i) => { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= row.Company.getCategory(row.Company.category) %></td>
+              <td><%= row.Company.name %></td>
+              <td><%= row.title %></td>
+              <td>
+                <a href="/user/portofolio/edit/<%= row.id %>" class="btn btn-sm"><b><i class="fa fa-edit fa-1x"></i></b></a>
+                <a data-toggle="modal" data-target="#modal-warning" data-message="" data-action="/user/portofolio/delete/<%= row.id %>" style="cursor: pointer;"><b><font color="red"><i class="fa fa-remove fa-1x"></i></font></b></a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+    </table>
+  </div>
+</div>

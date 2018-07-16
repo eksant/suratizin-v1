@@ -1,0 +1,57 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">User Profile</h3>
+  </div>
+
+  <%
+    var statusText  = ''
+    var statusLabel = ''
+    var kelamin     = ''
+    if (userSession) {
+      if (userSession.gender == 1) {
+        kelamin = 'Pria'
+      } else if (userSession.gender == 2) {
+        kelamin = 'Wanita'
+      }
+
+      if (userSession.status == 0) {
+        statusText 	= 'Menunggu Aktivasi'
+        statusLabel	= 'warning'
+      } else if (userSession.status == 1) {
+        statusText 	= 'Aktif'
+        statusLabel	= 'success'
+      }
+    }
+  %>
+
+  <div class="box-body">
+    <table class="table no-border">
+      <tbody>
+        <tr>
+          <th style="width:20%">Nama</th>
+          <td><%= userSession.name %></td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td><%= userSession.email %></td>
+        </tr>
+        <tr>
+          <th>Kelamin</th>
+          <td><%= kelamin %></td>
+        </tr>
+        <tr>
+          <th>No. HP</th>
+          <td><% if (userSession.handphone != null) { %>+62<% } %><%= userSession.handphone %></td>
+        </tr>
+        <tr>
+          <th>Alamat</th>
+          <td><%= userSession.address %></td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td><span class="label label-<%= statusLabel %>"><%= statusText %></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
