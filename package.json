@@ -36,7 +36,7 @@
     "nexmo": "^2.2.0",
     "nodemailer": "^4.4.2",
     "pg": "^6.4.2",
-    "sequelize": "^4.32.2",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^3.2.0"
   }
 }
